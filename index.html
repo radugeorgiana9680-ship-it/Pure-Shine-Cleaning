@@ -13,7 +13,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Parisienne&display=swap" rel="stylesheet">
 
-<!-- PDF GENERATOR -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
@@ -252,9 +251,7 @@ background:linear-gradient(90deg,#fbdbe7,#f9e7ed);
 
 .date-icon{font-size:30px}
 
-.date-info{
-flex:1;
-}
+.date-info{flex:1}
 
 .date-info strong{
 display:block;
@@ -477,9 +474,7 @@ font-weight:700;
 text-align:left;
 }
 
-.quick-icon{
-font-size:25px;
-}
+.quick-icon{font-size:25px}
 
 .quick.blue{background:var(--blue);color:var(--blue-text)}
 .quick.green{background:var(--green);color:var(--green-text)}
@@ -523,9 +518,7 @@ min-height:calc(100dvh - var(--nav-height));
 padding-bottom:20px;
 }
 
-.page.active{
-display:block;
-}
+.page.active{display:block}
 
 .page-header{
 padding:22px 18px 14px;
@@ -576,9 +569,7 @@ color:#a65070;
 font-size:22px;
 }
 
-.week-selector strong{
-font-size:15px;
-}
+.week-selector strong{font-size:15px}
 
 .day-card{
 margin:0 16px 12px;
@@ -596,14 +587,8 @@ align-items:center;
 justify-content:space-between;
 }
 
-.day-header strong{
-font-size:16px;
-}
-
-.day-header span{
-color:#777;
-font-size:12px;
-}
+.day-header strong{font-size:16px}
+.day-header span{color:#777;font-size:12px}
 
 .schedule-row{
 min-height:67px;
@@ -622,9 +607,7 @@ font-size:12px;
 font-weight:800;
 }
 
-.schedule-info{
-flex:1;
-}
+.schedule-info{flex:1}
 
 .schedule-info strong{
 display:block;
@@ -668,9 +651,7 @@ top:12px;
 font-size:23px;
 }
 
-.client-list{
-padding:0 16px;
-}
+.client-list{padding:0 16px}
 
 .client-card{
 min-height:72px;
@@ -779,9 +760,7 @@ margin-top:4px;
 font-size:21px;
 }
 
-.history{
-padding:0 16px;
-}
+.history{padding:0 16px}
 
 .history-item{
 min-height:76px;
@@ -933,13 +912,9 @@ font-weight:700;
 
 /* SETTINGS */
 
-.settings{
-padding:0 16px;
-}
+.settings{padding:0 16px}
 
-.settings-section{
-margin-bottom:22px;
-}
+.settings-section{margin-bottom:22px}
 
 .settings-heading{
 margin:0 5px 8px;
@@ -1042,13 +1017,9 @@ background:#fff;
 transition:.2s;
 }
 
-.toggle.on{
-background:#e47c9e;
-}
+.toggle.on{background:#e47c9e}
 
-.toggle.on:after{
-left:24px;
-}
+.toggle.on:after{left:24px}
 
 .color-choice{
 display:flex;
@@ -1149,8 +1120,20 @@ background:#ffe7e1;
 color:#a45141;
 }
 
-.file-input{
-display:none;
+.file-input{display:none}
+
+/* SAVE SETTINGS */
+
+.settings-save{
+width:100%;
+min-height:52px;
+margin:0 0 20px;
+border-radius:17px;
+background:linear-gradient(135deg,#e57aa0,#d76890);
+color:#fff;
+font-size:15px;
+font-weight:800;
+box-shadow:0 8px 20px rgba(210,100,140,.18);
 }
 
 /* TIMER */
@@ -1211,9 +1194,7 @@ justify-content:center;
 background:rgba(30,18,25,.40);
 }
 
-.overlay.open{
-display:flex;
-}
+.overlay.open{display:flex}
 
 .modal{
 width:100%;
@@ -1246,9 +1227,7 @@ color:#a75070;
 font-size:21px;
 }
 
-.field{
-margin-bottom:13px;
-}
+.field{margin-bottom:13px}
 
 .field label{
 display:block;
@@ -1385,9 +1364,7 @@ gap:3px;
 font-size:11px;
 }
 
-.bottom-nav button .nav-icon{
-font-size:23px;
-}
+.bottom-nav button .nav-icon{font-size:23px}
 
 .bottom-nav button.active{
 background:#fce1eb;
@@ -1423,6 +1400,7 @@ transform:translateX(-50%) translateY(0);
 @media(min-width:700px){
 body{background:#f8dfe8}
 .app{max-width:none;width:100%;border-radius:0}
+
 .header,
 .date-card,
 .stats,
@@ -1627,8 +1605,6 @@ Holidays
 
 </section>
 
-<!-- SCHEDULE -->
-
 <section id="schedulePage" class="page">
 
 <div class="page-header">
@@ -1649,8 +1625,6 @@ Holidays
 
 </section>
 
-<!-- CLIENTS -->
-
 <section id="clientsPage" class="page">
 
 <div class="page-header">
@@ -1669,8 +1643,6 @@ Holidays
 <div id="clientList" class="client-list"></div>
 
 </section>
-
-<!-- EARNINGS -->
 
 <section id="earningsPage" class="page">
 
@@ -1728,8 +1700,6 @@ Holidays
 
 </section>
 
-<!-- REMINDERS -->
-
 <section id="remindersPage" class="page">
 
 <div class="page-header">
@@ -1781,8 +1751,6 @@ Send your client a reminder about their upcoming cleaning.
 
 </section>
 
-<!-- HOLIDAYS -->
-
 <section id="holidaysPage" class="page">
 
 <div class="page-header">
@@ -1810,8 +1778,6 @@ Send your client a reminder about their upcoming cleaning.
 </div>
 
 <div class="settings">
-
-<!-- BUSINESS -->
 
 <div class="settings-section">
 
@@ -1854,8 +1820,6 @@ Send your client a reminder about their upcoming cleaning.
 </div>
 
 </div>
-
-<!-- APP PHOTOS -->
 
 <div class="settings-section">
 
@@ -1900,8 +1864,6 @@ This image will automatically appear in both places in the app.
 </div>
 
 </div>
-
-<!-- REMINDERS -->
 
 <div class="settings-section">
 
@@ -1949,8 +1911,6 @@ This image will automatically appear in both places in the app.
 
 </div>
 
-<!-- TIMER -->
-
 <div class="settings-section">
 
 <div class="settings-heading">Cleaning Timer</div>
@@ -1983,8 +1943,6 @@ This image will automatically appear in both places in the app.
 </div>
 
 </div>
-
-<!-- SCHEDULE -->
 
 <div class="settings-section">
 
@@ -2031,8 +1989,6 @@ This image will automatically appear in both places in the app.
 </div>
 
 </div>
-
-<!-- DISPLAY -->
 
 <div class="settings-section">
 
@@ -2087,8 +2043,6 @@ This image will automatically appear in both places in the app.
 
 </div>
 
-<!-- APPEARANCE -->
-
 <div class="settings-section">
 
 <div class="settings-heading">Appearance</div>
@@ -2105,11 +2059,8 @@ This image will automatically appear in both places in the app.
 <div class="color-choice">
 
 <button class="color-dot active" style="background:#e57aa0" onclick="setAccent('#e57aa0',this)"></button>
-
 <button class="color-dot" style="background:#d990b2" onclick="setAccent('#d990b2',this)"></button>
-
 <button class="color-dot" style="background:#c9899e" onclick="setAccent('#c9899e',this)"></button>
-
 <button class="color-dot" style="background:#d5a56b" onclick="setAccent('#d5a56b',this)"></button>
 
 </div>
@@ -2118,7 +2069,15 @@ This image will automatically appear in both places in the app.
 
 </div>
 
-<!-- DATA -->
+<!-- EXPLICIT SAVE -->
+
+<div class="settings-section">
+
+<button class="settings-save" onclick="saveAllSettings()">
+💾 Save all settings
+</button>
+
+</div>
 
 <div class="settings-section">
 
@@ -2156,8 +2115,6 @@ This image will automatically appear in both places in the app.
 </div>
 
 </section>
-
-<!-- NAV -->
 
 <nav class="bottom-nav">
 
@@ -2376,11 +2333,8 @@ Current amount:
 <div class="timer-buttons">
 
 <button class="timer-start" onclick="startTimer()">▶ Start</button>
-
 <button class="timer-stop" onclick="stopTimer()">■ Stop</button>
-
 <button class="timer-save" onclick="saveTimerJob()">✓ Save job</button>
-
 <button class="timer-invoice" onclick="saveTimerAndInvoice()">🧾 Save + Invoice</button>
 
 </div>
@@ -2410,9 +2364,7 @@ You can download it or send it directly to your client.
 
 <div class="two-columns" style="margin-top:13px">
 
-<button class="submit" onclick="downloadInvoicePDF()">
-📄 Save PDF
-</button>
+<button class="submit" onclick="downloadInvoicePDF()">📄 Save PDF</button>
 
 <button class="submit" style="background:#e8efff;color:#315c96" onclick="shareInvoicePDF()">
 📩 Send PDF
@@ -2470,6 +2422,14 @@ You can download it or send it directly to your client.
 <script>
 
 const STORAGE_KEY="pureShineCleaningManager_2026";
+const LOGO_STORAGE_KEY="pureShineCleaningManager_logo_2026";
+
+/*
+ IMPORTANT:
+ The logo is now stored separately from the main application data.
+ This prevents a large uploaded photo from filling localStorage and
+ causing EVERY setting to show "Could not save this setting".
+*/
 
 const DEFAULT_LOGO=
 "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cdefs%3E%3CradialGradient id='bg' cx='50%25' cy='45%25' r='55%25'%3E%3Cstop offset='0%25' stop-color='%23fffafb'/%3E%3Cstop offset='70%25' stop-color='%23f9dce7'/%3E%3Cstop offset='100%25' stop-color='%23e7a6bb'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='250' cy='250' r='235' fill='url(%23bg)' stroke='%23d6ad58' stroke-width='8'/%3E%3Ccircle cx='250' cy='250' r='205' fill='none' stroke='%23fff' stroke-width='8'/%3E%3Cpath d='M145 235 L250 145 L355 235 L335 235 L335 350 L165 350 L165 235Z' fill='%23fff' stroke='%23a85270' stroke-width='7'/%3E%3Cpath d='M215 350 V280 H285 V350' fill='%23f4c3d3' stroke='%23a85270' stroke-width='7'/%3E%3Ctext x='250' y='215' text-anchor='middle' font-family='Georgia,serif' font-size='39' font-weight='bold' fill='%23a6732d'%3EPURE SHINE%3C/text%3E%3Ctext x='250' y='405' text-anchor='middle' font-family='cursive' font-size='55' fill='%23a85270'%3ECleaning%3C/text%3E%3C/svg%3E";
@@ -2513,36 +2473,77 @@ zoom:110,
 largeText:false,
 compact:false,
 highContrast:false,
-accent:"#e57aa0",
-logo:DEFAULT_LOGO
+accent:"#e57aa0"
 }
 };
 }
 
-function loadState(){
+/* =========================
+   SAFE STORAGE
+   ========================= */
 
+function getStoredLogo(){
 try{
+return localStorage.getItem(LOGO_STORAGE_KEY)||DEFAULT_LOGO;
+}catch(e){
+return DEFAULT_LOGO;
+}
+}
 
-const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
-
-if(saved){
+function loadState(){
 
 const base=defaultState();
 
-return{
+try{
+
+const raw=localStorage.getItem(STORAGE_KEY);
+
+if(!raw){
+
+base.settings.logo=getStoredLogo();
+return base;
+
+}
+
+const saved=JSON.parse(raw);
+
+const loaded={
 ...base,
 ...saved,
+clients:Array.isArray(saved.clients)?saved.clients:base.clients,
+jobs:Array.isArray(saved.jobs)?saved.jobs:[],
+holidays:Array.isArray(saved.holidays)?saved.holidays:[],
 settings:{
 ...base.settings,
 ...(saved.settings||{})
 }
 };
 
-}
+/*
+ Old versions stored the logo inside the main state.
+ Move it to the separate logo storage so old installations
+ are automatically repaired.
+*/
+if(saved.settings?.logo){
 
+try{
+localStorage.setItem(LOGO_STORAGE_KEY,saved.settings.logo);
 }catch(e){}
 
-return defaultState();
+delete loaded.settings.logo;
+}
+
+/* Always load the logo from its own storage key. */
+loaded.settings.logo=getStoredLogo();
+
+return loaded;
+
+}catch(e){
+
+base.settings.logo=getStoredLogo();
+return base;
+
+}
 }
 
 let state=loadState();
@@ -2560,19 +2561,167 @@ startedAt:null,
 interval:null
 };
 
-function saveState(){
+/*
+ Save only the actual application data.
+ The logo is NEVER included here.
+*/
+function saveState(showError=true){
+
 try{
-localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+
+const cleanSettings={
+...state.settings
+};
+
+delete cleanSettings.logo;
+
+const data={
+clients:state.clients,
+jobs:state.jobs,
+holidays:state.holidays,
+settings:cleanSettings
+};
+
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(data)
+);
+
 return true;
+
 }catch(e){
-toast("Could not save this setting");
+
+console.error("Pure Shine save error:",e);
+
+if(showError){
+toast("Could not save app data");
+}
+
 return false;
+
 }
 }
+
+/* Save logo independently. */
+function saveLogo(logo){
+
+try{
+
+localStorage.setItem(
+LOGO_STORAGE_KEY,
+logo
+);
+
+state.settings.logo=logo;
+
+return true;
+
+}catch(e){
+
+console.error("Pure Shine logo save error:",e);
+
+toast("Photo is too large. Please choose another photo.");
+
+return false;
+
+}
+}
+
+/*
+ Compress uploaded photos before saving.
+ This keeps the image small enough for iPhone Safari/localStorage.
+*/
+function compressImage(file){
+
+return new Promise((resolve,reject)=>{
+
+const reader=new FileReader();
+
+reader.onerror=()=>reject(new Error("Could not read image"));
+
+reader.onload=()=>{
+
+const img=new Image();
+
+img.onerror=()=>reject(new Error("Could not load image"));
+
+img.onload=()=>{
+
+const maxSize=700;
+
+let width=img.naturalWidth;
+let height=img.naturalHeight;
+
+if(width>height){
+
+if(width>maxSize){
+height=Math.round(height*maxSize/width);
+width=maxSize;
+}
+
+}else{
+
+if(height>maxSize){
+width=Math.round(width*maxSize/height);
+height=maxSize;
+}
+
+}
+
+const canvas=document.createElement("canvas");
+
+canvas.width=width;
+canvas.height=height;
+
+const ctx=canvas.getContext("2d");
+
+if(!ctx){
+reject(new Error("Canvas unavailable"));
+return;
+}
+
+/* White background for transparent PNG/WebP images. */
+ctx.fillStyle="#ffffff";
+ctx.fillRect(0,0,width,height);
+
+ctx.drawImage(img,0,0,width,height);
+
+let result=canvas.toDataURL("image/jpeg",.78);
+
+/*
+ If the first result is still large, reduce quality.
+*/
+if(result.length>700000){
+result=canvas.toDataURL("image/jpeg",.65);
+}
+
+if(result.length>700000){
+result=canvas.toDataURL("image/jpeg",.52);
+}
+
+resolve(result);
+
+};
+
+img.src=reader.result;
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+}
+
+/* =========================
+   APP START
+   ========================= */
 
 function enterApp(){
 
+try{
 localStorage.setItem("pureShineOpened","yes");
+}catch(e){}
 
 document.getElementById("welcome").classList.add("hidden");
 document.getElementById("main").classList.remove("hidden");
@@ -2590,11 +2739,23 @@ applySettings();
 
 document.addEventListener("DOMContentLoaded",()=>{
 
-if(localStorage.getItem("pureShineOpened")==="yes"){
+let opened=false;
+
+try{
+opened=localStorage.getItem("pureShineOpened")==="yes";
+}catch(e){}
+
+if(opened){
 enterApp();
+}else{
+applyLogo();
 }
 
 });
+
+/* =========================
+   RENDER
+   ========================= */
 
 function renderAll(){
 
@@ -2633,6 +2794,10 @@ if(pageId==="holidaysPage")renderHolidays();
 if(pageId==="settingsPage")renderSettings();
 
 }
+
+/* =========================
+   DATES
+   ========================= */
 
 function today(){
 return dateToString(new Date());
@@ -2681,46 +2846,69 @@ d.setDate(d.getDate()+(day===0?-6:1-day));
 d.setHours(12,0,0,0);
 
 return d;
+
 }
 
-/* LOGO */
+/* =========================
+   LOGO
+   ========================= */
 
 function applyLogo(){
 
-const logo=state.settings.logo||DEFAULT_LOGO;
+const logo=
+state.settings.logo||
+getStoredLogo()||
+DEFAULT_LOGO;
 
 document.querySelectorAll(".app-logo-image").forEach(img=>{
+
 img.src=logo;
+img.style.display="block";
+img.style.visibility="visible";
+img.style.opacity="1";
+
 });
 
-const preview=document.getElementById("settingsLogoPreview");
+const preview=
+document.getElementById("settingsLogoPreview");
 
 if(preview){
+
 preview.src=logo;
-}
+preview.style.display="block";
+preview.style.visibility="visible";
+preview.style.opacity="1";
 
 }
 
-function handleLogoUpload(event){
+}
+
+/*
+ Upload now compresses the image and saves it separately.
+ This is the main fix for the "Could not save this setting" problem.
+*/
+async function handleLogoUpload(event){
 
 const file=event.target.files?.[0];
 
 if(!file)return;
 
 if(!file.type.startsWith("image/")){
+
 toast("Please choose an image");
+
+event.target.value="";
 return;
+
 }
 
-const reader=new FileReader();
+try{
 
-reader.onload=function(e){
+toast("Preparing photo…");
 
-const image=e.target.result;
+const compressed=await compressImage(file);
 
-state.settings.logo=image;
-
-if(saveState()){
+if(saveLogo(compressed)){
 
 applyLogo();
 renderSettings();
@@ -2729,9 +2917,13 @@ toast("App photo saved ✨");
 
 }
 
-};
+}catch(error){
 
-reader.readAsDataURL(file);
+console.error(error);
+
+toast("Could not save the photo");
+
+}
 
 event.target.value="";
 
@@ -2739,9 +2931,7 @@ event.target.value="";
 
 function removeLogo(){
 
-state.settings.logo=DEFAULT_LOGO;
-
-if(saveState()){
+if(saveLogo(DEFAULT_LOGO)){
 
 applyLogo();
 renderSettings();
@@ -2752,7 +2942,9 @@ toast("Default Pure Shine logo restored");
 
 }
 
-/* SELECTS */
+/* =========================
+   SELECTS
+   ========================= */
 
 function populateSelects(){
 
@@ -2777,7 +2969,9 @@ select.appendChild(option);
 
 });
 
-if(old)select.value=old;
+if(old && state.clients.some(c=>c.id===old)){
+select.value=old;
+}
 
 });
 
@@ -2785,7 +2979,9 @@ updateTimerClient();
 
 }
 
-/* CLIENTS */
+/* =========================
+   CLIENTS
+   ========================= */
 
 function renderClients(){
 
@@ -2793,7 +2989,9 @@ const list=document.getElementById("clientList");
 
 if(!list)return;
 
-const query=(document.getElementById("clientSearch")?.value||"").toLowerCase();
+const query=
+(document.getElementById("clientSearch")?.value||"")
+.toLowerCase();
 
 list.innerHTML="";
 
@@ -2896,7 +3094,8 @@ openModal("clientModal");
 
 function saveClient(){
 
-const name=document.getElementById("clientName").value.trim();
+const name=
+document.getElementById("clientName").value.trim();
 
 if(!name){
 toast("Please enter the client's name");
@@ -2934,12 +3133,15 @@ id:"client_"+Date.now(),
 
 }
 
-saveState();
+if(saveState()){
+
 populateSelects();
 renderAll();
 closeModal("clientModal");
 
 toast("Client saved ✨");
+
+}
 
 }
 
@@ -2966,7 +3168,8 @@ confirm(`Delete ${client.name}?`)
 
 state.clients=state.clients.filter(x=>x.id!==id);
 
-saveState();
+if(saveState()){
+
 populateSelects();
 renderAll();
 
@@ -2976,7 +3179,11 @@ toast("Client deleted");
 
 }
 
-/* JOBS */
+}
+
+/* =========================
+   JOBS
+   ========================= */
 
 function openJobModal(id=null){
 
@@ -3053,7 +3260,8 @@ updateTimerClient();
 
 function saveJob(){
 
-const clientId=document.getElementById("jobClient").value;
+const clientId=
+document.getElementById("jobClient").value;
 
 const client=
 state.clients.find(x=>x.id===clientId);
@@ -3063,8 +3271,11 @@ toast("Please select a client");
 return;
 }
 
-const start=document.getElementById("jobStart").value;
-const end=document.getElementById("jobEnd").value;
+const start=
+document.getElementById("jobStart").value;
+
+const end=
+document.getElementById("jobEnd").value;
 
 const job={
 id:editingJobId||"job_"+Date.now(),
@@ -3096,7 +3307,8 @@ state.jobs.push(job);
 
 }
 
-saveState();
+if(saveState()){
+
 renderAll();
 closeModal("jobModal");
 
@@ -3104,7 +3316,11 @@ toast(`Job saved — ${money(jobAmount(job))} ✨`);
 
 }
 
-/* PAID / UNPAID */
+}
+
+/* =========================
+   PAID / UNPAID
+   ========================= */
 
 function togglePaid(jobId){
 
@@ -3112,9 +3328,12 @@ const job=state.jobs.find(j=>j.id===jobId);
 
 if(!job)return;
 
-job.payment=job.payment==="paid"?"unpaid":"paid";
+job.payment=
+job.payment==="paid"
+?"unpaid"
+:"paid";
 
-saveState();
+if(saveState()){
 
 renderEarnings();
 renderToday();
@@ -3127,7 +3346,11 @@ job.payment==="paid"
 
 }
 
-/* SCHEDULE */
+}
+
+/* =========================
+   SCHEDULE
+   ========================= */
 
 function clientDue(client,date){
 
@@ -3203,7 +3426,8 @@ defaultJob:true
 
 function renderToday(){
 
-const container=document.getElementById("todayJobs");
+const container=
+document.getElementById("todayJobs");
 
 if(!container)return;
 
@@ -3232,7 +3456,6 @@ container.innerHTML=`
 jobs.forEach(job=>{
 
 const real=!job.defaultJob;
-
 const amount=jobAmount(job);
 
 container.innerHTML+=`
@@ -3261,7 +3484,9 @@ ${job.start} – ${job.end}
 
 <div class="job-details">
 ${minutesText(job.minutes)} • ${money(amount)}
-${real&&job.payment!=="paid"?" • 💷 Money owed":" • ✓ Paid"}
+${real&&job.payment!=="paid"
+?" • 💷 Money owed"
+:" • ✓ Paid"}
 </div>
 
 <div class="job-actions">
@@ -3320,7 +3545,6 @@ list.innerHTML="";
 for(let i=0;i<7;i++){
 
 const date=addDays(base,i);
-
 const dateString=dateToString(date);
 
 let jobs=state.jobs.filter(
@@ -3401,7 +3625,9 @@ scheduleWeekOffset+=amount;
 renderSchedule();
 }
 
-/* EARNINGS */
+/* =========================
+   EARNINGS
+   ========================= */
 
 function renderEarnings(){
 
@@ -3469,9 +3695,7 @@ history.innerHTML+=`
 
 <div class="history-left">
 
-<strong>
-${esc(job.clientName)}
-</strong>
+<strong>${esc(job.clientName)}</strong>
 
 <span>
 ${formatDate(job.date)} • ${minutesText(job.minutes)}
@@ -3483,9 +3707,7 @@ ${formatDate(job.date)} • ${minutesText(job.minutes)}
 
 <div class="history-money">
 
-<strong>
-${money(jobAmount(job))}
-</strong>
+<strong>${money(jobAmount(job))}</strong>
 
 <span>
 ${paid?"✓ Paid":"💷 Money owed"}
@@ -3557,7 +3779,9 @@ minutesText(available);
 
 }
 
-/* TIMER */
+/* =========================
+   TIMER
+   ========================= */
 
 function openTimer(){
 
@@ -3743,7 +3967,7 @@ if(!job)return;
 
 state.jobs.push(job);
 
-saveState();
+if(saveState()){
 
 closeModal("timerModal");
 
@@ -3757,6 +3981,8 @@ toast(
 
 }
 
+}
+
 function saveTimerAndInvoice(){
 
 const job=makeTimerJob();
@@ -3767,7 +3993,7 @@ state.jobs.push(job);
 
 currentInvoice=createInvoice(job);
 
-saveState();
+if(saveState()){
 
 closeModal("timerModal");
 
@@ -3776,6 +4002,8 @@ resetTimer();
 renderAll();
 
 showInvoice(currentInvoice);
+
+}
 
 }
 
@@ -3792,7 +4020,9 @@ interval:null
 
 }
 
-/* INVOICE */
+/* =========================
+   INVOICE
+   ========================= */
 
 function createInvoice(job){
 
@@ -3831,9 +4061,11 @@ if(!job)return;
 currentInvoice=
 createInvoice(job);
 
-saveState();
+if(saveState()){
 
 showInvoice(currentInvoice);
+
+}
 
 }
 
@@ -3893,7 +4125,9 @@ openModal("invoiceModal");
 
 }
 
-/* CREATE REAL PDF */
+/* =========================
+   PDF
+   ========================= */
 
 function createInvoicePDF(){
 
@@ -4025,12 +4259,6 @@ doc.text(
 );
 
 doc.text(
-"Cleaning service",
-100,
-115
-);
-
-doc.text(
 "AMOUNT",
 160,
 115
@@ -4048,12 +4276,6 @@ doc.line(
 doc.text(
 "Cleaning service",
 20,
-132
-);
-
-doc.text(
-minutesText(currentInvoice.minutes),
-100,
 132
 );
 
@@ -4112,7 +4334,7 @@ doc.setFont("helvetica","bold");
 doc.setFontSize(12);
 
 doc.text(
-"Thank you for choosing "+state.settings.businessName+" ✨",
+"Thank you for choosing "+state.settings.businessName+"!",
 20,
 205
 );
@@ -4203,7 +4425,9 @@ toast(
 
 }
 
-/* REMINDERS */
+/* =========================
+   REMINDERS
+   ========================= */
 
 function setReminderType(type){
 
@@ -4393,7 +4617,9 @@ copyReminder();
 
 }
 
-/* HOLIDAYS */
+/* =========================
+   HOLIDAYS
+   ========================= */
 
 function openHolidayModal(){
 
@@ -4453,7 +4679,7 @@ document.getElementById("holidayNotes").value
 
 });
 
-saveState();
+if(saveState()){
 
 closeModal("holidayModal");
 
@@ -4462,6 +4688,8 @@ renderAll();
 toast(
 `${client.name} marked as on holiday ⛱`
 );
+
+}
 
 }
 
@@ -4508,9 +4736,7 @@ box.innerHTML+=`
 
 <div class="holiday-card">
 
-<strong>
-⛱ ${esc(h.clientName)}
-</strong>
+<strong>⛱ ${esc(h.clientName)}</strong>
 
 <span>
 ${formatDate(h.start)} → ${formatDate(h.end)}
@@ -4537,7 +4763,7 @@ function deleteHoliday(id){
 state.holidays=
 state.holidays.filter(x=>x.id!==id);
 
-saveState();
+if(saveState()){
 
 renderAll();
 
@@ -4545,7 +4771,11 @@ toast("Holiday removed");
 
 }
 
-/* SETTINGS */
+}
+
+/* =========================
+   SETTINGS
+   ========================= */
 
 function renderSettings(){
 
@@ -4607,6 +4837,78 @@ accentButton.classList.add("active");
 
 }
 
+/* NEW:
+   Save absolutely all settings at once.
+*/
+function saveAllSettings(){
+
+const s=state.settings;
+
+try{
+
+/* Make sure visible controls are copied into state. */
+
+s.reminderTime=
+document.getElementById("reminderTime").value||"20:00";
+
+s.reminderStyle=
+document.getElementById("reminderStyle").value||"friendly";
+
+s.weekStart=
+document.getElementById("weekStart").value||"monday";
+
+s.workingHours=
+Number(document.getElementById("workingHours").value)||8;
+
+s.zoom=
+Number(document.getElementById("appZoom").value)||110;
+
+/*
+ Explicitly keep the current toggle values.
+*/
+s.reminders=
+document.getElementById("reminderToggle").classList.contains("on");
+
+s.paymentReminders=
+document.getElementById("paymentToggle").classList.contains("on");
+
+s.autoSaveTimer=
+document.getElementById("autoSaveTimerToggle").classList.contains("on");
+
+s.invoiceAfterTimer=
+document.getElementById("invoiceToggle").classList.contains("on");
+
+s.fortnightlyLogic=
+document.getElementById("fortnightlyToggle").classList.contains("on");
+
+s.largeText=
+document.getElementById("largeTextToggle").classList.contains("on");
+
+s.compact=
+document.getElementById("compactToggle").classList.contains("on");
+
+s.highContrast=
+document.getElementById("contrastToggle").classList.contains("on");
+
+if(saveState()){
+
+applySettings();
+renderSettings();
+
+toast("All settings saved ✓");
+
+}
+
+}catch(error){
+
+console.error(error);
+
+toast("Could not save app settings");
+
+}
+
+}
+
 function setToggle(id,on){
 
 const element=
@@ -4630,11 +4932,13 @@ if(value&&value.trim()){
 state.settings.businessName=
 value.trim();
 
-saveState();
+if(saveState()){
 
 renderSettings();
 
 toast("Business name updated ✨");
+
+}
 
 }
 
@@ -4653,11 +4957,13 @@ if(value&&value.trim()){
 state.settings.ownerName=
 value.trim();
 
-saveState();
+if(saveState()){
 
 renderSettings();
 
 toast("Name updated");
+
+}
 
 }
 
@@ -4676,11 +4982,13 @@ if(value&&Number(value)>0){
 state.settings.agencyRate=
 Number(value);
 
-saveState();
+if(saveState()){
 
 renderSettings();
 
 toast("Agency rate updated");
+
+}
 
 }
 
@@ -4699,11 +5007,13 @@ if(value&&Number(value)>0){
 state.settings.privateRate=
 Number(value);
 
-saveState();
+if(saveState()){
 
 renderSettings();
 
 toast("Private rate updated");
+
+}
 
 }
 
@@ -4722,11 +5032,13 @@ if(value&&Number(value)>0){
 state.settings.invoiceNumber=
 Math.floor(Number(value));
 
-saveState();
+if(saveState()){
 
 renderSettings();
 
 toast("Invoice number updated");
+
+}
 
 }
 
@@ -4753,8 +5065,11 @@ function saveReminderTime(){
 state.settings.reminderTime=
 document.getElementById("reminderTime").value;
 
-if(saveState())
+if(saveState()){
+
 toast("Reminder time saved ✓");
+
+}
 
 }
 
@@ -4836,8 +5151,23 @@ document.documentElement.style.setProperty(
 s.accent
 );
 
-document.documentElement.style.fontSize=
-`${Number(s.zoom)/100}em`;
+/*
+ Instead of changing the root font size with "em", which can
+ compound badly after repeated visits, use a CSS variable.
+*/
+const zoom=
+Math.min(
+200,
+Math.max(
+90,
+Number(s.zoom)||110
+)
+);
+
+document.documentElement.style.setProperty(
+"--app-zoom",
+zoom/100
+);
 
 document.documentElement.classList.toggle(
 "large-text",
@@ -4858,12 +5188,22 @@ applyLogo();
 
 }
 
-/* BACKUP */
+/* =========================
+   BACKUP
+   ========================= */
 
 function backupData(){
 
+const backup={
+...state,
+settings:{
+...state.settings,
+logo:state.settings.logo||getStoredLogo()
+}
+};
+
 const blob=new Blob(
-[JSON.stringify(state,null,2)],
+[JSON.stringify(backup,null,2)],
 {type:"application/json"}
 );
 
@@ -4888,7 +5228,9 @@ toast("Backup created 💾");
 
 }
 
-/* CALENDAR */
+/* =========================
+   CALENDAR
+   ========================= */
 
 function exportCalendar(){
 
@@ -4942,7 +5284,11 @@ link.href=url;
 link.download=
 "pure-shine-cleaning-calendar.ics";
 
+document.body.appendChild(link);
+
 link.click();
+
+link.remove();
 
 URL.revokeObjectURL(url);
 
@@ -4950,7 +5296,9 @@ toast("Calendar file created 📅");
 
 }
 
-/* RESET */
+/* =========================
+   RESET
+   ========================= */
 
 function resetApp(){
 
@@ -4959,11 +5307,20 @@ if(!confirm(
 ))
 return;
 
+try{
+
 localStorage.removeItem(STORAGE_KEY);
+localStorage.removeItem(LOGO_STORAGE_KEY);
+
+}catch(e){}
 
 state=defaultState();
 
-saveState();
+if(saveState()){
+
+state.settings.logo=DEFAULT_LOGO;
+
+saveLogo(DEFAULT_LOGO);
 
 renderAll();
 
@@ -4973,7 +5330,11 @@ toast("Application reset");
 
 }
 
-/* MODALS */
+}
+
+/* =========================
+   MODALS
+   ========================= */
 
 function openModal(id){
 document.getElementById(id).classList.add("open");
@@ -4994,7 +5355,9 @@ overlay.classList.remove("open");
 
 });
 
-/* NOTIFICATIONS */
+/* =========================
+   NOTIFICATIONS
+   ========================= */
 
 function showNotifications(){
 
@@ -5023,7 +5386,9 @@ jobs.map(x=>x.clientName).join(", ")
 
 }
 
-/* HELPERS */
+/* =========================
+   HELPERS
+   ========================= */
 
 function jobAmount(job){
 
@@ -5139,6 +5504,8 @@ function toast(message){
 const element=
 document.getElementById("toast");
 
+if(!element)return;
+
 element.textContent=message;
 
 element.classList.add("show");
@@ -5153,15 +5520,17 @@ setTimeout(
 
 }
 
-/* AUTO REFRESH */
+/* =========================
+   AUTO REFRESH
+   ========================= */
 
 setInterval(()=>{
 
+const main=document.getElementById("main");
+
 if(
-!document
-.getElementById("main")
-.classList
-.contains("hidden")
+main &&
+!main.classList.contains("hidden")
 ){
 
 document.getElementById("todayDate").textContent=
