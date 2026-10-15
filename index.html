@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,232 +10,741 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Parisienne&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-:root{--pink:#d96f9a;--pink2:#f5d8e5;--pink3:#fff5f9;--rose:#9b5975;--ink:#25232a;--muted:#8f8990;--line:#edd4df;--blue:#dce9fa;--green:#dff2e9;--yellow:#fff0c7;--purple:#e9ddf7;--peach:#f5ddd8;--scale:1;--bottom:94px}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;min-height:100%;background:#fff8fb;color:var(--ink);font-family:'DM Sans',Arial,sans-serif}
-body{overflow-x:hidden}
-button,input,select,textarea{font:inherit}
-button{border:0;cursor:pointer}
-.app{width:100%;min-height:100vh;min-height:100dvh;background:linear-gradient(#fffafd,#fff);padding-bottom:calc(var(--bottom) + env(safe-area-inset-bottom))}
-body.high-contrast{--line:#c993ab;--muted:#5e5960;--ink:#111;--pink2:#f0c4d7}
-body.large-text{--scale:1.15}
-body.compact .page{padding-bottom:20px}
-body.compact .card{padding:14px}
-body.compact .quick-grid{gap:8px}
-body.compact .quick{min-height:66px}
-body.no-emoji .emoji{display:none}
-.top{padding:calc(18px * var(--scale)) calc(20px * var(--scale)) 12px;background:#fff;border-bottom:1px solid #f2dfe7;position:sticky;top:0;z-index:20}
-.toprow{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1100px;margin:auto}
-.brand{display:flex;align-items:center;gap:12px;min-width:0}
-.profile{width:62px;height:62px;border-radius:50%;object-fit:cover;border:3px solid #f2d4e1;box-shadow:0 4px 16px #d9a5b633;flex:none;background:#fff}
-.brandtext{min-width:0}.brandname{font-family:Parisienne,cursive;color:#9e5976;font-size:clamp(32px,4.8vw,52px);line-height:1}.subtitle{font-size:15px;color:var(--muted);margin-top:5px}
-.top-actions{display:flex;gap:10px}.icon-btn{width:56px;height:56px;border-radius:18px;background:#fbe5ef;color:var(--rose);font-size:25px;box-shadow:0 5px 15px #d99ab21c}.icon-btn.active{background:var(--pink);color:#fff}
-.page{display:none;max-width:1100px;margin:auto;padding:18px 20px 36px}.page.active{display:block}
-.date-card{background:linear-gradient(135deg,#f9e4ed,#fff9fc);border:1px solid var(--line);border-radius:25px;padding:25px 28px;display:flex;align-items:center;justify-content:space-between;margin:2px 0 16px}.date-title{font-size:clamp(23px,3vw,34px);font-weight:800;color:#9e5976}.date-sub{color:var(--muted);font-size:16px;margin-top:5px}.heart{font-size:42px;color:#a45d79}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:22px}.stat{border:1px solid var(--line);border-radius:22px;background:#fff;padding:18px 14px;min-height:118px;display:flex;flex-direction:column;justify-content:center}.stat:nth-child(1){background:#f4dbe8}.stat:nth-child(2){background:#dce9fa}.stat:nth-child(3){background:#ddf1e8}.stat:nth-child(4){background:#fff0c8}.stat-icon{font-size:24px;margin-bottom:7px}.stat-value{font-size:clamp(20px,3vw,29px);font-weight:800}.stat-label{font-size:13px;color:#68636a;margin-top:4px}
-.section-title{font-size:22px;font-weight:800;margin:20px 2px 10px}.seeall{float:right;font-size:14px;color:#9b5975;margin-top:5px;cursor:pointer}
-.schedule-box{background:#fff;border-radius:25px;padding:12px;border:1px solid #f0dce5;box-shadow:0 8px 25px #b96d8b0d}.job-card{border:1px solid var(--line);border-radius:20px;padding:17px 18px;margin-bottom:9px;background:#fff}.job-head{display:flex;justify-content:space-between;gap:15px}.job-name{font-size:18px;font-weight:800}.job-time{font-size:19px;font-weight:800;color:#9b5975;white-space:nowrap}.job-meta{font-size:13px;color:var(--muted);margin-top:5px}.job-money{font-size:16px;color:#858087;margin-top:14px}.job-money strong{color:#9b5975}.job-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btn{padding:11px 14px;border-radius:13px;font-weight:700;background:#f7e8ef;color:#955873}.btn.primary{background:var(--pink);color:#fff}.btn.pdf{background:#f8ecd4;color:#8b7045}.btn.paid{background:#dcefe5;color:#397459}.btn.unpaid{background:#eee;color:#777}.add-job{width:100%;margin-top:5px;padding:15px;border-radius:18px;background:var(--pink);color:#fff;font-weight:800;font-size:16px}
-.quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.quick{min-height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:15px;color:#45607d}.quick.blue{background:var(--blue)}.quick.green{background:var(--green);color:#4e7868}.quick.pink{background:#f2d9e5;color:#8d5871}.quick.yellow{background:var(--yellow);color:#8d7444}.quick.purple{background:var(--purple);color:#76588c}.quick.peach{background:var(--peach);color:#946358}
-.banner{width:100%;height:180px;object-fit:cover;border-radius:22px;margin-top:18px;border:1px solid #efd3df;display:block}.banner-caption{font-family:Parisienne,cursive;text-align:center;color:#9e5976;font-size:20px;margin-top:-58px;position:relative;pointer-events:none}
-.fab{position:fixed;right:24px;bottom:calc(var(--bottom) + 22px);width:64px;height:64px;border-radius:50%;background:var(--pink);color:#fff;font-size:36px;box-shadow:0 8px 24px #b968882e;z-index:35}
-.bottom{position:fixed;left:0;right:0;bottom:0;height:var(--bottom);padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:#fff;box-shadow:0 -5px 25px #c7819a18;z-index:30}.nav{height:100%;max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:5px}.nav button{background:transparent;color:#8e8990;border-radius:19px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px}.nav button .nav-icon{font-size:23px;line-height:1}.nav button.active{background:#f8dfeb;color:#9b5975;font-weight:800}
-.settings-list{display:grid;gap:10px}.settings-section{font-size:13px;letter-spacing:.08em;color:#98617a;font-weight:800;margin:16px 3px 3px;text-transform:uppercase}.setting{background:#fff;border:1px solid var(--line);border-radius:20px;padding:13px;display:flex;align-items:center;gap:13px;min-height:76px}.setting-icon{width:48px;height:48px;border-radius:15px;background:#f9e3ed;display:grid;place-items:center;font-size:23px;flex:none}.setting-main{flex:1;min-width:0}.setting-title{font-weight:800;font-size:16px}.setting-desc{color:var(--muted);font-size:12px;margin-top:3px}.setting-control{flex:none}.color-dot{width:25px;height:25px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #d8c5ce;cursor:pointer}.color-dot:active{transform:scale(.9)}.select,.text-input{border:0;background:#fff2f7;color:#955873;border-radius:12px;padding:11px 12px;font-weight:700;max-width:150px}.switch{width:58px;height:34px;background:#ddd;border-radius:20px;padding:3px;transition:.2s}.switch i{display:block;width:28px;height:28px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 4px #0002}.switch.on{background:var(--pink)}.switch.on i{transform:translateX(24px)}.save-all{width:100%;padding:15px;border-radius:17px;background:var(--pink);color:#fff;font-weight:800;margin-top:12px;font-size:16px}.photo-settings{display:grid;grid-template-columns:1fr 1fr;gap:10px}.photo-box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px}.photo-preview{width:100%;height:150px;object-fit:cover;border-radius:16px;background:#fff4f8}.photo-box h3{font-size:15px;margin:9px 0 4px}.photo-box p{font-size:11px;color:var(--muted);margin:0 0 10px}.file-btn{display:block;text-align:center;background:#f7e1eb;color:#945873;padding:10px;border-radius:12px;font-weight:700;font-size:12px}.file-btn input{display:none}
-.page-title{font-size:28px;font-weight:800;color:#9b5975;margin:6px 0 16px}.empty{background:#fff;border:1px dashed var(--line);border-radius:22px;padding:30px;text-align:center;color:var(--muted)}.list{display:grid;gap:10px}.client{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;display:flex;align-items:center;gap:12px}.avatar{width:44px;height:44px;border-radius:50%;background:#f5dce7;color:#9b5975;display:grid;place-items:center;font-weight:800}.client-info{flex:1}.client-name{font-weight:800}.client-sub{font-size:12px;color:var(--muted);margin-top:3px}.rate{font-weight:800;color:#9b5975}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.toolbar .btn{flex:1;min-width:110px}.earning-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.earning-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px}.earning-card b{font-size:22px;color:#9b5975}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.day{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 3px;min-height:65px;text-align:center;font-size:11px}.day strong{display:block;font-size:13px}.day.has{background:#f8e2eb}.modal-back{position:fixed;inset:0;background:#1f152066;z-index:100;display:none;align-items:flex-end;justify-content:center}.modal-back.show{display:flex}.modal{background:#fff;width:min(100%,650px);max-height:90dvh;overflow:auto;border-radius:28px 28px 0 0;padding:20px}.modal h2{margin:0 0 15px;color:#9b5975}.form{display:grid;gap:10px}.form label{font-size:12px;color:#777;font-weight:700}.form input,.form select,.form textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:13px;background:#fff}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.modal-actions{display:flex;gap:8px;margin-top:14px}.modal-actions button{flex:1}
-@media(min-width:800px){.page{padding:24px 28px 45px}.quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.modal-back{align-items:center;padding:20px}.modal{border-radius:28px;max-height:85vh}.fab{right:max(24px,calc((100vw - 1100px)/2 + 24px))}}
-@media(max-width:600px){.top{padding:12px 13px 10px}.profile{width:48px;height:48px}.brand{gap:8px}.brandname{font-size:34px}.subtitle{font-size:12px}.top-actions{gap:6px}.icon-btn{width:44px;height:44px;border-radius:14px;font-size:21px}.page{padding:13px 12px 25px}.date-card{padding:19px 16px;border-radius:20px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat{min-height:92px;padding:12px}.stat-icon{font-size:20px}.stat-label{font-size:12px}.section-title{font-size:19px}.job-card{padding:14px}.job-head{gap:8px}.job-name{font-size:16px}.job-time{font-size:15px}.job-actions .btn{font-size:12px;padding:10px}.bottom{height:84px}.nav button{font-size:10px}.nav button .nav-icon{font-size:22px}.fab{right:15px;bottom:106px;width:58px;height:58px}.earning-summary{grid-template-columns:1fr}.photo-settings{grid-template-columns:1fr}.calendar{gap:3px}.day{padding:7px 1px;min-height:55px;font-size:9px}.day strong{font-size:11px}.form-row{grid-template-columns:1fr 1fr}}
-@media(max-width:370px){.brandname{font-size:29px}.subtitle{font-size:11px}.date-title{font-size:21px}.job-time{font-size:13px}.nav button{font-size:9px}}
+:root {
+  --pink: #d96f9a;
+  --pink2: #f5d8e5;
+  --pink3: #fff5f9;
+  --rose: #9b5975;
+  --ink: #25232a;
+  --muted: #8f8990;
+  --line: #edd4df;
+  --blue: #dce9fa;
+  --green: #dff2e9;
+  --yellow: #fff0c7;
+  --purple: #e9ddf7;
+  --peach: #f5ddd8;
+  --scale: 1.25;
+  --bottom: 94px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #fff8fb;
+  color: var(--ink);
+  font-family: 'DM Sans', Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  font-size: 18px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  min-height: 44px;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(#fffafd, #fff);
+  padding-bottom: calc(var(--bottom) + env(safe-area-inset-bottom));
+  font-size: 1rem;
+}
+
+.top {
+  padding: 20px 20px 12px;
+  background: #fff;
+  border-bottom: 1px solid #f2dfe7;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.toprow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.profile {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f2d4e1;
+  box-shadow: 0 4px 16px #d9a5b633;
+  flex: none;
+  background: #fff;
+}
+
+.brandtext {
+  min-width: 0;
+}
+
+.brandname {
+  font-family: Parisienne, cursive;
+  color: #9e5976;
+  font-size: clamp(32px, 4.8vw, 52px);
+  line-height: 1;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.top-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: #fbe5ef;
+  color: var(--rose);
+  font-size: 25px;
+  box-shadow: 0 5px 15px #d99ab21c;
+}
+
+.icon-btn.active {
+  background: var(--pink);
+  color: #fff;
+}
+
+.page {
+  display: none;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px 20px 36px;
+}
+
+.page.active {
+  display: block;
+}
+
+.date-card {
+  background: linear-gradient(135deg, #f9e4ed, #fff9fc);
+  border: 1px solid var(--line);
+  border-radius: 25px;
+  padding: 25px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2px 0 16px;
+}
+
+.date-title {
+  font-size: clamp(23px, 3vw, 34px);
+  font-weight: 800;
+  color: #9e5976;
+}
+
+.date-sub {
+  color: var(--muted);
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.heart {
+  font-size: 42px;
+  color: #a45d79;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.stat {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: #fff;
+  padding: 18px 14px;
+  min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stat:nth-child(1) {
+  background: #f4dbe8;
+}
+
+.stat:nth-child(2) {
+  background: #dce9fa;
+}
+
+.stat:nth-child(3) {
+  background: #ddf1e8;
+}
+
+.stat:nth-child(4) {
+  background: #fff0c8;
+}
+
+.stat-icon {
+  font-size: 28px;
+  margin-bottom: 7px;
+}
+
+.stat-value {
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #68636a;
+  margin-top: 4px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 22px 2px 12px;
+}
+
+.seeall {
+  float: right;
+  font-size: 15px;
+  color: #9b5975;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.schedule-box {
+  background: #fff;
+  border-radius: 25px;
+  padding: 12px;
+  border: 1px solid #f0dce5;
+  box-shadow: 0 8px 25px #b96d8b0d;
+}
+
+.job-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 19px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+
+.job-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.job-name {
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.job-time {
+  font-size: 20px;
+  font-weight: 800;
+  color: #9b5975;
+  white-space: nowrap;
+}
+
+.job-meta {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.job-money {
+  font-size: 17px;
+  color: #858087;
+  margin-top: 14px;
+}
+
+.job-money strong {
+  color: #9b5975;
+}
+
+.job-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.btn {
+  padding: 12px 15px;
+  border-radius: 13px;
+  font-weight: 700;
+  background: #f7e8ef;
+  color: #955873;
+}
+
+.btn.primary {
+  background: var(--pink);
+  color: #fff;
+}
+
+.btn.pdf {
+  background: #f8ecd4;
+  color: #8b7045;
+}
+
+.btn.paid {
+  background: #dcefe5;
+  color: #397459;
+}
+
+.btn.unpaid {
+  background: #eee;
+  color: #777;
+}
+
+.add-job {
+  width: 100%;
+  margin-top: 5px;
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--pink);
+  color: #fff;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.quick {
+  min-height: 78px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-weight: 700;
+  font-size: 17px;
+  color: #45607d;
+}
+
+.quick.blue {
+  background: var(--blue);
+}
+
+.quick.green {
+  background: var(--green);
+  color: #4e7868;
+}
+
+.quick.pink {
+  background: #f2d9e5;
+  color: #8d5871;
+}
+
+.quick.yellow {
+  background: var(--yellow);
+  color: #8d7444;
+}
+
+.quick.purple {
+  background: var(--purple);
+  color: #76588c;
+}
+
+.quick.peach {
+  background: var(--peach);
+  color: #946358;
+}
+
+.banner {
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+  object-fit: contain;
+  border-radius: 22px;
+  margin-top: 18px;
+  display: block;
+}
+
+.fab {
+  position: fixed;
+  right: 24px;
+  bottom: calc(var(--bottom) + 22px);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--pink);
+  color: #fff;
+  font-size: 36px;
+  box-shadow: 0 8px 24px #b968882e;
+  z-index: 35;
+}
+
+.bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--bottom);
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -5px 25px #c7819a18;
+  z-index: 30;
+}
+
+.nav {
+  height: 100%;
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+}
+
+.nav button {
+  background: transparent;
+  color: #8e8990;
+  border-radius: 19px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.nav button .nav-icon {
+  font-size: 27px;
+  line-height: 1;
+}
+
+.nav button.active {
+  background: #f8dfeb;
+  color: #9b5975;
+  font-weight: 800;
+}
+
+.settings-list {
+  display: grid;
+  gap: 10px;
+}
+
+.settings-section {
+  font-size: 15px;
+  letter-spacing: .08em;
+  color: #98617a;
+  font-weight: 800;
+  margin: 18px 3px 3px;
+  text-transform: uppercase;
+}
+
+.setting {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-height: 76px;
+}
+
+.setting-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: #f9e3ed;
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  flex: none;
+}
+
+.setting-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.setting-title {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.setting-desc {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.setting-control {
+  flex: none;
+}
+
+.select,
+.text-input {
+  border: 0;
+  background: #fff2f7;
+  color: #955873;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-weight: 700;
+  max-width: 150px;
+}
+
+.switch {
+  width: 58px;
+  height: 34px;
+  background: #ddd;
+  border-radius: 20px;
+  padding: 3px;
+  transition: .2s;
+}
+
+.switch i {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  transition: .2s;
+  box-shadow: 0 1px 4px #0002;
+}
+
+.switch.on {
+  background: var(--pink);
+}
+
+.switch.on i {
+  transform: translateX(24px);
+}
+
+.save-all {
+  width: 100%;
+  padding: 16px;
+  border-radius: 17px;
+  background: var(--pink);
+  color: #fff;
+  font-weight: 800;
+  margin-top: 12px;
+  font-size: 18px;
+}
+
+.page-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #9b5975;
+  margin: 6px 0 16px;
+}
+
+.empty {
+  background: #fff;
+  border: 1px dashed var(--line);
+  border-radius: 22px;
+  padding: 30px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+}
+
+.client {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f5dce7;
+  color: #9b5975;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+
+.client-info {
+  flex: 1;
+}
+
+.client-name {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.client-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.rate {
+  font-weight: 800;
+  color: #9b5975;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.toolbar .btn {
+  flex: 1;
+  min-width: 110px;
+}
+
+.earning-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.earning-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 16px;
+}
+
+.earning-card b {
+  font-size: 22px;
+  color: #9b5975;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.day {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 3px;
+  min-height: 65px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.day strong {
+  display: block;
+  font-size: 15px;
+}
+
+.day.has {
+  background: #f8e2eb;
+}
+
+.modal-back {
+  position: fixed;
+  inset: 0;
+  background: #1f152066;
+  z-index: 100;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-back.show {
+  display: flex;
+}
+
+.modal {
+  background: #fff;
+  width: min(100%, 650px);
+  max-height: 90dvh;
+  overflow: auto;
+  border-radius: 28px 28px 0 0;
+  padding: 20px;
+}
+
+.modal h2 {
+  margin: 0 0 15px;
+  color: #9b5975;
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+.form label {
+  font-size: 14px;
+  color: #777;
+  font-weight: 700;
+}
+
+.form input,
+.form select,
+.form textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: #fff;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.modal-actions button {
+  flex: 1;
+}
+
+/* Zoom and timer styles continue in the next part. */
 </style>
-</head>
-<body>
-<div class="app">
-<header class="top">
-<div class="toprow">
-<div class="brand">
-<img class="profile" id="headerPhoto" alt="Pure Shine Cleaning logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%23f5d8e5'/%3E%3Ctext x='50' y='62' text-anchor='middle' font-size='42'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
-<div class="brandtext"><div class="brandname">Pure Shine</div><div class="subtitle">Cleaning Manager ✨</div></div>
-</div>
-<div class="top-actions"><button class="icon-btn" onclick="go('settings')" aria-label="Settings">⚙️</button><button class="icon-btn" onclick="openReminder()" aria-label="Client reminder">💌</button></div>
-</div>
-</header>
-<main>
-<section class="page active" id="home">
-<div class="date-card"><div><div class="date-title" id="todayTitle">Today</div><div class="date-sub">Your cleaning diary ✨</div></div><div class="heart">♡</div></div>
-<div class="stats">
-<div class="stat"><div class="stat-icon">🧹</div><div class="stat-value" id="jobsToday">0</div><div class="stat-label">Today's jobs</div></div>
-<div class="stat"><div class="stat-icon">⏱️</div><div class="stat-value" id="hoursToday">—</div><div class="stat-label">Time worked</div></div>
-<div class="stat"><div class="stat-icon">💷</div><div class="stat-value" id="earnedToday">—</div><div class="stat-label">Earned today</div></div>
-<div class="stat"><div class="stat-icon">🌸</div><div class="stat-value" id="availableToday">—</div><div class="stat-label">Time available</div></div>
-</div>
-<div class="section-title">Today's Schedule <span class="seeall" onclick="go('schedule')">View diary →</span></div>
-<div class="schedule-box" id="todayJobs"></div>
-<button class="add-job" onclick="openJob()">＋ Add cleaning job</button>
-<div class="section-title">Quick Actions</div>
-<div class="quick-grid">
-<button class="quick blue" onclick="startQuickTimer()">⏱️ Start timer</button>
-<button class="quick green" onclick="openJob()">🧹 Add a job</button>
-<button class="quick pink" onclick="openReminder()">💌 Client reminder</button>
-<button class="quick yellow" onclick="openPaymentReminder()">💷 Payment reminder</button>
-<button class="quick purple" onclick="go('earnings')">📊 My earnings</button>
-<button class="quick peach" onclick="go('schedule')">📅 View calendar</button>
-</div>
-<img class="banner" id="homeBanner" alt="Cleaning inspiration" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 220'%3E%3Cdefs%3E%3ClinearGradient id='g'%3E%3Cstop stop-color='%23f5d8e5'/%3E%3Cstop offset='1' stop-color='%23fff5f9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='900' height='220' fill='url(%23g)'/%3E%3Ctext x='450' y='105' font-size='46' text-anchor='middle' fill='%239b5975' font-family='cursive'%3EA little sparkle every day%3C/text%3E%3Ctext x='450' y='155' font-size='28' text-anchor='middle'%3E%E2%9C%A8%20%E2%99%A1%20%E2%9C%A8%3C/text%3E%3C/svg%3E">
-<div class="banner-caption">A little sparkle every day</div>
-</section>
-<section class="page" id="schedule">
-<div class="page-title">Cleaning Diary</div>
-<div class="toolbar"><button class="btn" onclick="changeDay(-1)">← Previous day</button><button class="btn" onclick="goToday()">Today</button><button class="btn" onclick="changeDay(1)">Next day →</button></div>
-<div class="date-card"><div><div class="date-title" id="calendarTitle">Schedule</div><div class="date-sub">Tap a job to edit it</div></div><div class="heart">♡</div></div>
-<div id="scheduleJobs" class="schedule-box"></div>
-<button class="add-job" onclick="openJob()">＋ Add cleaning job</button>
-<div class="section-title">Calendar</div><div class="toolbar"><button class="btn" onclick="changeMonth(-1)">← Previous month</button><button class="btn" onclick="changeMonth(1)">Next month →</button></div><div id="calendarMonth" class="page-title"></div><div id="calendarGrid" class="calendar"></div>
-</section>
-<section class="page" id="clients">
-<div class="page-title">My Clients</div>
-<div class="toolbar"><button class="btn primary" onclick="openClient()">＋ Add client</button><button class="btn" onclick="openReminder()">💌 Send reminder</button></div>
-<div id="clientsList" class="list"></div>
-</section>
-<section class="page" id="earnings">
-<div class="page-title">Earnings & Payments</div>
-<div class="earning-summary">
-<div class="earning-card"><div>Total earned</div><b id="earnTotal">£0.00</b></div>
-<div class="earning-card"><div>Paid</div><b id="earnPaid">£0.00</b></div>
-<div class="earning-card"><div>Still owed</div><b id="earnOwed">£0.00</b></div>
-</div>
-<div class="toolbar" style="margin-top:15px"><button class="btn primary" onclick="openPaymentReminder()">💌 Remind payment</button><button class="btn" onclick="exportData()">⬇️ Backup data</button></div>
-<div class="section-title">Completed jobs</div><div id="earningsList" class="list"></div>
-</section>
-<section class="page" id="settings">
-<div class="page-title">Settings</div>
-<div class="settings-list">
-<div class="settings-section">App appearance</div>
-<div class="setting"><div class="setting-icon">🔎</div><div class="setting-main"><div class="setting-title">App size</div><div class="setting-desc">Adjust text and controls for comfortable reading</div></div><div class="setting-control"><select id="appSize" class="select" onchange="setScale(this.value)"><option value="1">100%</option><option value="1.1">110%</option><option value="1.2">120%</option><option value="1.3">130%</option><option value="1.4">140%</option><option value="1.5">150%</option><option value="1.75">175%</option><option value="2">200%</option></select></div></div>
-<div class="setting"><div class="setting-icon">🔠</div><div class="setting-main"><div class="setting-title">Larger text</div><div class="setting-desc">Make text easier to read</div></div><button class="switch" id="toggle-largerText" onclick="toggleSetting('largerText')"><i></i></button></div>
-<div class="setting"><div class="setting-icon">🌓</div><div class="setting-main"><div class="setting-title">High contrast</div><div class="setting-desc">Improve text contrast</div></div><button class="switch" id="toggle-highContrast" onclick="toggleSetting('highContrast')"><i></i></button></div>
-<div class="setting"><div class="setting-icon">📦</div><div class="setting-main"><div class="setting-title">Compact layout</div><div class="setting-desc">Use less space between cards</div></div><button class="switch" id="toggle-compact" onclick="toggleSetting('compact')"><i></i></button></div>
-<div class="settings-section">Business details</div>
-<div class="setting"><div class="setting-icon">👩🏻‍💼</div><div class="setting-main"><div class="setting-title">Your name</div><div class="setting-desc">Shown on reminders and invoices</div></div><input class="text-input" id="ownerName" placeholder="Your name" onchange="updateSetting('ownerName',this.value)"></div>
-<div class="setting"><div class="setting-icon">✨</div><div class="setting-main"><div class="setting-title">Business name</div><div class="setting-desc">Your cleaning business</div></div><input class="text-input" id="businessName" placeholder="Business name" onchange="updateSetting('businessName',this.value)"></div>
-<div class="setting"><div class="setting-icon">💷</div><div class="setting-main"><div class="setting-title">Default hourly rate</div><div class="setting-desc">Used for new clients</div></div><input class="text-input" id="defaultRate" type="number" min="0" step="0.5" onchange="updateSetting('defaultRate',this.value)"></div>
-<div class="setting"><div class="setting-icon">🧾</div><div class="setting-main"><div class="setting-title">Invoice prefix</div><div class="setting-desc">Example: PSC-00001</div></div><input class="text-input" id="invoicePrefix" onchange="updateSetting('invoicePrefix',this.value)"></div>
-<div class="setting"><div class="setting-icon">🔢</div><div class="setting-main"><div class="setting-title">Next invoice number</div><div class="setting-desc">Automatically increments</div></div><input class="text-input" id="invoiceNext" type="number" min="1" onchange="updateSetting('invoiceNext',this.value)"></div>
-<div class="settings-section">Payment reminders</div>
-<div class="setting"><div class="setting-icon">💌</div><div class="setting-main"><div class="setting-title">Reminder message style</div><div class="setting-desc">Choose the tone for payment messages</div></div><select class="select" id="reminderStyle" onchange="updateSetting('reminderStyle',this.value)"><option>Friendly</option><option>Professional</option><option>Short</option></select></div>
-<div class="settings-section">Photos</div>
-<div class="photo-settings">
-<div class="photo-box"><img class="photo-preview" id="profilePreview" alt="Profile preview" src=""><h3>App profile photo</h3><p>Choose a photo for the app header</p><label class="file-btn">Choose photo<input type="file" accept="image/*" onchange="uploadImage(event,'profile')"></label></div>
-<div class="photo-box"><img class="photo-preview" id="bannerPreview" alt="Banner preview" src=""><h3>Home banner</h3><p>Choose a cleaning photo or banner</p><label class="file-btn">Choose photo<input type="file" accept="image/*" onchange="uploadImage(event,'banner')"></label></div>
-</div>
-<div class="settings-section">Data</div>
-<div class="toolbar"><button class="btn" onclick="exportData()">⬇️ Export backup</button><button class="btn" onclick="document.getElementById('importFile').click()">⬆️ Import backup</button><input type="file" id="importFile" accept="application/json" hidden onchange="importData(event)"></div>
-<button class="save-all" onclick="save();render();toast('Settings saved ✓')">Save settings</button>
-</div>
-</section>
-</main>
-<button class="fab" onclick="openJob()" aria-label="Add job">＋</button>
-<footer class="bottom"><nav class="nav">
-<button class="active" data-page="home" onclick="go('home')"><span class="nav-icon">⌂</span><span>Home</span></button>
-<button data-page="schedule" onclick="go('schedule')"><span class="nav-icon">▦</span><span>Diary</span></button>
-<button data-page="clients" onclick="go('clients')"><span class="nav-icon">♡</span><span>Clients</span></button>
-<button data-page="earnings" onclick="go('earnings')"><span class="nav-icon">£</span><span>Earnings</span></button>
-<button data-page="settings" onclick="go('settings')"><span class="nav-icon">⚙</span><span>Settings</span></button>
-</nav></footer>
-</div>
-<div class="modal-back" id="modalBack" onclick="if(event.target===this)closeModal()"><div class="modal" id="modalContent"></div></div>
-<div id="toast" style="position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:#452a36;color:#fff;padding:12px 18px;border-radius:14px;z-index:200;display:none;max-width:90vw;text-align:center"></div>
-<script>
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const money=n=>'£'+Number(n||0).toFixed(2);
-const mins=n=>{n=Math.max(0,Math.round(Number(n)||0));return Math.floor(n/60)+'h '+String(n%60).padStart(2,'0')+'m'};
-const key=(d=new Date())=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-const dateFrom=s=>{const [y,m,d]=String(s||key()).split('-').map(Number);return new Date(y,m-1,d)};
-const formatDate=(s=key())=>dateFrom(s).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-const defaultState={
-clients:[
-{id:'lottie',name:'Lottie',phone:'07788 447015',type:'Agency',rate:16,hours:2,start:'09:00',end:'11:00',days:[1],active:true,frequency:'Weekly',notes:''},
-{id:'victoria',name:'Victoria',phone:'07923 054040',type:'Agency',rate:16,hours:2,start:'13:00',end:'15:00',days:[1],active:true,frequency:'Weekly',notes:'Agency hours £16/hour; private hours £18/hour; flexible duration'},
-{id:'matt',name:'Matt',phone:'07886 711',type:'Agency',rate:16,hours:4,start:'09:00',end:'13:00',days:[2],active:true,frequency:'Weekly',notes:'Hours may vary'},
-{id:'christine',name:'Christine',phone:'',type:'Private',rate:18,hours:3,start:'09:30',end:'12:30',days:[2],active:true,frequency:'Fortnightly',notes:''},
-{id:'sonia',name:'Sonia',phone:'',type:'Agency',rate:16,hours:5,start:'09:00',end:'14:00',days:[3],active:true,frequency:'Weekly',notes:'Hours may vary'},
-{id:'gill',name:'Gill',phone:'',type:'Agency',rate:16,hours:3,start:'15:00',end:'18:00',days:[3],active:false,frequency:'Weekly',notes:'Removed from active schedule'},
-{id:'laura',name:'Laura',phone:'',type:'Private',rate:18,hours:4,start:'09:00',end:'13:00',days:[4],active:true,frequency:'Weekly',notes:'Sometimes 5 hours'},
-{id:'hannah',name:'Hannah',phone:'',type:'Agency',rate:16,hours:3,start:'13:00',end:'16:00',days:[4],active:true,frequency:'Weekly',notes:''},
-{id:'meghan',name:'Meghan',phone:'',type:'Private',rate:18,hours:2,start:'09:00',end:'11:00',days:[5],active:true,frequency:'Fortnightly',notes:''},
-{id:'johanna',name:'Johanna',phone:'',type:'Private',rate:18,hours:2,start:'11:00',end:'13:00',days:[5],active:true,frequency:'Fortnightly',notes:'Alternates weeks with Sindu'},
-{id:'sindu',name:'Sindu',phone:'',type:'Agency',rate:16,hours:2,start:'11:00',end:'13:00',days:[5],active:true,frequency:'Fortnightly',notes:'Alternates weeks with Johanna'},
-{id:'peter',name:'Peter',phone:'',type:'Private',rate:20,hours:2,start:'',end:'',days:[],active:true,frequency:'Occasional',notes:'Occasional client'},
-{id:'mike',name:'Mike',phone:'',type:'Private',rate:20,hours:2,start:'',end:'',days:[],active:true,frequency:'Every 3 weeks',notes:'Hours may vary'}
-],
-jobs:[],holidays:[],
-settings:{ownerName:'Georgiana Radu',businessName:'Pure Shine Cleaning',defaultRate:18,invoicePrefix:'PSC-',invoiceNext:1,appSize:1,largerText:false,compact:false,highContrast:false,reminderStyle:'Friendly',workingHours:8},
-photos:{profile:'',banner:''}
-};
-let state;
-try{state=JSON.parse(localStorage.getItem('pureShineManagerV3')||'null')||structuredClone(defaultState)}catch(e){state=structuredClone(defaultState)}
-state.clients=Array.isArray(state.clients)?state.clients:structuredClone(defaultState.clients);
-state.jobs=Array.isArray(state.jobs)?state.jobs:[];
-state.holidays=Array.isArray(state.holidays)?state.holidays:[];
-state.settings={...defaultState.settings,...(state.settings||{})};
-state.photos={...defaultState.photos,...(state.photos||{})};
-let viewDate=key(),viewMonth=new Date(),timer={running:false,start:0,clientId:null,interval:null};
-function save(){try{localStorage.setItem('pureShineManagerV3',JSON.stringify(state))}catch(e){toast('Storage full. Export a backup and remove large photos.')}} 
-function toast(t){const el=$('toast');el.textContent=t;el.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.style.display='none',2500)}
-function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));render();window.scrollTo({top:0,behavior:'smooth'})}
-function modal(html){$('modalContent').innerHTML=html;$('modalBack').classList.add('show')}
-function closeModal(){$('modalBack').classList.remove('show')}
-function getClient(id){return state.clients.find(c=>String(c.id)===String(id))}
-function jobMinutes(j){return Number(j.minutes??Math.round(Number(j.hours||0)*60))}
-function jobValue(j){return jobMinutes(j)/60*Number(j.rate||getClient(j.clientId)?.rate||0)}
-function jobCard(j){const c=getClient(j.clientId)||{};return `<div class="job-card"><div class="job-head"><div><div class="job-name">${esc(j.name||c.name||'Client')}</div><div class="job-meta">${esc(j.date||'')} · ${esc(j.type||c.type||'Private')}</div></div><div class="job-time">${esc(j.start||'')} ${j.end?'– '+esc(j.end):''}</div></div><div class="job-money">${mins(jobMinutes(j))} · <strong>${money(jobValue(j))}</strong> · ${j.payment==='paid'?'Paid':'Payment due'}</div><div class="job-actions"><button class="btn" onclick="openJob('${esc(j.id)}')">✏️ Edit</button><button class="btn ${j.payment==='paid'?'paid':'unpaid'}" onclick="togglePaid('${esc(j.id)}')">${j.payment==='paid'?'✓ Paid':'Mark paid'}</button><button class="btn pdf" onclick="invoiceFor('${esc(j.id)}')">🧾 Invoice PDF</button>${j.payment!=='paid'?`<button class="btn payment-reminder-btn" onclick="sendPaymentReminder('${esc(j.id)}')">💌 Remind payment</button>`:''}<button class="btn" onclick="deleteJob('${esc(j.id)}')">🗑 Delete</button></div></div>`}
-function activeClients(){return state.clients.filter(c=>c.active)}
-function getScheduledJobs(date){const d=dateFrom(date),day=d.getDay();let jobs=state.jobs.filter(j=>j.date===date);const ids=new Set(jobs.map(j=>String(j.clientId)));activeClients().forEach(c=>{if(!c.days?.includes(day)||ids.has(String(c.id)))return;let include=c.frequency==='Weekly';if(c.frequency==='Fortnightly'){const epoch=Math.floor((d-new Date(2026,9,5))/86400000/7);include=((epoch%2)+2)%2===0;if(c.id==='sindu')include=!include}if(c.frequency==='Occasional'||c.frequency==='Every 3 weeks')include=false;if(include){jobs.push({id:'planned-'+c.id+'-'+date,clientId:c.id,name:c.name,type:c.type,rate:c.rate,hours:c.hours,minutes:Math.round(c.hours*60),date,start:c.start,end:c.end,payment:'unpaid',planned:true})}});return jobs.sort((a,b)=>(a.start||'').localeCompare(b.start||''))}
-function todayJobs(){return getScheduledJobs(key())}
-function renderJobList(id,jobs){const el=$(id);if(!el)return;el.innerHTML=jobs.length?jobs.map(jobCard).join(''):'<div class="empty">No cleaning jobs planned here yet 🌸</div>'}
-function renderClients(){$('clientsList').innerHTML=state.clients.filter(c=>c.active).map(c=>`<div class="client"><div class="avatar">${esc(c.name.slice(0,1))}</div><div class="client-info"><div class="client-name">${esc(c.name)}</div><div class="client-sub">${esc(c.type)} · ${esc(c.frequency||'Weekly')} · ${c.phone?esc(c.phone):'No phone number'}</div></div><div class="rate">${money(c.rate)}/h</div><button class="btn" onclick="openClient('${esc(c.id)}')">Edit</button><button class="btn" onclick="removeClient('${esc(c.id)}')">×</button></div>`).join('')||'<div class="empty">Add your first client 💗</div>'}
-function renderEarnings(){const jobs=state.jobs.filter(j=>j.completed);const total=jobs.reduce((a,j)=>a+jobValue(j),0),paid=jobs.filter(j=>j.payment==='paid').reduce((a,j)=>a+jobValue(j),0);$('earnTotal').textContent=money(total);$('earnPaid').textContent=money(paid);$('earnOwed').textContent=money(total-paid);$('earningsList').innerHTML=jobs.length?jobs.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(jobCard).join(''):'<div class="empty">Complete a cleaning first. Your hours and earnings will appear here.</div>'}
-function renderCalendar(){const y=viewMonth.getFullYear(),m=viewMonth.getMonth();$('calendarMonth').textContent=viewMonth.toLocaleDateString('en-GB',{month:'long',year:'numeric'});const first=new Date(y,m,1),start=new Date(y,m,1-first.getDay()),labels=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];let html=labels.map(x=>`<div class="day"><strong>${x}</strong></div>`).join('');for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const k=key(d),n=getScheduledJobs(k).length;html+=`<button class="day ${n?'has':''}" onclick="viewDate='${k}';go('schedule')"><strong>${d.getDate()}</strong>${n?`${n} job${n===1?'':'s'}`:''}</button>`}$('calendarGrid').innerHTML=html}
-function renderSettings(){['ownerName','businessName','defaultRate','invoicePrefix','invoiceNext','reminderStyle','appSize'].forEach(id=>{const el=$(id);if(el)el.value=state.settings[id]??''});$('profilePreview').src=state.photos.profile||$('headerPhoto').src;$('bannerPreview').src=state.photos.banner||$('homeBanner').src;['largerText','compact','highContrast'].forEach(k=>{const b=$('toggle-'+k);if(b)b.classList.toggle('on',!!state.settings[k])})}
-function applyUI(){document.body.classList.toggle('large-text',!!state.settings.largerText);document.body.classList.toggle('compact',!!state.settings.compact);document.body.classList.toggle('high-contrast',!!state.settings.highContrast);document.documentElement.style.setProperty('--scale',Number(state.settings.appSize||1));if(state.photos.profile)$('headerPhoto').src=state.photos.profile;if(state.photos.banner)$('homeBanner').src=state.photos.banner}
-function render(){applyUI();$('todayTitle').textContent=formatDate();const jobs=todayJobs(),completed=jobs.filter(j=>j.completed);$('jobsToday').textContent=jobs.length;$('hoursToday').textContent=completed.length?mins(completed.reduce((a,j)=>a+jobMinutes(j),0)):'—';$('earnedToday').textContent=completed.length?money(completed.reduce((a,j)=>a+jobValue(j),0)):'—';$('availableToday').textContent=completed.length?mins(Math.max(0,Number(state.settings.workingHours||8)*60-completed.reduce((a,j)=>a+jobMinutes(j),0))):'—';renderJobList('todayJobs',jobs);$('calendarTitle').textContent=formatDate(viewDate);renderJobList('scheduleJobs',getScheduledJobs(viewDate));renderClients();renderEarnings();renderCalendar();renderSettings()}
-function openJob(id){let j=id?state.jobs.find(x=>String(x.id)===String(id)):null;if(id&&!j){toast('Save the scheduled job before editing');return}const clients=activeClients();modal(`<h2>${j?'Edit cleaning job':'Add cleaning job'}</h2><div class="form"><label>Client<select id="jobClient">${clients.map(c=>`<option value="${esc(c.id)}" ${j&&j.clientId===c.id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label><div class="form-row"><label>Date<input id="jobDate" type="date" value="${esc(j?.date||viewDate)}"></label><label>Rate (£/hour)<input id="jobRate" type="number" min="0" step=".5" value="${j?.rate??clients[0]?.rate??18}"></label></div><div class="form-row"><label>Start time<input id="jobStart" type="time" value="${esc(j?.start||'09:00')}"></label><label>End time<input id="jobEnd" type="time" value="${esc(j?.end||'11:00')}"></label></div><div class="form-row"><label>Hours<input id="jobHours" type="number" min="0" step=".25" value="${j?.hours??2}"></label><label>Payment<select id="jobPayment"><option value="unpaid" ${j?.payment!=='paid'?'selected':''}>Unpaid</option><option value="paid" ${j?.payment==='paid'?'selected':''}>Paid</option></select></label></div><label>Notes<textarea id="jobNotes">${esc(j?.notes||'')}</textarea></label></div><div class="modal-actions"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveJob('${esc(j?.id||'')}')">Save job</button></div>`);$('jobClient').onchange=()=>{const c=getClient($('jobClient').value);if(c)$('jobRate').value=c.rate};$('jobStart').onchange=calculateHours;$('jobEnd').onchange=calculateHours}
-function calculateHours(){const a=$('jobStart').value.split(':').map(Number),b=$('jobEnd').value.split(':').map(Number);if(a.length===2&&b.length===2){let n=b[0]*60+b[1]-(a[0]*60+a[1]);if(n<0)n+=1440;$('jobHours').value=(n/60).toFixed(2)}}
-function saveJob(id){const c=getClient($('jobClient').value);if(!c){toast('Choose a client');return}const start=$('jobStart').value,end=$('jobEnd').value,hours=Number($('jobHours').value||0);const j={id:id||'job-'+Date.now(),clientId:c.id,name:c.name,type:c.type,rate:Number($('jobRate').value||c.rate),hours,minutes:Math.round(hours*60),date:$('jobDate').value||key(),start,end,payment:$('jobPayment').value,completed:true,notes:$('jobNotes').value};const idx=state.jobs.findIndex(x=>String(x.id)===String(id));if(idx>=0)state.jobs[idx]=j;else state.jobs.push(j);viewDate=j.date;save();closeModal();render();toast('Cleaning job saved ✓')}
-function togglePaid(id){const j=state.jobs.find(x=>String(x.id)===String(id));if(!j){toast('Complete and save this job first');return}j.payment=j.payment==='paid'?'unpaid':'paid';save();render();toast(j.payment==='paid'?'Payment marked as paid ✓':'Payment marked as unpaid')}
-function deleteJob(id){if(!confirm('Delete this cleaning job?'))return;state.jobs=state.jobs.filter(j=>String(j.id)!==String(id));save();render();toast('Job deleted')}
-function openClient(id){const c=id?getClient(id):null;modal(`<h2>${c?'Edit client':'Add client'}</h2><div class="form"><label>Client name<input id="clientName" value="${esc(c?.name||'')}" required></label><label>Phone number<input id="clientPhone" type="tel" value="${esc(c?.phone||'')}"></label><div class="form-row"><label>Client type<select id="clientType"><option ${c?.type==='Private'?'selected':''}>Private</option><option ${c?.type==='Agency'?'selected':''}>Agency</option></select></label><label>Hourly rate (£)<input id="clientRate" type="number" min="0" step=".5" value="${c?.rate??state.settings.defaultRate}"></label></div><div class="form-row"><label>Usual hours<input id="clientHours" type="number" min=".25" step=".25" value="${c?.hours??2}"></label><label>Frequency<select id="clientFrequency">${['Weekly','Fortnightly','Every 3 weeks','Occasional'].map(x=>`<option ${c?.frequency===x?'selected':''}>${x}</option>`).join('')}</select></label></div><div class="form-row"><label>Usual start<input id="clientStart" type="time" value="${esc(c?.start||'09:00')}"></label><label>Usual end<input id="clientEnd" type="time" value="${esc(c?.end||'11:00')}"></label></div><label>Notes<textarea id="clientNotes">${esc(c?.notes||'')}</textarea></label></div><div class="modal-actions"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveClient('${esc(c?.id||'')}')">Save client</button></div>`)}
-function saveClient(id){const name=$('clientName').value.trim();if(!name){toast('Enter a client name');return}const c={id:id||name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+Date.now(),name,phone:$('clientPhone').value.trim(),type:$('clientType').value,rate:Number($('clientRate').value||18),hours:Number($('clientHours').value||2),frequency:$('clientFrequency').value,start:$('clientStart').value,end:$('clientEnd').value,days:id?(getClient(id)?.days||[]):[],active:true,notes:$('clientNotes').value};const idx=state.clients.findIndex(x=>String(x.id)===String(id));if(idx>=0)state.clients[idx]={...state.clients[idx],...c};else state.clients.push(c);save();closeModal();render();toast('Client saved ✓')}
-function removeClient(id){const c=getClient(id);if(!c)return;if(!confirm(`Remove ${c.name} from your active client list?`))return;c.active=false;save();render();toast('Client removed')}
-function openReminder(){const clients=activeClients();if(!clients.length){toast('Add a client first');return}modal(`<h2>💌 Client reminder</h2><div class="form"><label>Client<select id="rmclient">${clients.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('')}</select></label><label>Message<textarea id="rmtext" rows="5">Hi, just a friendly reminder about our upcoming cleaning. See you then! Thank you, ${esc(state.settings.ownerName)} – ${esc(state.settings.businessName)} ✨</textarea></label></div><div class="modal-actions"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="sendReminder()">Send message</button></div>`)}
-function sendReminder(){const c=getClient($('rmclient')?.value);if(!c)return;const message=$('rmtext')?.value||'';const phone=String(c.phone||'').replace(/[^\d+]/g,'');closeModal();if(phone){location.href='sms:'+phone+( /iPhone|iPad|iPod/i.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(message);return}if(navigator.share){navigator.share({title:'Cleaning reminder',text:message}).catch(()=>{});return}if(navigator.clipboard?.writeText)navigator.clipboard.writeText(message).then(()=>toast('Message copied ✓')).catch(()=>prompt('Copy message:',message));else prompt('Copy message:',message)}
-function openPaymentReminder(){const owed=state.jobs.filter(j=>j.payment!=='paid'&&j.completed);if(!owed.length){toast('No unpaid completed jobs found');return}modal(`<h2>💷 Payment reminder</h2><div class="form"><label>Unpaid cleaning job<select id="paymentJob">${owed.map(j=>`<option value="${esc(j.id)}">${esc(j.name)} · ${esc(j.date)} · ${money(jobValue(j))}</option>`).join('')}</select></label><label>Message style<select id="paymentStyle"><option>Friendly</option><option>Professional</option><option>Short</option></select></label><label>Message preview<textarea id="paymentText" rows="6"></textarea></label></div><div class="modal-actions"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn" onclick="copyPaymentReminder()">Copy message</button><button class="btn primary" onclick="sendPaymentReminder($('paymentJob').value)">Send message</button></div>`);$('paymentJob').onchange=updatePaymentMessage;$('paymentStyle').onchange=updatePaymentMessage;updatePaymentMessage()}
-function updatePaymentMessage(){const j=state.jobs.find(x=>String(x.id)===String($('paymentJob')?.value));if(!j)return;const c=getClient(j.clientId)||{},amount=jobValue(j),style=$('paymentStyle')?.value||state.settings.reminderStyle;let text;if(style==='Professional')text=`Hi ${c.name||j.name}, this is a friendly reminder that payment of ${money(amount)} for your cleaning on ${j.date} is still outstanding. Please let me know once payment has been made. Thank you, ${state.settings.ownerName} – ${state.settings.businessName}.`;else if(style==='Short')text=`Hi ${c.name||j.name}, a quick reminder that ${money(amount)} for your cleaning on ${j.date} is still outstanding. Thank you!`;else text=`Hi ${c.name||j.name} 💗 Just a little reminder that ${money(amount)} for your cleaning on ${j.date} is still outstanding. Thank you so much! ✨`;if($('paymentText'))$('paymentText').value=text}
-function copyPaymentReminder(){const text=$('paymentText')?.value||'';if(navigator.clipboard?.writeText)navigator.clipboard.writeText(text).then(()=>toast('Payment reminder copied ✓')).catch(()=>prompt('Copy payment reminder:',text));else prompt('Copy payment reminder:',text)}
-function sendPaymentReminder(id){const j=state.jobs.find(x=>String(x.id)===String(id));if(!j){toast('Job not found');return}if(j.payment==='paid'){toast('This job is already marked as paid');return}const c=getClient(j.clientId)||{},message=$('paymentText')?.value||`Hi ${c.name||j.name}, just a reminder that ${money(jobValue(j))} for your cleaning on ${j.date} is still outstanding. Thank you!`;const phone=String(c.phone||'').replace(/[^\d+]/g,'');closeModal();if(phone){location.href='sms:'+phone+( /iPhone|iPad|iPod/i.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(message);return}if(navigator.share){navigator.share({title:'Payment reminder',text:message}).catch(()=>{});return}if(navigator.clipboard?.writeText)navigator.clipboard.writeText(message).then(()=>toast('Payment reminder copied ✓')).catch(()=>prompt('Copy payment reminder:',message));else prompt('Copy payment reminder:',message)}
-function invoiceFor(id){const j=typeof id==='object'?id:state.jobs.find(x=>String(x.id)===String(id));if(!j){toast('Complete and save the job before creating an invoice');return}const {jsPDF}=window.jspdf||{};if(!jsPDF){toast('PDF library could not load');return}const doc=new jsPDF(),number=state.settings.invoicePrefix+String(state.settings.invoiceNext).padStart(5,'0');doc.setFillColor(249,222,234);doc.rect(0,0,210,35,'F');doc.setTextColor(155,89,117);doc.setFontSize(25);doc.text(state.settings.businessName||'Pure Shine Cleaning',18,18);doc.setFontSize(12);doc.text('Cleaning Service Invoice',18,26);doc.setTextColor(40,40,40);doc.setFontSize(18);doc.text('INVOICE',145,18);doc.setFontSize(10);doc.text(number,145,26);doc.text('Bill to: '+(j.name||getClient(j.clientId)?.name||'Client'),18,52);doc.text('Date: '+(j.date||key()),18,59);doc.text('Cleaning service',18,78);doc.text(mins(jobMinutes(j))+' × '+money(j.rate)+'/hour',18,87);doc.text('Total',145,87);doc.setFontSize(18);doc.text(money(jobValue(j)),145,97);doc.setFontSize(10);doc.text('Payment status: '+(j.payment==='paid'?'PAID':'NOT PAID'),18,149);doc.setTextColor(130,120,125);doc.text(state.settings.ownerName||'Georgiana Radu',18,166);doc.text('Thank you for choosing Pure Shine Cleaning.',18,174);doc.save(number+'-'+String(j.name||'Client').replace(/[^a-z0-9]+/gi,'-')+'.pdf');state.settings.invoiceNext=Number(state.settings.invoiceNext||1)+1;save();render();toast('Invoice PDF created ✓')}
-function updateSetting(k,v){state.settings[k]=['defaultRate','invoiceNext','appSize'].includes(k)?Number(v):v;save();applyUI()}
-function toggleSetting(k){state.settings[k]=!state.settings[k];save();applyUI();renderSettings();toast(state.settings[k]?'ON ✓':'OFF ✓')}
-function setScale(v){state.settings.appSize=Number(v);save();applyUI();renderSettings();toast('App size '+Math.round(Number(v)*100)+'%')}
-function uploadImage(event,type){const f=event.target.files?.[0];if(!f)return;if(f.size>2*1024*1024){toast('Choose an image under 2 MB');return}const reader=new FileReader();reader.onload=()=>{state.photos[type]=reader.result;save();applyUI();renderSettings();toast('Photo updated ✓')};reader.readAsDataURL(f)}
-function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Pure-Shine-Backup-'+key()+'.json';a.click();URL.revokeObjectURL(url);toast('Backup exported ✓')}
-function importData(event){const file=event.target.files?.[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!data.clients||!data.jobs)throw Error('Invalid backup');state={...defaultState,...data,settings:{...defaultState.settings,...data.settings},photos:{...defaultState.photos,...data.photos}};save();render();toast('Backup imported ✓')}catch(e){toast('Invalid backup file')}};reader.readAsText(file);event.target.value=''}
-function changeDay(n){const d=dateFrom(viewDate);d.setDate(d.getDate()+n);viewDate=key(d);render()}
-function goToday(){viewDate=key();go('schedule')}
-function changeMonth(n){viewMonth=new Date(viewMonth.getFullYear(),viewMonth.getMonth()+n,1);renderCalendar()}
-function startQuickTimer(){const c=activeClients()[0];if(!c){toast('Add a client first');return}if(timer.running){toast('Timer is already running');return}timer={running:true,start:Date.now(),clientId:c.id,interval:setInterval(updateTimerClocks,1000)};toast('Timer started for '+c.name+' — open the timer button to finish')}
-function updateTimerClocks(){const b=document.querySelector('.timer-live');if(b&&timer.running)b.textContent=mins(Math.floor((Date.now()-timer.start)/60000))}
-function stopTimer(){if(!timer.running)return;const minutes=Math.max(1,Math.round((Date.now()-timer.start)/60000)),c=getClient(timer.clientId);if(!c){timer.running=false;clearInterval(timer.interval);return}const j={id:'job-'+Date.now(),clientId:c.id,name:c.name,type:c.type,rate:c.rate,hours:minutes/60,minutes,date:key(),start:new Date(timer.start).toTimeString().slice(0,5),end:new Date().toTimeString().slice(0,5),payment:'unpaid',completed:true};state.jobs.push(j);timer.running=false;clearInterval(timer.interval);save();render();toast('Timer stopped — '+mins(minutes));if(confirm('Create an invoice for this job?'))invoiceFor(j)}
-function timerAction(){if(timer.running){if(confirm('Stop the timer and save the job?'))stopTimer()}else startQuickTimer()}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-document.addEventListener('DOMContentLoaded',()=>{applyUI();render()});
-applyUI();render();
-</script>
-<style>
-/* Stable sizing and accessible app zoom */
-html,body{width:100%;max-width:100%;overflow-x:hidden}
-.app{zoom:1!important;width:100%!important;max-width:100%!important;min-height:100vh;transform:none!important}
-#app,main,.screen,.page{max-width:100%}
-button,input,select,textarea{max-width:100%}
-.job-actions .payment-reminder-btn{background:#fff4df;border:1px solid #e7c57b;color:#75521b}
-</style>
-</body>
-</html>
