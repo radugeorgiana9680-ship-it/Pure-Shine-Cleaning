@@ -1,30 +1,33 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#f7dbe7">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-title" content="Pure Shine">
+<meta name="theme-color" content="#fff8f5">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./pure-shine-icon-512.png">
 <title>Pure Shine Cleaning Manager</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Parisienne&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
 :root {
-  --pink: #d96f9a;
-  --pink2: #f5d8e5;
-  --pink3: #fff5f9;
-  --rose: #9b5975;
-  --ink: #25232a;
-  --muted: #8f8990;
-  --line: #edd4df;
-  --blue: #dce9fa;
-  --green: #dff2e9;
-  --yellow: #fff0c7;
-  --purple: #e9ddf7;
-  --peach: #f5ddd8;
-  --scale: 1.25;
-  --bottom: 94px;
+  --pink: #d96b98;
+  --soft-pink: #f9e8ef;
+  --pale: #fffaf7;
+  --wine: #98647a;
+  --ink: #514650;
+  --muted: #94838b;
+  --line: #ead8d5;
+  --gold: #e5c68a;
+  --gold-light: #fff4dc;
+  --green: #e5f2e7;
+  --purple: #eee5f4;
+  --zoom: 1;
+  --text-size: 15px;
 }
 
 * {
@@ -32,285 +35,326 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-html,
+html {
+  min-height: 100%;
+  background: var(--pale);
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
-  width: 100%;
-  min-height: 100%;
-  background: #fff8fb;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse at 0% 0%, #f9e9ee 0, transparent 28%),
+    radial-gradient(ellipse at 100% 20%, #fff0d9 0, transparent 24%),
+    var(--pale);
   color: var(--ink);
   font-family: 'DM Sans', Arial, sans-serif;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
+  font-size: calc(var(--text-size) * var(--zoom));
 }
 
-body {
-  overflow-x: hidden;
-  font-size: 18px;
-}
-
-button,
-input,
-select,
-textarea {
+button, input, select, textarea {
   font: inherit;
 }
 
 button {
-  border: 0;
   cursor: pointer;
   touch-action: manipulation;
-  min-height: 44px;
 }
 
-.app {
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
-  background: linear-gradient(#fffafd, #fff);
-  padding-bottom: calc(var(--bottom) + env(safe-area-inset-bottom));
-  font-size: 1rem;
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #d96b9880;
+  outline-offset: 2px;
 }
 
-.top {
-  padding: 20px 20px 12px;
-  background: #fff;
-  border-bottom: 1px solid #f2dfe7;
+button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+header {
   position: sticky;
   top: 0;
   z-index: 20;
+  background: #fffaf7f5;
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 15px;
 }
 
 .toprow {
+  max-width: 900px;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  max-width: 1100px;
-  margin: auto;
+  gap: 10px;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   min-width: 0;
 }
 
-.profile {
-  width: 62px;
-  height: 62px;
+.logo {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
   border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #f2d4e1;
-  box-shadow: 0 4px 16px #d9a5b633;
-  flex: none;
-  background: #fff;
-}
-
-.brandtext {
-  min-width: 0;
+  background: linear-gradient(145deg, #fff, #f8e3ec 70%, #fff1d5);
+  border: 1.5px solid var(--gold);
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  box-shadow: 0 3px 12px #b9858d18;
 }
 
 .brandname {
-  font-family: Parisienne, cursive;
-  color: #9e5976;
-  font-size: clamp(32px, 4.8vw, 52px);
-  line-height: 1;
+  font: 38px/1 'Parisienne', cursive;
+  color: var(--wine);
 }
 
 .subtitle {
-  font-size: 15px;
+  font-size: 10px;
   color: var(--muted);
+  letter-spacing: .13em;
   margin-top: 5px;
 }
 
-.top-actions {
-  display: flex;
-  gap: 10px;
+.iconbtn {
+  background: var(--soft-pink);
+  color: var(--wine);
+  border-radius: 13px;
+  padding: 11px 13px;
+  border: 1px solid #efd5df;
 }
 
-.icon-btn {
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
-  background: #fbe5ef;
-  color: var(--rose);
-  font-size: 25px;
-  box-shadow: 0 5px 15px #d99ab21c;
-}
-
-.icon-btn.active {
-  background: var(--pink);
-  color: #fff;
+main {
+  max-width: 900px;
+  margin: auto;
 }
 
 .page {
   display: none;
-  max-width: 1100px;
-  margin: auto;
-  padding: 20px 20px 36px;
+  padding: 17px 14px 110px;
 }
 
 .page.active {
   display: block;
 }
 
-.date-card {
-  background: linear-gradient(135deg, #f9e4ed, #fff9fc);
-  border: 1px solid var(--line);
-  border-radius: 25px;
-  padding: 25px 28px;
+.heading {
+  font-size: 24px;
+  color: var(--wine);
+  font-weight: 800;
+  margin: 4px 0 16px;
+}
+
+.datecard {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 2px 0 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 21px;
+  padding: 15px;
+  margin-bottom: 14px;
+  box-shadow: 0 5px 18px #9f65750b;
 }
 
-.date-title {
-  font-size: clamp(23px, 3vw, 34px);
+.dateleft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.daynum {
+  width: 57px;
+  height: 57px;
+  border-radius: 17px;
+  background: var(--soft-pink);
+  border: 1px solid #f0d5e0;
+  color: var(--pink);
+  display: grid;
+  place-items: center;
+  font-size: 27px;
   font-weight: 800;
-  color: #9e5976;
 }
 
-.date-sub {
+.weekday {
+  font-weight: 800;
+  font-size: 19px;
+}
+
+.datelabel {
+  font-size: 12px;
   color: var(--muted);
-  font-size: 16px;
-  margin-top: 5px;
-}
-
-.heart {
-  font-size: 42px;
-  color: #a45d79;
+  margin-top: 3px;
 }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-bottom: 22px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 14px 0 22px;
 }
 
 .stat {
   border: 1px solid var(--line);
-  border-radius: 22px;
-  background: #fff;
-  padding: 18px 14px;
-  min-height: 118px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  border-radius: 17px;
+  padding: 11px;
+  min-width: 0;
 }
 
 .stat:nth-child(1) {
-  background: #f4dbe8;
+  background: linear-gradient(145deg, #fff1f6, #fae5ef);
 }
 
 .stat:nth-child(2) {
-  background: #dce9fa;
+  background: linear-gradient(145deg, #f8f0fc, #eee4f5);
 }
 
 .stat:nth-child(3) {
-  background: #ddf1e8;
-}
-
-.stat:nth-child(4) {
-  background: #fff0c8;
-}
-
-.stat-icon {
-  font-size: 28px;
-  margin-bottom: 7px;
-}
-
-.stat-value {
-  font-size: 26px;
-  font-weight: 800;
+  background: linear-gradient(145deg, #fff9e9, #f8edcf);
 }
 
 .stat-label {
-  font-size: 14px;
-  color: #68636a;
-  margin-top: 4px;
-}
-
-.section-title {
-  font-size: 24px;
+  font-size: 10px;
   font-weight: 800;
-  margin: 22px 2px 12px;
-}
-
-.seeall {
-  float: right;
-  font-size: 15px;
-  color: #9b5975;
+  color: #77717b;
   margin-top: 5px;
-  cursor: pointer;
 }
 
-.schedule-box {
-  background: #fff;
-  border-radius: 25px;
-  padding: 12px;
-  border: 1px solid #f0dce5;
-  box-shadow: 0 8px 25px #b96d8b0d;
+.stat-value {
+  font-size: clamp(16px, 4vw, 24px);
+  font-weight: 800;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
 }
 
-.job-card {
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 19px;
-  margin-bottom: 10px;
-  background: #fff;
-}
-
-.job-head {
+.sectionhead {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 15px;
-}
-
-.job-name {
-  font-size: 21px;
-  font-weight: 800;
-}
-
-.job-time {
-  font-size: 20px;
-  font-weight: 800;
-  color: #9b5975;
-  white-space: nowrap;
-}
-
-.job-meta {
-  font-size: 15px;
-  color: var(--muted);
-  margin-top: 6px;
-}
-
-.job-money {
-  font-size: 17px;
-  color: #858087;
-  margin-top: 14px;
-}
-
-.job-money strong {
-  color: #9b5975;
-}
-
-.job-actions {
-  display: flex;
-  gap: 8px;
   flex-wrap: wrap;
-  margin-top: 14px;
+  gap: 8px;
+  margin: 19px 0 10px;
+}
+
+.sectiontitle {
+  font-size: 19px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.textlink {
+  border: 0;
+  background: none;
+  color: var(--pink);
+  font-weight: 800;
+  font-size: 12px;
+  padding: 8px;
+}
+
+.jobgrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.jobcard,
+.panel,
+.clientrow,
+.summarycard {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 4px 15px #9f657508;
+}
+
+.jobcard {
+  padding: 13px;
+  min-width: 0;
+}
+
+.jobtop {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+}
+
+.timepill {
+  width: 76px;
+  min-width: 76px;
+  min-height: 58px;
+  border-radius: 15px;
+  background: #f7edf6;
+  border: 1px solid #e7d6e8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5px;
+}
+
+.timepill strong {
+  font-size: 13px;
+}
+
+.timepill span {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.jobdetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.jobname {
+  font-weight: 800;
+  font-size: 17px;
+  overflow-wrap: anywhere;
+  line-height: 1.25;
+}
+
+.jobmeta,
+.jobphone {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}
+
+.jobline {
+  border-top: 1px solid #f1e3e9;
+  margin: 12px 0;
+}
+
+.jobactions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .btn {
-  padding: 12px 15px;
-  border-radius: 13px;
-  font-weight: 700;
-  background: #f7e8ef;
-  color: #955873;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 10px 11px;
+  background: var(--soft-pink);
+  color: var(--wine);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
 .btn.primary {
@@ -318,433 +362,1733 @@ button {
   color: #fff;
 }
 
-.btn.pdf {
-  background: #f8ecd4;
-  color: #8b7045;
+.btn.start {
+  background: #eee5f4;
+  color: #76548f;
+  border-color: #e1d2ec;
+}
+
+.btn.delete {
+  background: #fae5e4;
+  color: #a44d55;
+  border-color: #f1d0ce;
+}
+
+.btn.invoice {
+  background: var(--gold-light);
+  color: #8a6b3f;
+  border-color: #eedeb9;
 }
 
 .btn.paid {
-  background: #dcefe5;
-  color: #397459;
-}
-
-.btn.unpaid {
-  background: #eee;
-  color: #777;
-}
-
-.add-job {
-  width: 100%;
-  margin-top: 5px;
-  padding: 16px;
-  border-radius: 18px;
-  background: var(--pink);
-  color: #fff;
-  font-weight: 800;
-  font-size: 18px;
-}
-
-.quick-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.quick {
-  min-height: 78px;
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  font-weight: 700;
-  font-size: 17px;
-  color: #45607d;
-}
-
-.quick.blue {
-  background: var(--blue);
-}
-
-.quick.green {
   background: var(--green);
-  color: #4e7868;
+  color: #427857;
+  border-color: #d4e9d8;
 }
 
-.quick.pink {
-  background: #f2d9e5;
-  color: #8d5871;
-}
-
-.quick.yellow {
-  background: var(--yellow);
-  color: #8d7444;
-}
-
-.quick.purple {
-  background: var(--purple);
-  color: #76588c;
-}
-
-.quick.peach {
-  background: var(--peach);
-  color: #946358;
-}
-
-.banner {
-  width: 100%;
-  height: auto;
-  max-height: 260px;
-  object-fit: contain;
-  border-radius: 22px;
-  margin-top: 18px;
+.block {
   display: block;
+  width: 100%;
 }
 
-.fab {
-  position: fixed;
-  right: 24px;
-  bottom: calc(var(--bottom) + 22px);
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--pink);
-  color: #fff;
-  font-size: 36px;
-  box-shadow: 0 8px 24px #b968882e;
-  z-index: 35;
+.timerdisplay {
+  margin-top: 12px;
+  background: linear-gradient(135deg, #fffaf0, #fff0d3);
+  color: #8c6b39;
+  border: 1px solid var(--gold);
+  padding: 15px 12px;
+  border-radius: 15px;
+  font-weight: 800;
+  font-size: 25px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .07em;
+  box-shadow: inset 0 1px 0 #fff;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  background: #fff;
+  border: 1px dashed var(--line);
+  border-radius: 18px;
+  padding: 24px 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .bottom {
   position: fixed;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  height: var(--bottom);
-  padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
-  background: #fff;
-  box-shadow: 0 -5px 25px #c7819a18;
-  z-index: 30;
+  height: calc(76px + env(safe-area-inset-bottom));
+  padding: 6px 5px calc(5px + env(safe-area-inset-bottom));
+  background: #fffdfcfa;
+  border-top: 1px solid var(--line);
+  box-shadow: 0 -4px 22px #c7819a16;
+  z-index: 22;
 }
 
 .nav {
+  max-width: 900px;
   height: 100%;
-  max-width: 1100px;
   margin: auto;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 5px;
+  gap: 4px;
 }
 
 .nav button {
+  border: 0;
+  border-radius: 13px;
   background: transparent;
-  color: #8e8990;
-  border-radius: 19px;
+  color: #89818d;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 4px;
-  font-size: 14px;
-}
-
-.nav button .nav-icon {
-  font-size: 27px;
-  line-height: 1;
-}
-
-.nav button.active {
-  background: #f8dfeb;
-  color: #9b5975;
-  font-weight: 800;
-}
-
-.settings-list {
-  display: grid;
-  gap: 10px;
-}
-
-.settings-section {
-  font-size: 15px;
-  letter-spacing: .08em;
-  color: #98617a;
-  font-weight: 800;
-  margin: 18px 3px 3px;
-  text-transform: uppercase;
-}
-
-.setting {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 15px;
-  display: flex;
   align-items: center;
-  gap: 13px;
-  min-height: 76px;
-}
-
-.setting-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 15px;
-  background: #f9e3ed;
-  display: grid;
-  place-items: center;
-  font-size: 25px;
-  flex: none;
-}
-
-.setting-main {
-  flex: 1;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 700;
   min-width: 0;
 }
 
-.setting-title {
-  font-weight: 800;
-  font-size: 18px;
+.nav button.active {
+  background: var(--soft-pink);
+  color: var(--pink);
 }
 
-.setting-desc {
-  color: var(--muted);
-  font-size: 14px;
-  margin-top: 4px;
+.navicon {
+  font-size: 21px;
 }
 
-.setting-control {
-  flex: none;
-}
-
-.select,
-.text-input {
-  border: 0;
-  background: #fff2f7;
-  color: #955873;
-  border-radius: 12px;
-  padding: 11px 12px;
-  font-weight: 700;
-  max-width: 150px;
-}
-
-.switch {
-  width: 58px;
-  height: 34px;
-  background: #ddd;
-  border-radius: 20px;
-  padding: 3px;
-  transition: .2s;
-}
-
-.switch i {
-  display: block;
-  width: 28px;
-  height: 28px;
+.fab {
+  position: fixed;
+  z-index: 25;
+  right: 17px;
+  bottom: calc(91px + env(safe-area-inset-bottom));
+  width: 57px;
+  height: 57px;
   border-radius: 50%;
-  background: #fff;
-  transition: .2s;
-  box-shadow: 0 1px 4px #0002;
+  background: linear-gradient(145deg, #e98bb0, #d96b98);
+  color: white;
+  font-size: 32px;
+  box-shadow: 0 7px 22px #cf528b35;
+  border: 1px solid #e7a2bc;
 }
 
-.switch.on {
-  background: var(--pink);
-}
-
-.switch.on i {
-  transform: translateX(24px);
-}
-
-.save-all {
-  width: 100%;
-  padding: 16px;
-  border-radius: 17px;
-  background: var(--pink);
-  color: #fff;
-  font-weight: 800;
-  margin-top: 12px;
-  font-size: 18px;
-}
-
-.page-title {
-  font-size: 30px;
-  font-weight: 800;
-  color: #9b5975;
-  margin: 6px 0 16px;
-}
-
-.empty {
-  background: #fff;
-  border: 1px dashed var(--line);
-  border-radius: 22px;
-  padding: 30px;
-  text-align: center;
-  color: var(--muted);
-}
-
-.list {
-  display: grid;
-  gap: 10px;
-}
-
-.client {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 18px;
+.panel {
   padding: 15px;
+  margin-bottom: 12px;
+}
+
+.panel h3 {
+  color: var(--wine);
+  margin-top: 0;
+}
+
+.clientrow {
   display: flex;
   align-items: center;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
 }
 
 .avatar {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: #f5dce7;
-  color: #9b5975;
   display: grid;
   place-items: center;
+  background: var(--soft-pink);
+  border: 1px solid #efd5df;
+  color: var(--wine);
   font-weight: 800;
+  flex-shrink: 0;
 }
 
-.client-info {
+.clientinfo {
+  min-width: 0;
   flex: 1;
 }
 
-.client-name {
+.clientname {
   font-weight: 800;
-  font-size: 18px;
+  overflow-wrap: anywhere;
 }
 
-.client-sub {
-  font-size: 14px;
+.clientmeta {
+  font-size: 11px;
   color: var(--muted);
-  margin-top: 3px;
+  margin-top: 4px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .rate {
   font-weight: 800;
-  color: #9b5975;
+  color: var(--wine);
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .toolbar {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
+  gap: 7px;
   margin-bottom: 12px;
 }
 
 .toolbar .btn {
   flex: 1;
-  min-width: 110px;
 }
 
-.earning-summary {
+.summary3 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
-.earning-card {
-  background: #fff;
+.summarycard {
+  padding: 12px 9px;
+}
+
+.summarycard span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.summarycard strong {
+  display: block;
+  color: var(--wine);
+  font-size: 20px;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.field label {
+  font-size: 12px;
+  color: #776f7b;
+  font-weight: 800;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-width: 0;
   border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 16px;
+  border-radius: 12px;
+  background: #fffdfb;
+  padding: 12px;
+  color: var(--ink);
 }
 
-.earning-card b {
-  font-size: 22px;
-  color: #9b5975;
+.field input[type="checkbox"] {
+  width: auto;
+  accent-color: var(--pink);
+}
+
+.formgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
 }
 
 .calendar {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
 }
 
-.day {
+.calhead,
+.calday {
+  border-radius: 9px;
+  text-align: center;
+  padding: 7px 1px;
+  font-size: 10px;
+}
+
+.calhead {
+  font-weight: 800;
+  color: var(--wine);
+}
+
+.calday {
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 9px 3px;
-  min-height: 65px;
-  text-align: center;
-  font-size: 13px;
+  min-height: 52px;
+  color: var(--ink);
 }
 
-.day strong {
+.calday.has {
+  background: var(--soft-pink);
+  border-color: #edcbd9;
+}
+
+.calday.holiday {
+  background: var(--gold-light);
+  border-color: var(--gold);
+}
+
+.calday strong {
   display: block;
-  font-size: 15px;
+  font-size: 12px;
 }
 
-.day.has {
-  background: #f8e2eb;
+.calday small {
+  display: block;
+  font-size: 8px;
+  margin-top: 3px;
+  color: var(--wine);
+  overflow-wrap: anywhere;
 }
 
-.modal-back {
+.zoomrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.zoomrow input {
+  width: 100%;
+  accent-color: var(--pink);
+}
+
+.small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.modalback {
+  display: none;
   position: fixed;
   inset: 0;
-  background: #1f152066;
-  z-index: 100;
-  display: none;
+  z-index: 80;
+  background: #2a172266;
   align-items: flex-end;
   justify-content: center;
+  padding-top: 20px;
 }
 
-.modal-back.show {
+.modalback.show {
   display: flex;
 }
 
 .modal {
-  background: #fff;
-  width: min(100%, 650px);
-  max-height: 90dvh;
+  width: min(100%, 600px);
+  max-height: 92dvh;
   overflow: auto;
-  border-radius: 28px 28px 0 0;
-  padding: 20px;
+  background: linear-gradient(180deg, #fffdfb, #fff);
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-radius: 25px 25px 0 0;
+  padding: 20px 17px calc(22px + env(safe-area-inset-bottom));
+  box-shadow: 0 -8px 40px #0002;
 }
 
 .modal h2 {
-  margin: 0 0 15px;
-  color: #9b5975;
+  margin: 0 0 16px;
+  color: var(--wine);
+  font-size: 22px;
 }
 
-.form {
-  display: grid;
-  gap: 10px;
-}
-
-.form label {
-  font-size: 14px;
-  color: #777;
-  font-weight: 700;
-}
-
-.form input,
-.form select,
-.form textarea {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid var(--line);
-  border-radius: 13px;
-  background: #fff;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.modal-actions {
+.modalbuttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 14px;
 }
 
-.modal-actions button {
+.modalbuttons .btn {
   flex: 1;
+  padding: 13px;
 }
 
-/* Zoom and timer styles continue in the next part. */
+.toast {
+  position: fixed;
+  z-index: 120;
+  left: 50%;
+  bottom: calc(91px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  max-width: 90vw;
+  background: #51414b;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 13px;
+  font-size: 12px;
+  font-weight: 800;
+  display: none;
+  box-shadow: 0 4px 15px #0002;
+}
+
+@media(max-width:520px) {
+  .jobgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .stats {
+    gap: 6px;
+  }
+
+  .stat {
+    padding: 10px 8px;
+  }
+
+  .formgrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .brandname {
+    font-size: 34px;
+  }
+
+  .clientrow .btn {
+    padding: 9px;
+  }
+}
+
+@media(min-width:700px) {
+  .modalback {
+    align-items: center;
+  }
+
+  .modal {
+    border-radius: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+@media(prefers-reduced-motion:no-preference) {
+  .btn,
+  .iconbtn,
+  .fab,
+  .nav button,
+  .calday {
+    transition: background-color .15s ease, transform .15s ease;
+  }
+
+  .btn:active,
+  .fab:active,
+  .calday:active {
+    transform: scale(.98);
+  }
+}
 </style>
+</head>
+
+<body>
+<div class="app">
+<header>
+  <div class="toprow">
+    <div class="brand">
+      <div class="logo">✨</div>
+      <div>
+        <div class="brandname">Pure Shine</div>
+        <div class="subtitle">CLEANING MANAGER</div>
+      </div>
+    </div>
+    <button class="iconbtn" onclick="showPage('settings')" aria-label="Settings">⚙️</button>
+  </div>
+</header>
+
+<main>
+<section class="page active" id="home">
+  <div class="datecard">
+    <div class="dateleft">
+      <div class="daynum" id="todayNum"></div>
+      <div>
+        <div class="weekday" id="todayWeekday"></div>
+        <div class="datelabel" id="todayDate"></div>
+      </div>
+    </div>
+    <div aria-hidden="true">🌸✨</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div>🧹</div>
+      <div class="stat-label">TODAY'S JOBS</div>
+      <div class="stat-value" id="todayJobsCount">0</div>
+    </div>
+    <div class="stat">
+      <div>⏱️</div>
+      <div class="stat-label">HOURS TODAY</div>
+      <div class="stat-value" id="todayHours">0h</div>
+    </div>
+    <div class="stat">
+      <div>💷</div>
+      <div class="stat-label">EARNED TODAY</div>
+      <div class="stat-value" id="todayEarned">£0.00</div>
+    </div>
+  </div>
+
+  <div class="sectionhead">
+    <h2 class="sectiontitle">Today's Schedule</h2>
+    <button class="textlink" onclick="showPage('schedule')">Calendar →</button>
+  </div>
+  <div id="todayList" class="jobgrid"></div>
+
+  <div class="sectionhead">
+    <h2 class="sectiontitle">Recent completed jobs</h2>
+    <button class="textlink" onclick="showPage('earnings')">View history →</button>
+  </div>
+  <div id="recentJobs" class="jobgrid"></div>
+</section>
+
+<section class="page" id="schedule">
+  <h1 class="heading">Schedule & Calendar</h1>
+
+  <div class="toolbar">
+    <button class="btn" onclick="changeMonth(-1)">‹ Previous</button>
+    <button class="btn" id="monthLabel" type="button"></button>
+    <button class="btn" onclick="changeMonth(1)">Next ›</button>
+  </div>
+
+  <div class="calendar" id="calendar"></div>
+
+  <div class="sectionhead">
+    <h2 class="sectiontitle">Appointments</h2>
+    <button class="btn primary" onclick="openJob()">＋ Add job</button>
+  </div>
+  <div id="allJobs"></div>
+
+  <div class="sectionhead">
+    <h2 class="sectiontitle">Holiday periods</h2>
+    <button class="btn" onclick="openHoliday()">＋ Add holiday</button>
+  </div>
+  <div id="holidays"></div>
+</section>
+
+<section class="page" id="clients">
+  <h1 class="heading">My Clients</h1>
+  <div class="toolbar">
+    <button class="btn primary" onclick="openClient()">＋ Add client</button>
+    <button class="btn" onclick="openReminder()">✉️ Send reminder</button>
+  </div>
+  <div id="clientList"></div>
+</section>
+
+<section class="page" id="earnings">
+  <h1 class="heading">Earnings & Job History</h1>
+
+  <div class="panel">
+    <div class="field">
+      <label for="earnPeriod">Show history</label>
+      <select id="earnPeriod" onchange="renderEarnings()">
+        <option value="month">This month</option>
+        <option value="all">All time</option>
+        <option value="year">This year</option>
+      </select>
+    </div>
+
+    <div class="summary3">
+      <div class="summarycard">
+        <span>Total earned</span>
+        <strong id="earnedTotal">£0.00</strong>
+      </div>
+      <div class="summarycard">
+        <span>Paid</span>
+        <strong id="paidTotal">£0.00</strong>
+      </div>
+      <div class="summarycard">
+        <span>Owed</span>
+        <strong id="owedTotal">£0.00</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="sectionhead">
+    <h2 class="sectiontitle">Completed jobs</h2>
+    <button class="btn" onclick="downloadBackup()">Backup</button>
+  </div>
+  <div id="earningJobs"></div>
+</section>
+
+<section class="page" id="settings">
+  <h1 class="heading">Settings</h1>
+
+  <div class="panel">
+    <h3>Display size</h3>
+    <p class="small">Adjust the app size. Your choice is saved automatically.</p>
+    <div class="zoomrow">
+      <button class="btn" onclick="setZoom(100)">100%</button>
+      <input id="zoomRange" type="range" min="100" max="200" step="5" value="125" oninput="setZoom(this.value)">
+      <strong id="zoomLabel">125%</strong>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Text size</h3>
+    <div class="field">
+      <label for="textSize">Text size</label>
+      <select id="textSize" onchange="setTextSize(this.value)">
+        <option value="normal">Normal</option>
+        <option value="large">Large</option>
+        <option value="xlarge">Extra large</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Business details</h3>
+    <div class="field">
+      <label for="businessName">Business name</label>
+      <input id="businessName" value="Pure Shine Cleaning">
+    </div>
+    <div class="field">
+      <label for="ownerName">Your name</label>
+      <input id="ownerName" placeholder="Business owner">
+    </div>
+    <div class="field">
+      <label for="invoicePrefix">Invoice prefix</label>
+      <input id="invoicePrefix" value="PS-">
+    </div>
+    <button class="btn primary block" onclick="saveSettings()">Save settings</button>
+  </div>
+
+  <div class="panel">
+    <h3>Data backup</h3>
+    <p class="small">Download a backup before replacing the published app. This does not clear your saved job history.</p>
+    <button class="btn primary block" onclick="downloadBackup()">Download backup</button>
+    <div class="field" style="margin-top:12px">
+      <label for="backupFile">Restore backup</label>
+      <input type="file" id="backupFile" accept=".json,application/json" onchange="restoreBackup(event)">
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Active timer</h3>
+    <p class="small">The timer uses its saved start time to calculate elapsed time when you return to the app.</p>
+    <div id="timerStatus" class="small">No active timer</div>
+    <button class="btn delete" onclick="stopAndClearTimer()">Stop and clear timer</button>
+  </div>
+</section>
+</main>
+
+<button class="fab" onclick="openJob()" aria-label="Add job">+</button>
+
+<nav class="bottom" aria-label="Main navigation">
+  <div class="nav">
+    <button class="active" data-page="home" onclick="showPage('home')"><span class="navicon">⌂</span>Home</button>
+    <button data-page="schedule" onclick="showPage('schedule')"><span class="navicon">▦</span>Schedule</button>
+    <button data-page="clients" onclick="showPage('clients')"><span class="navicon">♡</span>Clients</button>
+    <button data-page="earnings" onclick="showPage('earnings')"><span class="navicon">£</span>Earnings</button>
+    <button data-page="settings" onclick="showPage('settings')"><span class="navicon">⚙</span>Settings</button>
+  </div>
+</nav>
+</div>
+
+<div class="modalback" id="modalback" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal"></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+
+/*
+  IMPORTANT:
+  This app uses the localStorage key "pureShineState".
+  If your currently published app uses a different database key or data format,
+  this code cannot guarantee automatic migration of that app's saved data.
+  Download a backup from your existing app before replacing its code.
+*/
+const DB = 'pureShineState';
+const TIMER = 'pureShineActiveTimer';
+const ZOOM = 'pureShineZoom';
+const TEXT = 'pureShineTextSize';
+
+const $ = id => document.getElementById(id);
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+const todayKey = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+};
+
+const parseDate = s => {
+  const [y,m,d] = String(s || todayKey()).split('-').map(Number);
+  return new Date(y, m-1, d);
+};
+
+const dateFmt = s => parseDate(s).toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric'
+});
+
+const money = n => '£' + (Number(n) || 0).toLocaleString('en-GB', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+});
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({
+  '&':'&amp;',
+  '<':'&lt;',
+  '>':'&gt;',
+  '"':'&quot;',
+  "'":'&#39;'
+}[c]));
+
+const timeMins = t => {
+  const [h,m] = String(t || '09:00').split(':').map(Number);
+  return (h || 0) * 60 + (m || 0);
+};
+
+const addTime = (t,h) => {
+  let n = (timeMins(t) + Math.round((Number(h) || 0) * 60)) % 1440;
+  if (n < 0) n += 1440;
+  return `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
+};
+
+const minsOf = j => Math.max(0, Number(j.minutes) || Math.round((Number(j.hours) || 0) * 60));
+const minsText = n => `${Math.floor(n/60)}h ${String(n%60).padStart(2,'0')}m`;
+const amount = j => minsOf(j) / 60 * (Number(j.rate) || 0);
+
+function defaultState() {
+  return {
+    clients: [],
+    jobs: [],
+    holidays: [],
+    settings: {
+      businessName: 'Pure Shine Cleaning',
+      ownerName: '',
+      invoicePrefix: 'PS-',
+      invoiceNext: 1
+    }
+  };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(DB);
+    if (!raw) return defaultState();
+
+    const parsed = JSON.parse(raw);
+
+    if (Array.isArray(parsed)) {
+      return { ...defaultState(), jobs: parsed };
+    }
+
+    if (parsed && typeof parsed === 'object') {
+      const s = { ...defaultState(), ...parsed };
+      s.clients = Array.isArray(parsed.clients) ? parsed.clients : [];
+      s.jobs = Array.isArray(parsed.jobs)
+        ? parsed.jobs
+        : (Array.isArray(parsed.history) ? parsed.history : []);
+      s.holidays = Array.isArray(parsed.holidays) ? parsed.holidays : [];
+      s.settings = { ...defaultState().settings, ...(parsed.settings || {}) };
+      return s;
+    }
+  } catch (e) {
+    console.error('Could not load saved data', e);
+  }
+
+  return defaultState();
+}
+
+let state = loadState();
+let timer = null;
+let calendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+let toastTimeout = null;
+
+function save() {
+  try {
+    localStorage.setItem(DB, JSON.stringify(state));
+  } catch (e) {
+    toast('Storage is full. Download a backup.');
+  }
+}
+
+function loadTimer() {
+  try {
+    const t = JSON.parse(localStorage.getItem(TIMER) || 'null');
+    if (t && t.jobId && Number(t.startedAt)) return t;
+  } catch (e) {}
+  return null;
+}
+
+timer = loadTimer();
+
+function persistTimer() {
+  try {
+    if (timer) localStorage.setItem(TIMER, JSON.stringify(timer));
+    else localStorage.removeItem(TIMER);
+  } catch (e) {}
+}
+
+function toast(msg) {
+  const el = $('toast');
+  el.textContent = msg;
+  el.style.display = 'block';
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    el.style.display = 'none';
+  }, 2600);
+}
+
+function modal(html) {
+  $('modal').innerHTML = html;
+  $('modalback').classList.add('show');
+}
+
+function closeModal() {
+  $('modalback').classList.remove('show');
+  $('modal').innerHTML = '';
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.toggle('active', p.id === id);
+  });
+
+  document.querySelectorAll('.nav button').forEach(b => {
+    b.classList.toggle('active', b.dataset.page === id);
+  });
+
+  render();
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function setZoom(v) {
+  v = Math.max(100, Math.min(200, Number(v) || 125));
+  document.documentElement.style.setProperty('--zoom', v / 100);
+  $('zoomRange').value = v;
+  $('zoomLabel').textContent = v + '%';
+
+  try {
+    localStorage.setItem(ZOOM, String(v));
+  } catch (e) {}
+}
+
+function setTextSize(v) {
+  const sizes = {
+    normal: '15px',
+    large: '17px',
+    xlarge: '19px'
+  };
+
+  document.documentElement.style.setProperty('--text-size', sizes[v] || sizes.normal);
+
+  if ($('textSize')) $('textSize').value = v;
+
+  try {
+    localStorage.setItem(TEXT, v);
+  } catch (e) {}
+}
+
+function activeClients() {
+  return state.clients.filter(c => !c.archived);
+}
+
+function getClient(id) {
+  return state.clients.find(c => c.id === id);
+}
+
+function jobStatus(j) {
+  if (j.status === 'cancelled') return 'Cancelled';
+  if (j.status === 'completed') return 'Completed';
+  if (timer && timer.jobId === j.id) return 'Timer running';
+  return 'Scheduled';
+}
+
+function jobCard(j) {
+  const running = !!(timer && timer.jobId === j.id);
+  const c = getClient(j.clientId);
+
+  return `<article class="jobcard">
+    <div class="jobtop">
+      <div class="timepill">
+        <strong>${esc(j.start || '—')}</strong>
+        <span>${esc(j.end || '')}</span>
+      </div>
+      <div class="jobdetails">
+        <div class="jobname">${esc(j.name)}</div>
+        <div class="jobmeta">
+          ${esc(j.type || 'Private')} · ${money(j.rate)}/hr<br>
+          ${esc(j.date || '')} · ${esc(jobStatus(j))}
+        </div>
+        <div class="jobphone">${esc(j.phone || c?.phone || '')}</div>
+      </div>
+    </div>
+
+    ${running ? `<div class="timerdisplay" data-running-timer="true">⏱ ${elapsedText()}</div>` : ''}
+
+    <div class="jobline"></div>
+
+    <div class="jobactions">
+      ${j.status !== 'completed' && j.status !== 'cancelled'
+        ? `<button class="btn start" onclick="${running ? 'finishTimer()' : `startTimer('${j.id}')`}">${running ? '✓ Finish job' : '▶ Start timer'}</button>`
+        : ''}
+
+      <button class="btn" onclick="editJob('${j.id}')">Edit</button>
+
+      ${j.status === 'completed'
+        ? `<button class="btn paid" onclick="togglePaid('${j.id}')">${j.payment === 'paid' ? '✓ Paid' : 'Mark paid'}</button>
+           <button class="btn invoice" onclick="invoiceFor('${j.id}')">PDF invoice</button>`
+        : ''}
+
+      <button class="btn delete" onclick="cancelOrDelete('${j.id}')">${j.status === 'cancelled' ? 'Delete' : 'Cancel'}</button>
+    </div>
+  </article>`;
+}
+
+function render() {
+  const now = new Date();
+  const today = todayKey();
+
+  $('todayNum').textContent = now.getDate();
+  $('todayWeekday').textContent = now.toLocaleDateString('en-GB', { weekday: 'long' });
+  $('todayDate').textContent = now.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+
+  const todays = state.jobs.filter(j => j.date === today && j.status !== 'cancelled');
+  const completed = todays.filter(j => j.status === 'completed');
+
+  $('todayJobsCount').textContent = todays.length;
+  $('todayHours').textContent = (completed.reduce((s,j) => s + minsOf(j), 0) / 60).toFixed(1) + 'h';
+  $('todayEarned').textContent = money(completed.reduce((s,j) => s + amount(j), 0));
+
+  $('todayList').innerHTML = todays.length
+    ? todays.sort((a,b) => (a.start || '').localeCompare(b.start || '')).map(jobCard).join('')
+    : '<div class="empty">No appointments today. Tap + to add one ✨</div>';
+
+  const recent = state.jobs
+    .filter(j => j.status === 'completed')
+    .sort((a,b) => String(b.completedAt || b.date).localeCompare(String(a.completedAt || a.date)))
+    .slice(0,4);
+
+  $('recentJobs').innerHTML = recent.length
+    ? recent.map(jobCard).join('')
+    : '<div class="empty">Completed jobs will appear here.</div>';
+
+  renderClients();
+  renderAllJobs();
+  renderHolidays();
+  renderCalendar();
+  renderEarnings();
+
+  $('timerStatus').textContent = timer
+    ? `Active: ${timer.name} · ${elapsedText()}`
+    : 'No active timer';
+}
+
+function renderClients() {
+  const list = activeClients();
+
+  $('clientList').innerHTML = list.length
+    ? list.map(c => {
+        const done = state.jobs.filter(j => j.clientId === c.id && j.status === 'completed');
+
+        return `<div class="clientrow">
+          <div class="avatar">${esc((c.name || '?').slice(0,1).toUpperCase())}</div>
+          <div class="clientinfo">
+            <div class="clientname">${esc(c.name)} ${c.occasional ? '<span class="small">· Occasional</span>' : ''}</div>
+            <div class="clientmeta">
+              ${esc(c.phone || 'No phone')} · ${esc(c.day || 'Flexible')} · ${esc(c.type || 'Private')}<br>
+              ${done.length} completed · ${money(done.reduce((s,j) => s + amount(j), 0))} earned
+            </div>
+          </div>
+          <div class="rate">${money(c.rate)}/h</div>
+          <button class="btn" onclick="openClient('${c.id}')">Edit</button>
+          <button class="btn delete" onclick="deleteClient('${c.id}')">×</button>
+        </div>`;
+      }).join('')
+    : '<div class="empty">Add your first client using the + button.</div>';
+}
+
+function renderAllJobs() {
+  const list = state.jobs
+    .filter(j => j.status !== 'cancelled')
+    .sort((a,b) => (a.date + (a.start || '')).localeCompare(b.date + (b.start || '')));
+
+  $('allJobs').innerHTML = list.length
+    ? list.map(jobCard).join('')
+    : '<div class="empty">No appointments saved yet.</div>';
+}
+
+function renderHolidays() {
+  $('holidays').innerHTML = state.holidays.length
+    ? state.holidays.map(h => `<div class="clientrow">
+        <div class="avatar">🌴</div>
+        <div class="clientinfo">
+          <div class="clientname">${esc(h.note || 'Holiday')}</div>
+          <div class="clientmeta">${dateFmt(h.start)} – ${dateFmt(h.end)}</div>
+        </div>
+        <button class="btn delete" onclick="deleteHoliday('${h.id}')">Delete</button>
+      </div>`).join('')
+    : '<div class="empty">No holiday periods saved.</div>';
+}
+
+function renderCalendar() {
+  const y = calendarMonth.getFullYear();
+  const m = calendarMonth.getMonth();
+
+  $('monthLabel').textContent = calendarMonth.toLocaleDateString('en-GB', {
+    month: 'long',
+    year: 'numeric'
+  });
+
+  let html = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+    .map(x => `<div class="calhead">${x}</div>`).join('');
+
+  const first = (new Date(y,m,1).getDay() + 6) % 7;
+
+  for (let i = 0; i < first; i++) html += '<div></div>';
+
+  for (let d = 1; d <= new Date(y,m+1,0).getDate(); d++) {
+    const date = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const jobs = state.jobs.filter(j => j.date === date && j.status !== 'cancelled');
+    const holiday = state.holidays.some(h => h.start <= date && h.end >= date);
+
+    html += `<button class="calday ${jobs.length ? 'has' : ''} ${holiday ? 'holiday' : ''}" onclick="openDate('${date}')">
+      <strong>${d}</strong>
+      <small>${jobs.length ? jobs.length + ' job' + (jobs.length > 1 ? 's' : '') : holiday ? 'Holiday' : ''}</small>
+    </button>`;
+  }
+
+  $('calendar').innerHTML = html;
+}
+
+function changeMonth(n) {
+  calendarMonth.setMonth(calendarMonth.getMonth() + n);
+  renderCalendar();
+}
+
+function renderEarnings() {
+  const period = $('earnPeriod').value;
+  const now = new Date();
+
+  const jobs = state.jobs.filter(j => {
+    if (j.status !== 'completed') return false;
+
+    const d = parseDate(j.date);
+
+    if (period === 'month') {
+      return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+    }
+
+    if (period === 'year') return d.getFullYear() === now.getFullYear();
+
+    return true;
+  }).sort((a,b) => (b.date + (b.start || '')).localeCompare(a.date + (a.start || '')));
+
+  const total = jobs.reduce((s,j) => s + amount(j), 0);
+  const paid = jobs.filter(j => j.payment === 'paid').reduce((s,j) => s + amount(j), 0);
+
+  $('earnedTotal').textContent = money(total);
+  $('paidTotal').textContent = money(paid);
+  $('owedTotal').textContent = money(total - paid);
+
+  $('earningJobs').innerHTML = jobs.length
+    ? jobs.map(jobCard).join('')
+    : '<div class="empty">No completed jobs in this period.</div>';
+}
+
+function clientOptions(id = '') {
+  return activeClients().map(c =>
+    `<option value="${esc(c.id)}" ${c.id === id ? 'selected' : ''}>${esc(c.name)}</option>`
+  ).join('');
+}
+
+function openClient(id = '') {
+  const c = getClient(id) || {};
+
+  modal(`<h2>${id ? 'Edit client' : 'Add client'}</h2>
+    <form onsubmit="saveClient(event,'${id}')">
+      <div class="field">
+        <label for="cname">Client name *</label>
+        <input id="cname" required value="${esc(c.name || '')}">
+      </div>
+
+      <div class="field">
+        <label for="cphone">Phone number</label>
+        <input id="cphone" type="tel" value="${esc(c.phone || '')}">
+      </div>
+
+      <div class="formgrid">
+        <div class="field">
+          <label for="cday">Usual day</label>
+          <select id="cday">
+            ${['Flexible','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].map(x =>
+              `<option ${c.day === x ? 'selected' : ''}>${x}</option>`
+            ).join('')}
+          </select>
+        </div>
+        <div class="field">
+          <label for="crate">Hourly rate (£)</label>
+          <input id="crate" type="number" min="0" step=".5" value="${c.rate ?? 18}" required>
+        </div>
+      </div>
+
+      <div class="formgrid">
+        <div class="field">
+          <label for="ctype">Client type</label>
+          <select id="ctype">
+            <option ${c.type === 'Private' || !c.type ? 'selected' : ''}>Private</option>
+            <option ${c.type === 'Agency' ? 'selected' : ''}>Agency</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cfreq">Frequency</label>
+          <select id="cfreq">
+            ${['Weekly','Fortnightly','Every 3 weeks','Monthly','Occasional'].map(x =>
+              `<option ${c.frequency === x ? 'selected' : ''}>${x}</option>`
+            ).join('')}
+          </select>
+        </div>
+      </div>
+
+      <div class="formgrid">
+        <div class="field">
+          <label for="cstart">Usual start</label>
+          <input id="cstart" type="time" value="${esc(c.start || '09:00')}">
+        </div>
+        <div class="field">
+          <label for="chours">Usual duration (hours)</label>
+          <input id="chours" type="number" min=".25" step=".25" value="${c.hours ?? 2}">
+        </div>
+      </div>
+
+      <div class="field">
+        <label><input id="coccasion" type="checkbox" ${c.occasional ? 'checked' : ''} style="width:auto"> Occasional client</label>
+      </div>
+
+      <div class="modalbuttons">
+        <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn primary">Save client</button>
+      </div>
+    </form>`);
+}
+
+function saveClient(e, id) {
+  e.preventDefault();
+
+  const occasional = $('coccasion').checked;
+
+  const c = {
+    id: id || uid(),
+    name: $('cname').value.trim(),
+    phone: $('cphone').value.trim(),
+    day: $('cday').value,
+    rate: Number($('crate').value),
+    type: $('ctype').value,
+    frequency: occasional ? 'Occasional' : $('cfreq').value,
+    start: $('cstart').value || '09:00',
+    hours: Number($('chours').value) || 2,
+    occasional
+  };
+
+  if (id) {
+    const i = state.clients.findIndex(x => x.id === id);
+    if (i >= 0) state.clients[i] = { ...state.clients[i], ...c };
+    else state.clients.push(c);
+  } else {
+    state.clients.push(c);
+  }
+
+  save();
+  closeModal();
+  render();
+  toast('Client saved ✓');
+}
+
+function deleteClient(id) {
+  const c = getClient(id);
+
+  if (!c || !confirm(`Delete ${c.name}? Existing job history will be kept.`)) return;
+
+  if (timer && timer.clientId === id) {
+    toast('Stop the active timer before deleting this client');
+    return;
+  }
+
+  state.clients = state.clients.filter(x => x.id !== id);
+  save();
+  render();
+  toast('Client deleted');
+}
+
+function openJob(id = '', date = todayKey()) {
+  const j = id ? state.jobs.find(x => x.id === id) : null;
+  const c = getClient(j?.clientId || '');
+
+  modal(`<h2>${j ? 'Edit appointment' : 'Add appointment'}</h2>
+    <form onsubmit="saveJob(event,'${id}')">
+      <div class="field">
+        <label for="jclient">Client</label>
+        <select id="jclient" onchange="autofillJob()">
+          <option value="">Choose a client or enter a name</option>
+          ${clientOptions(j?.clientId || '')}
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="jname">Client name *</label>
+        <input id="jname" required value="${esc(j?.name || '')}">
+      </div>
+
+      <div class="field">
+        <label for="jphone">Phone</label>
+        <input id="jphone" type="tel" value="${esc(j?.phone || c?.phone || '')}">
+      </div>
+
+      <div class="formgrid">
+        <div class="field">
+          <label for="jdate">Date *</label>
+          <input id="jdate" type="date" required value="${esc(j?.date || date)}">
+        </div>
+        <div class="field">
+          <label for="jstart">Start time *</label>
+          <input id="jstart" type="time" required value="${esc(j?.start || c?.start || '09:00')}">
+        </div>
+      </div>
+
+      <div class="formgrid">
+        <div class="field">
+          <label for="jhours">Duration (hours)</label>
+          <input id="jhours" type="number" min=".05" step=".05" required value="${j ? minsOf(j)/60 : c?.hours || 2}">
+        </div>
+        <div class="field">
+          <label for="jrate">Hourly rate (£)</label>
+          <input id="jrate" type="number" min="0" step=".5" required value="${j?.rate ?? c?.rate ?? 18}">
+        </div>
+      </div>
+
+      <div class="formgrid">
+        <div class="field">
+          <label for="jtype">Type</label>
+          <select id="jtype">
+            <option ${j?.type === 'Private' || (!j && c?.type === 'Private') ? 'selected' : ''}>Private</option>
+            <option ${j?.type === 'Agency' || (!j && c?.type === 'Agency') ? 'selected' : ''}>Agency</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="jstatus">Status</label>
+          <select id="jstatus">
+            <option value="scheduled" ${!j || j.status === 'scheduled' ? 'selected' : ''}>Scheduled</option>
+            <option value="completed" ${j?.status === 'completed' ? 'selected' : ''}>Completed</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="jnotes">Notes</label>
+        <textarea id="jnotes" rows="2">${esc(j?.notes || '')}</textarea>
+      </div>
+
+      <div class="modalbuttons">
+        <button type="button" class="btn" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn primary">Save appointment</button>
+      </div>
+    </form>`);
+
+  $('jclient').value = j?.clientId || '';
+}
+
+function autofillJob() {
+  const c = getClient($('jclient').value);
+  if (!c) return;
+
+  $('jname').value = c.name;
+  $('jphone').value = c.phone || '';
+  $('jrate').value = c.rate;
+  $('jtype').value = c.type || 'Private';
+  $('jstart').value = c.start || '09:00';
+  $('jhours').value = c.hours || 2;
+}
+
+function editJob(id) {
+  openJob(id);
+}
+
+function saveJob(e, id) {
+  e.preventDefault();
+
+  const client = getClient($('jclient').value);
+  const name = $('jname').value.trim();
+  const date = $('jdate').value;
+  const start = $('jstart').value;
+  const hours = Number($('jhours').value);
+
+  if (!name || !date || !start || hours <= 0) {
+    toast('Check the job details');
+    return;
+  }
+
+  const old = state.jobs.find(x => x.id === id);
+
+  const j = {
+    ...(old || {}),
+    id: id || uid(),
+    clientId: client?.id || '',
+    name,
+    phone: $('jphone').value.trim(),
+    date,
+    start,
+    end: addTime(start, hours),
+    hours,
+    minutes: Math.round(hours * 60),
+    rate: Number($('jrate').value),
+    type: $('jtype').value,
+    status: $('jstatus').value,
+    payment: old?.payment || 'unpaid',
+    notes: $('jnotes').value.trim()
+  };
+
+  if (j.status === 'completed' && (!old || old.status !== 'completed')) {
+    j.completedAt = Date.now();
+  }
+
+  if (id) {
+    const i = state.jobs.findIndex(x => x.id === id);
+    if (i >= 0) state.jobs[i] = j;
+    else state.jobs.push(j);
+  } else {
+    state.jobs.push(j);
+  }
+
+  save();
+  closeModal();
+  render();
+  toast('Appointment saved ✓');
+}
+
+function cancelOrDelete(id) {
+  const j = state.jobs.find(x => x.id === id);
+  if (!j) return;
+
+  if (timer && timer.jobId === id) {
+    toast('Finish the timer before cancelling this job');
+    return;
+  }
+
+  if (j.status === 'cancelled') {
+    if (confirm('Permanently delete this job?')) {
+      state.jobs = state.jobs.filter(x => x.id !== id);
+    } else {
+      return;
+    }
+  } else {
+    if (!confirm('Cancel this appointment?')) return;
+    j.status = 'cancelled';
+  }
+
+  save();
+  render();
+  toast('Changes saved');
+}
+
+function openDate(date) {
+  const jobs = state.jobs.filter(j => j.date === date && j.status !== 'cancelled');
+
+  modal(`<h2>${dateFmt(date)}</h2>
+    ${jobs.length
+      ? jobs.map(j => `<div class="clientrow">
+          <div class="clientinfo">
+            <b>${esc(j.name)}</b>
+            <div class="clientmeta">${esc(j.start)} · ${esc(jobStatus(j))} · ${money(amount(j))}</div>
+          </div>
+          <button class="btn" onclick="closeModal();editJob('${j.id}')">Edit</button>
+        </div>`).join('')
+      : '<p class="small">No appointments on this date.</p>'}
+    <div class="modalbuttons">
+      <button class="btn" onclick="closeModal()">Close</button>
+      <button class="btn primary" onclick="closeModal();openJob('', '${date}')">＋ Add job</button>
+    </div>`);
+}
+
+function openHoliday() {
+  modal(`<h2>Add holiday / unavailable period</h2>
+    <div class="field">
+      <label for="hclient">Client</label>
+      <select id="hclient">
+        <option value="">All clients</option>
+        ${clientOptions()}
+      </select>
+    </div>
+    <div class="formgrid">
+      <div class="field">
+        <label for="hstart">Start date</label>
+        <input id="hstart" type="date" value="${todayKey()}">
+      </div>
+      <div class="field">
+        <label for="hend">End date</label>
+        <input id="hend" type="date" value="${todayKey()}">
+      </div>
+    </div>
+    <div class="field">
+      <label for="hnote">Note</label>
+      <input id="hnote" placeholder="Holiday / unavailable">
+    </div>
+    <div class="modalbuttons">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn primary" onclick="saveHoliday()">Save holiday</button>
+    </div>`);
+}
+
+function saveHoliday() {
+  const start = $('hstart').value;
+  const end = $('hend').value;
+
+  if (!start || !end || end < start) {
+    toast('Choose a valid date range');
+    return;
+  }
+
+  state.holidays.push({
+    id: uid(),
+    start,
+    end,
+    clientId: $('hclient').value,
+    note: $('hnote').value.trim() || 'Holiday'
+  });
+
+  save();
+  closeModal();
+  render();
+  toast('Holiday saved ✓');
+}
+
+function deleteHoliday(id) {
+  if (!confirm('Delete this holiday period?')) return;
+  state.holidays = state.holidays.filter(h => h.id !== id);
+  save();
+  render();
+}
+
+function elapsedSeconds() {
+  return timer ? Math.max(0, Math.floor((Date.now() - timer.startedAt) / 1000)) : 0;
+}
+
+function elapsedText() {
+  const n = elapsedSeconds();
+  return [
+    Math.floor(n / 3600),
+    Math.floor((n % 3600) / 60),
+    n % 60
+  ].map(x => String(x).padStart(2,'0')).join(':');
+}
+
+function startTimer(id) {
+  if (timer) {
+    toast(timer.jobId === id ? 'Timer is already running' : 'Finish the current timer first');
+    return;
+  }
+
+  const j = state.jobs.find(x => x.id === id);
+
+  if (!j || j.status === 'completed' || j.status === 'cancelled') {
+    toast('This job cannot be timed');
+    return;
+  }
+
+  timer = {
+    jobId: j.id,
+    clientId: j.clientId,
+    name: j.name,
+    startedAt: Date.now(),
+    startedDate: todayKey()
+  };
+
+  j.status = 'in-progress';
+
+  persistTimer();
+  save();
+  render();
+  toast('Timer started for ' + j.name);
+}
+
+function finishTimer() {
+  if (!timer) return;
+
+  const t = timer;
+  const j = state.jobs.find(x => x.id === t.jobId);
+
+  if (!j) {
+    timer = null;
+    persistTimer();
+    render();
+    return;
+  }
+
+  const mins = Math.max(1, Math.round((Date.now() - t.startedAt) / 60000));
+
+  j.minutes = mins;
+  j.hours = mins / 60;
+  j.end = new Date().toTimeString().slice(0,5);
+  j.status = 'completed';
+  j.completedAt = Date.now();
+  j.payment = j.payment || 'unpaid';
+
+  timer = null;
+  persistTimer();
+  save();
+  render();
+  toast('Job completed · ' + minsText(mins));
+}
+
+function stopAndClearTimer() {
+  if (!timer) return;
+
+  const j = state.jobs.find(x => x.id === timer.jobId);
+
+  if (j && j.status === 'in-progress') {
+    j.status = 'scheduled';
+  }
+
+  timer = null;
+  persistTimer();
+  save();
+  render();
+  toast('Timer stopped');
+}
+
+function togglePaid(id) {
+  const j = state.jobs.find(x => x.id === id);
+  if (!j) return;
+
+  j.payment = j.payment === 'paid' ? 'unpaid' : 'paid';
+
+  save();
+  render();
+  toast(j.payment === 'paid' ? 'Marked as paid ✓' : 'Marked as unpaid');
+}
+
+function invoiceFor(id) {
+  const j = state.jobs.find(x => x.id === id);
+  if (!j) return;
+
+  const docWindow = window.open('', '_blank');
+
+  if (!docWindow) {
+    toast('Allow pop-ups to create an invoice');
+    return;
+  }
+
+  const s = state.settings;
+  const num = (s.invoicePrefix || 'PS-') + String(s.invoiceNext || 1).padStart(5, '0');
+
+  docWindow.document.write(`<!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Invoice ${esc(num)}</title>
+    <style>
+      body {
+        font: 16px Arial, sans-serif;
+        padding: 35px;
+        color: #514650;
+        max-width: 800px;
+        margin: auto;
+      }
+      h1 { color: #98647a; }
+      .top { border-bottom: 2px solid #e5c68a; padding-bottom: 18px; }
+      table { width: 100%; border-collapse: collapse; margin-top: 25px; }
+      td { padding: 12px; border-bottom: 1px solid #ead8d5; }
+      .total { text-align: right; font-size: 22px; font-weight: bold; margin-top: 25px; }
+      button { background: #d96b98; color: white; border: 0; padding: 12px 18px; border-radius: 8px; }
+      @media print {
+        body { padding: 0; }
+        button { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <h1>${esc(s.businessName || 'Pure Shine Cleaning')}</h1>
+      ${s.ownerName ? `<p>${esc(s.ownerName)}</p>` : ''}
+      <h2>INVOICE ${esc(num)}</h2>
+    </div>
+    <p><strong>Bill to:</strong> ${esc(j.name)}</p>
+    <p><strong>Service date:</strong> ${esc(j.date)}</p>
+    <table>
+      <tr>
+        <td>Cleaning service (${esc(minsText(minsOf(j)))})</td>
+        <td>${money(j.rate)}/hour</td>
+      </tr>
+    </table>
+    <div class="total">Total: ${money(amount(j))}</div>
+    <p>Payment status: ${j.payment === 'paid' ? 'PAID' : 'OUTSTANDING'}</p>
+    <p>Thank you for choosing us!</p>
+    <button onclick="window.print()">Print / Save as PDF</button>
+  </body>
+  </html>`);
+
+  docWindow.document.close();
+
+  s.invoiceNext = (Number(s.invoiceNext) || 1) + 1;
+  save();
+}
+
+function openReminder() {
+  if (!activeClients().length) {
+    toast('Add a client first');
+    return;
+  }
+
+  modal(`<h2>Send client reminder</h2>
+    <div class="field">
+      <label for="rclient">Client</label>
+      <select id="rclient">${clientOptions()}</select>
+    </div>
+    <div class="field">
+      <label for="rmessage">Message</label>
+      <textarea id="rmessage" rows="4">Hi, just a friendly reminder about our cleaning appointment. Thank you 💗</textarea>
+    </div>
+    <div class="modalbuttons">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn primary" onclick="sendReminder()">Open Messages</button>
+    </div>`);
+}
+
+function sendReminder() {
+  const c = getClient($('rclient').value);
+
+  if (!c) {
+    toast('Choose a client first');
+    return;
+  }
+
+  const phone = (c.phone || '').replace(/[^\d+]/g, '');
+
+  if (!phone) {
+    toast('Add a phone number first');
+    return;
+  }
+
+  const message = $('rmessage').value;
+  const url = 'sms:' + phone + '&body=' + encodeURIComponent(message);
+
+  closeModal();
+  window.location.href = url;
+}
+
+function saveSettings() {
+  state.settings.businessName = $('businessName').value.trim() || 'Pure Shine Cleaning';
+  state.settings.ownerName = $('ownerName').value.trim();
+  state.settings.invoicePrefix = $('invoicePrefix').value.trim() || 'PS-';
+
+  save();
+  toast('Settings saved ✓');
+}
+
+function downloadBackup() {
+  const data = JSON.stringify(state, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+
+  a.href = url;
+  a.download = 'pure-shine-backup-' + todayKey() + '.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast('Backup downloaded');
+}
+
+function restoreBackup(e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  const r = new FileReader();
+
+  r.onload = () => {
+    try {
+      const x = JSON.parse(r.result);
+
+      if (!Array.isArray(x.clients) || !Array.isArray(x.jobs)) {
+        throw new Error('Invalid backup');
+      }
+
+      if (!confirm('Replace current app data with this backup?')) return;
+
+      state = {
+        ...defaultState(),
+        ...x,
+        settings: {
+          ...defaultState().settings,
+          ...(x.settings || {})
+        }
+      };
+
+      save();
+      render();
+      toast('Backup restored ✓');
+    } catch (err) {
+      toast('Invalid backup file');
+    } finally {
+      e.target.value = '';
+    }
+  };
+
+  r.readAsText(file);
+}
+
+function startUp() {
+  try {
+    setZoom(Number(localStorage.getItem(ZOOM) || 125));
+  } catch (e) {
+    setZoom(125);
+  }
+
+  try {
+    setTextSize(localStorage.getItem(TEXT) || 'normal');
+  } catch (e) {
+    setTextSize('normal');
+  }
+
+  $('businessName').value = state.settings.businessName || 'Pure Shine Cleaning';
+  $('ownerName').value = state.settings.ownerName || '';
+  $('invoicePrefix').value = state.settings.invoicePrefix || 'PS-';
+
+  render();
+
+  setInterval(() => {
+    if (!timer) return;
+
+    const display = '⏱ ' + elapsedText();
+
+    document.querySelectorAll('[data-running-timer="true"]').forEach(el => {
+      el.textContent = display;
+    });
+
+    $('timerStatus').textContent = `Active: ${timer.name} · ${elapsedText()}`;
+  }, 1000);
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      timer = loadTimer();
+      render();
+    }
+  });
+
+  window.addEventListener('pageshow', () => {
+    timer = loadTimer();
+    render();
+  });
+}
+
+startUp();
+</script>
+</body>
+</html>
