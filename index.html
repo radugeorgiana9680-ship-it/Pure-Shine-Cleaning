@@ -26,12 +26,33 @@ h2{font-size:18px;margin:10px 0}
 .modes button.active{background:white;color:var(--pink);box-shadow:0 2px 8px #dca6bb55}
 .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .monthnav button{background:white;border:1px solid var(--line);border-radius:12px;padding:8px 13px;color:var(--pink)}
-.calendar{background:#fffdfd;border:1px solid var(--line);border-radius:20px;padding:12px 7px;box-shadow:0 5px 18px #c38da01a}
+
+/* Calendar în stil iPhone */
+.calendar{background:#fff;border:1px solid #e8e8ed;border-radius:16px;padding:12px 7px;box-shadow:0 2px 8px #3026300a}
 .weekdays,.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));text-align:center}
-.weekdays{font-size:11px;color:var(--muted);padding:5px 0 10px}
-.day{height:48px;background:transparent;border-radius:14px;color:var(--ink);padding:4px 0}
-.day.selected{background:var(--pink);color:white}
-.day .dot{display:block;width:5px;height:5px;border-radius:50%;background:var(--gold);margin:2px auto 0}
+.weekdays{font-size:11px;color:#8b8b93;padding:5px 0 10px;font-weight:600}
+.day{min-width:0;min-height:58px;height:auto;background:transparent;border-radius:10px;color:var(--ink);padding:5px 1px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:13px}
+.daynum{width:27px;height:27px;display:flex;align-items:center;justify-content:center;border-radius:50%;line-height:1}
+.day.today .daynum{border:1.5px solid var(--pink);color:var(--pink);font-weight:800}
+.day.selected{background:#fff0f6;color:var(--ink)}
+.day.selected .daynum{background:var(--pink);color:#fff}
+.eventdots{display:flex;justify-content:center;gap:2px;min-height:5px;max-width:100%;flex-wrap:wrap}
+.eventdots i{display:block;width:4px;height:4px;border-radius:50%;background:var(--pink)}
+.eventdots i.agency{background:var(--gold)}
+.eventdots i.done{background:#54a879}
+.day.othermonth{opacity:.32}
+.agenda-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:20px}
+.agenda-heading h2{margin:0;font-size:17px}
+.agenda-date{color:#8b8b93;font-size:12px;margin-top:4px}
+.job-detail{display:flex;gap:11px;align-items:stretch}
+.job-detail .jobbar{background:var(--pink);width:4px;flex-shrink:0}
+.job-detail .jobbar.agency{background:var(--gold)}
+.job-detail .jobbar.done{background:#54a879}
+.job-detail .jobmain{flex:1;min-width:0}
+.job-detail .jobname{font-size:15px}
+.job-detail .detail-line{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.45}
+.job-detail .jobtime{font-size:14px}
+
 .primary{background:var(--pink);color:white;border-radius:13px;padding:11px 14px;box-shadow:0 4px 10px #d96f9a30}
 .secondary{background:white;border:1px solid var(--line);color:var(--pink);border-radius:13px;padding:10px 13px}
 .danger{background:#fff0f0;border:1px solid #f1caca;color:#b94343;border-radius:13px;padding:10px 13px}
@@ -64,7 +85,12 @@ h2{font-size:18px;margin:10px 0}
 .notice{padding:12px;background:#fff8e9;border:1px solid #f0dfb4;border-radius:12px;color:#806632;font-size:12px}
 dialog{color:var(--ink);background:#fff8fb}
 dialog::backdrop{background:#39253280;backdrop-filter:blur(3px)}
-@media(max-width:360px){.app{padding-left:10px;padding-right:10px}.day{height:43px;font-size:12px}.brand{font-size:27px}}
+@media(max-width:360px){
+ .app{padding-left:10px;padding-right:10px}
+ .day{min-height:49px;font-size:12px}
+ .brand{font-size:27px}
+ .daynum{width:25px;height:25px}
+}
 </style>
 </head>
 <body>
@@ -79,9 +105,9 @@ dialog::backdrop{background:#39253280;backdrop-filter:blur(3px)}
 <section id="home" class="page active">
 <div class="row"><h1>Calendar</h1><button class="primary" onclick="newJob()">＋ Adaugă lucrare</button></div>
 <div class="modes">
-<button class="active" data-mode="month" onclick="setMode('month',this)">Month</button>
-<button data-mode="week" onclick="setMode('week',this)">Week</button>
-<button data-mode="day" onclick="setMode('day',this)">Day</button>
+<button class="active" data-mode="month" onclick="setMode('month',this)">Lună</button>
+<button data-mode="week" onclick="setMode('week',this)">Săptămână</button>
+<button data-mode="day" onclick="setMode('day',this)">Zi</button>
 </div>
 <div class="row monthnav">
 <button onclick="shiftMonth(-1)">‹</button>
@@ -238,12 +264,7 @@ function persist(){
   localStorage.setItem(KEY,JSON.stringify(state));
   return true;
  }catch(error){
-  const quotaError=error&&(
-   error.name==="QuotaExceededError"||
-   error.name==="NS_ERROR_DOM_QUOTA_REACHED"||
-   error.code===22||
-   error.code===1014
-  );
+  const quotaError=error&&(error.name==="QuotaExceededError"||error.name==="NS_ERROR_DOM_QUOTA_REACHED"||error.code===22||error.code===1014);
   if(quotaError){
    alert("Spațiul de stocare este plin. Datele noi nu au fost salvate. Exportă o copie de siguranță și elimină imaginile mari din Setări înainte să încerci din nou.");
   }else{
@@ -256,7 +277,7 @@ function persist(){
 function id(){return "j"+Date.now()+Math.random().toString(36).slice(2,6)}
 function dateISO(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
 function parseDate(s){const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)}
-function fmtDate(d){return d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}
+function fmtDate(d){return d.toLocaleDateString("ro-RO",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}
 function mins(t){if(!t)return 0;let [h,m]=t.split(":").map(Number);return h*60+m}
 function hoursBetween(a,b){let n=mins(b)-mins(a);if(n<0)n+=1440;return n/60}
 function money(n){return "£"+Number(n||0).toFixed(2)}
@@ -301,13 +322,17 @@ function jobsFor(s){
 function renderCalendar(){
  const y=selectedDate.getFullYear(),m=selectedDate.getMonth();
  const first=new Date(y,m,1),last=new Date(y,m+1,0);
- document.getElementById("monthTitle").textContent=selectedDate.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+ document.getElementById("monthTitle").textContent=selectedDate.toLocaleDateString("ro-RO",{month:"long",year:"numeric"});
  document.getElementById("selectedTitle").textContent=fmtDate(selectedDate);
  const root=document.getElementById("calendarDays");
  root.innerHTML="";
  const start=(first.getDay()+6)%7;
  if(mode==="month"){
-  for(let i=0;i<start;i++)root.append(document.createElement("div"));
+  for(let i=0;i<start;i++){
+   const empty=document.createElement("div");
+   empty.setAttribute("aria-hidden","true");
+   root.append(empty);
+  }
   for(let d=1;d<=last.getDate();d++)root.append(makeDay(new Date(y,m,d)));
  }else if(mode==="week"){
   const monday=new Date(selectedDate);
@@ -324,19 +349,48 @@ function renderCalendar(){
 }
 
 function makeDay(d){
- const b=document.createElement("button");
- b.className="day"+(dateISO(d)===dateISO(selectedDate)?" selected":"");
- b.innerHTML=`${d.getDate()}${jobsFor(dateISO(d)).length?'<span class="dot"></span>':""}`;
- b.onclick=()=>selectDate(dateISO(d));
+ const s=dateISO(d),dayJobs=jobsFor(s),b=document.createElement("button");
+ const isToday=s===dateISO(new Date());
+ const isOtherMonth=d.getMonth()!==selectedDate.getMonth();
+ b.className="day"+(s===dateISO(selectedDate)?" selected":"")+(isToday?" today":"")+(isOtherMonth?" othermonth":"");
+ b.setAttribute("aria-label",fmtDate(d)+(dayJobs.length?", "+dayJobs.length+" programări":""));
+ const dots=dayJobs.slice(0,4).map(j=>{
+  const cls=j.status==="done"?"done":(j.type==="Agency"?"agency":"");
+  return '<i class="'+cls+'"></i>';
+ }).join("");
+ b.innerHTML='<span class="daynum">'+d.getDate()+'</span><span class="eventdots">'+dots+'</span>';
+ b.onclick=()=>selectDate(s);
  return b;
 }
 
 function renderDayJobs(){
  const root=document.getElementById("dayJobs");
  root.innerHTML="";
- const jobs=jobsFor(dateISO(selectedDate));
- if(!jobs.length)root.innerHTML='<div class="card sub">Nu există programări pentru această zi.</div>';
- jobs.forEach(j=>root.append(jobCard(j)));
+ const todaysJobs=jobsFor(dateISO(selectedDate));
+ const heading=document.createElement("div");
+ heading.className="agenda-heading";
+ heading.innerHTML='<div><h2>Programări</h2><div class="agenda-date">'+esc(fmtDate(selectedDate))+'</div></div><button class="secondary" onclick="newJob()">＋ Job</button>';
+ root.append(heading);
+ if(!todaysJobs.length){
+  const empty=document.createElement("div");
+  empty.className="card sub";
+  empty.textContent="Nu există programări pentru această zi.";
+  root.append(empty);
+  return;
+ }
+ todaysJobs.forEach(j=>{
+  const c=getClient(j.clientId),el=document.createElement("div");
+  el.className="card job-detail";
+  const kind=j.status==="done"?"done":(j.type==="Agency"?"agency":"");
+  const duration=hoursBetween(j.start,j.end);
+  const durationText=Math.floor(duration)+" h "+Math.round((duration%1)*60)+" min";
+  const statusText=j.status==="done"?"Finalizată":j.status==="cancelled"?"Anulată":"Programată";
+  el.innerHTML='<div class="jobbar '+kind+'"></div><div class="jobmain"><div class="row"><div class="jobname">'+esc(c?.name||"Client șters")+'</div><span class="badge">'+statusText+'</span></div><div class="jobtime">'+esc(j.start)+' – '+esc(j.end)+' · '+durationText+'</div><div class="detail-line">'+esc(j.type)+' · '+money(j.rate)+'/oră · Total: '+money(duration*j.rate)+'</div>'+(c?.phone?'<div class="detail-line">☎ '+esc(c.phone)+'</div>':"")+(j.notes?'<div class="detail-line">'+esc(j.notes)+'</div>':"")+'<div class="actions"><button class="secondary edit-job">Editează jobul</button>'+(c?.phone?'<button class="secondary call-client">Sună clientul</button>':"")+'</div></div>';
+  el.querySelector(".edit-job").onclick=()=>editJob(j.id);
+  const call=el.querySelector(".call-client");
+  if(call)call.onclick=()=>location.href="tel:"+c.phone.replace(/[^+\d]/g,"");
+  root.append(el);
+ });
 }
 
 function jobCard(j){
