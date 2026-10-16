@@ -236,8 +236,20 @@ function loadState(){
 function persist(){
  try{
   localStorage.setItem(KEY,JSON.stringify(state));
- }catch(e){
-  alert("Spațiul de stocare este plin. Exportă o copie de siguranță și folosește imagini mai mici.");
+  return true;
+ }catch(error){
+  const quotaError=error&&(
+   error.name==="QuotaExceededError"||
+   error.name==="NS_ERROR_DOM_QUOTA_REACHED"||
+   error.code===22||
+   error.code===1014
+  );
+  if(quotaError){
+   alert("Spațiul de stocare este plin. Datele noi nu au fost salvate. Exportă o copie de siguranță și elimină imaginile mari din Setări înainte să încerci din nou.");
+  }else{
+   alert("Nu am putut salva datele. Încearcă din nou.");
+  }
+  return false;
  }
 }
 
@@ -294,7 +306,6 @@ function renderCalendar(){
  const root=document.getElementById("calendarDays");
  root.innerHTML="";
  const start=(first.getDay()+6)%7;
-
  if(mode==="month"){
   for(let i=0;i<start;i++)root.append(document.createElement("div"));
   for(let d=1;d<=last.getDate();d++)root.append(makeDay(new Date(y,m,d)));
@@ -346,7 +357,6 @@ function newJob(past=false){
  document.getElementById("jobForm").reset();
  document.getElementById("jobId").value="";
  document.getElementById("editorTitle").textContent=past?"Adaugă lucrare trecută":"Adaugă programare";
-
  const sel=document.getElementById("jobClient");
  sel.innerHTML="";
  state.clients.forEach(c=>{
@@ -355,7 +365,6 @@ function newJob(past=false){
   o.textContent=c.name;
   sel.append(o);
  });
-
  document.getElementById("jobDate").value=dateISO(selectedDate);
  document.getElementById("jobStart").value="09:00";
  document.getElementById("jobEnd").value="12:00";
@@ -413,15 +422,13 @@ function saveJob(e){
   status:document.getElementById("jobStatus").value,
   notes:document.getElementById("jobNotes").value
  };
-
  if(oldId){
   const i=state.jobs.findIndex(x=>x.id===oldId);
   if(i>=0)state.jobs[i]=j;
  }else{
   state.jobs.push(j);
  }
-
- persist();
+ if(!persist())return;
  closeEditor();
  refreshVisiblePages();
 }
@@ -431,8 +438,9 @@ function closeEditor(){document.getElementById("editor").close()}
 function cancelJob(){
  const j=state.jobs.find(x=>x.id===document.getElementById("jobId").value);
  if(!j)return alert("Salvează mai întâi programarea.");
+ const previous=j.status;
  j.status="cancelled";
- persist();
+ if(!persist()){j.status=previous;return;}
  closeEditor();
  refreshVisiblePages();
 }
@@ -441,8 +449,9 @@ function deleteJob(){
  const jid=document.getElementById("jobId").value;
  if(!jid)return closeEditor();
  if(confirm("Ștergi definitiv această programare?")){
+  const previous=state.jobs;
   state.jobs=state.jobs.filter(j=>j.id!==jid);
-  persist();
+  if(!persist()){state.jobs=previous;return;}
   closeEditor();
   refreshVisiblePages();
  }
@@ -453,7 +462,6 @@ function renderWeek(){
  root.innerHTML="";
  const monday=new Date(selectedDate);
  monday.setDate(monday.getDate()-((monday.getDay()+6)%7));
-
  for(let i=0;i<7;i++){
   const d=new Date(monday);
   d.setDate(monday.getDate()+i);
@@ -504,15 +512,18 @@ function saveClient(e){
   notes:document.getElementById("clientNotes").value,
   holiday:false
  };
-
+ let index=-1,previous=null;
  if(cid){
-  const i=state.clients.findIndex(x=>x.id===cid);
-  if(i>=0)state.clients[i]=c;
+  index=state.clients.findIndex(x=>x.id===cid);
+  if(index>=0){previous=state.clients[index];state.clients[index]=c;}
  }else{
   state.clients.push(c);
  }
-
- persist();
+ if(!persist()){
+  if(cid&&index>=0)state.clients[index]=previous;
+  else state.clients=state.clients.filter(x=>x.id!==c.id);
+  return;
+ }
  document.getElementById("clientEditor").close();
  refreshVisiblePages();
 }
@@ -521,8 +532,9 @@ function deleteClient(){
  const cid=document.getElementById("clientId").value;
  if(!cid)return document.getElementById("clientEditor").close();
  if(confirm("Ștergi clientul? Programările sale rămân în istoric.")){
+  const previous=state.clients;
   state.clients=state.clients.filter(c=>c.id!==cid);
-  persist();
+  if(!persist()){state.clients=previous;return;}
   document.getElementById("clientEditor").close();
   refreshVisiblePages();
  }
@@ -578,8 +590,9 @@ function importData(input){
    const s=JSON.parse(r.result);
    if(!s.clients||!s.jobs)throw Error();
    if(confirm("Înlocuiești datele actuale cu copia importată?")){
+    const previous=state;
     state=s;
-    persist();
+    if(!persist()){state=previous;return;}
     location.reload();
    }
   }catch(e){
@@ -604,33 +617,59 @@ function download(blob,name){
  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 
+/* Imaginile sunt redimensionate și comprimate înainte de salvare. */
 function uploadImage(type,input){
- const f=input.files[0];
- if(!f)return;
+ const file=input.files&&input.files[0];
+ if(!file)return;
+ if(!file.type.startsWith("image/")){
+  alert("Te rog să alegi un fișier imagine.");
+  input.value="";
+  return;
+ }
  const reader=new FileReader();
+ reader.onerror=()=>alert("Imaginea nu a putut fi citită.");
  reader.onload=()=>{
-  const im=new Image();
-  im.onload=()=>{
-   const scale=Math.min(1,1200/Math.max(im.width,im.height));
+  const img=new Image();
+  img.onerror=()=>alert("Imaginea nu a putut fi deschisă.");
+  img.onload=()=>{
+   const maxSize=450;
+   const scale=Math.min(1,maxSize/Math.max(img.width,img.height));
    const canvas=document.createElement("canvas");
-   canvas.width=Math.round(im.width*scale);
-   canvas.height=Math.round(im.height*scale);
-   canvas.getContext("2d").drawImage(im,0,0,canvas.width,canvas.height);
-   state.settings[type]=canvas.toDataURL("image/jpeg",.78);
-   persist();
+   canvas.width=Math.max(1,Math.round(img.width*scale));
+   canvas.height=Math.max(1,Math.round(img.height*scale));
+   const ctx=canvas.getContext("2d");
+   if(!ctx){alert("Nu am putut procesa imaginea.");return;}
+   ctx.fillStyle="#ffffff";
+   ctx.fillRect(0,0,canvas.width,canvas.height);
+   ctx.drawImage(img,0,0,canvas.width,canvas.height);
+   const compressed=canvas.toDataURL("image/jpeg",0.45);
+   const previous=state.settings[type];
+   state.settings[type]=compressed;
+   if(!persist()){
+    state.settings[type]=previous;
+    input.value="";
+    return;
+   }
    applySettings();
-   alert("Imagine salvată.");
+   alert("Imaginea a fost comprimată și salvată.");
   };
-  im.src=reader.result;
+  img.src=reader.result;
  };
- reader.readAsDataURL(f);
+ reader.readAsDataURL(file);
 }
 
 function saveSettings(){
+ const previousName=state.businessName;
+ const previousSettings={...state.settings};
  state.businessName=document.getElementById("businessName").value;
  state.settings.fontSize=document.getElementById("fontSize").value;
  state.settings.accent=document.getElementById("accent").value;
- persist();
+ if(!persist()){
+  state.businessName=previousName;
+  state.settings=previousSettings;
+  applyStoredSettings();
+  return;
+ }
  applySettings();
  alert("Setările au fost salvate.");
 }
@@ -743,38 +782,26 @@ renderClients();
 renderEarnings();
 showTimer();
 
-/* Verifică dacă a fost publicată o versiune nouă a aplicației pe GitHub Pages. */
+/* Verifică periodic dacă a fost publicată o versiune nouă pe GitHub Pages. */
 (function autoUpdateFromGitHub(){
  const repoApi="https://api.github.com/repos/radugeorgiana9680-ship-it/Pure-Shine-Cleaning/commits?path=index.html&per_page=1";
  let knownSha=null;
-
  async function checkVersion(){
   try{
-   const response=await fetch(repoApi,{
-    cache:"no-store",
-    headers:{"Accept":"application/vnd.github+json"}
-   });
+   const response=await fetch(repoApi,{cache:"no-store",headers:{"Accept":"application/vnd.github+json"}});
    if(!response.ok)return;
    const commits=await response.json();
    const latest=commits&&commits[0]&&commits[0].sha;
    if(!latest)return;
-
-   if(knownSha===null){
-    knownSha=latest;
-    return;
-   }
-
+   if(knownSha===null){knownSha=latest;return;}
    if(latest!==knownSha){
     const modalOpen=Array.from(document.querySelectorAll("dialog")).some(d=>d.open);
-    if(!modalOpen&&!timerRunning){
-     location.reload();
-    }
+    if(!modalOpen&&!timerRunning)location.reload();
    }
   }catch(e){
    console.log("Actualizarea automată va fi reîncercată.");
   }
  }
-
  checkVersion();
  setInterval(checkVersion,90000);
 })();
