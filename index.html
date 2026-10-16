@@ -743,11 +743,9 @@ renderClients();
 renderEarnings();
 showTimer();
 
-/* Actualizare automată când se publică o versiune nouă pe GitHub Pages.
-   Verifică periodic index.html și reîncarcă numai dacă nu este deschis
-   un formular și timerul nu rulează. */
+/* Verifică dacă a fost publicată o versiune nouă a aplicației pe GitHub Pages. */
 (function autoUpdateFromGitHub(){
- const repoApi="https://api.github.com/repos/radugeorgiana9680-ship-it/Cleaning-Manager/commits?path=index.html&per_page=1";
+ const repoApi="https://api.github.com/repos/radugeorgiana9680-ship-it/Pure-Shine-Cleaning/commits?path=index.html&per_page=1";
  let knownSha=null;
 
  async function checkVersion(){
