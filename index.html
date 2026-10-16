@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f7c8d8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="light">
-<link rel="apple-touch-icon" href="./pure-shine-icon.jpg">
+<link rel="apple-touch-icon" href="assets/app-icon.jpg">
 <title>Pure Shine Cleaning Manager</title>
 <style>
 :root{
@@ -16,494 +16,695 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;width:100%;min-height:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--ink);background:
-linear-gradient(180deg,#fff7fa,#f9d6e2 55%,#fff8fb)}
-button,input,select,textarea{font:inherit;font-size:16px}button{border:0;cursor:pointer}button:active{transform:scale(.
-985)}
-img{max-width:100%;display:block}.hidden{display:none!important}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(180deg,#fff7fa,#f9d6e2 55%,#fff8fb)}
+button,input,select,textarea{font:inherit;font-size:16px}
+button{border:0;cursor:pointer}
+button:active{transform:scale(.985)}
+img{max-width:100%;display:block}
+.hidden{display:none!important}
+
 /* WELCOME */
-#welcome{min-height:100dvh;padding:calc(18px + env(safe-area-inset-top)) 22px calc(22px + env(safe-area-inset-bottom));
-display:flex;justify-content:center;align-items:center;background:
+#welcome{
+min-height:100dvh;
+padding:calc(18px + env(safe-area-inset-top)) 22px calc(22px + env(safe-area-inset-bottom));
+display:flex;justify-content:center;align-items:center;
+background:
 radial-gradient(circle at 18% 12%,rgba(255,255,255,.85),transparent 25%),
 radial-gradient(circle at 85% 78%,rgba(255,255,255,.75),transparent 24%),
-linear-gradient(135deg,#fff2f6 0%,#f8cbd9 52%,#fff1f6 100%);position:fixed;inset:0;z-index:9999;overflow:auto}
+linear-gradient(135deg,#fff2f6 0%,#f8cbd9 52%,#fff1f6 100%);
+position:fixed;inset:0;z-index:9999;overflow:auto
+}
 .welcome-inner{width:min(100%,430px);text-align:center;padding:8px 0 12px}
-.logo-ring{width:min(78vw,330px);height:min(78vw,330px);margin:0 auto 20px;border-radius:50%;padding:7px;background:
-linear-gradient(135deg,#fff,#d5aa52,#fff4bd,#b77d1e,#fff);box-shadow:0 16px 40px rgba(173,93,119,.22)}
-.logo-ring img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:3px solid rgba(255,255,255,.92)}
-.welcome-title{margin:0;color:#a92f5e;font-family:"Brush Script MT","Snell Roundhand","Segoe Script",cursive;font-size:
-clamp(45px,12vw,66px);line-height:.94;font-weight:700;text-shadow:0 2px 0 #fff,0 6px 18px rgba(137,40,75,.12)}
+.logo-ring{
+width:min(78vw,330px);height:min(78vw,330px);
+margin:0 auto 20px;border-radius:50%;padding:7px;
+background:linear-gradient(135deg,#fff,#d5aa52,#fff4bd,#b77d1e,#fff);
+box-shadow:0 16px 40px rgba(173,93,119,.22)
+}
+.logo-ring img{
+width:100%;height:100%;object-fit:cover;border-radius:50%;
+border:3px solid rgba(255,255,255,.92)
+}
+.logo-placeholder{
+display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,#fff8fb,#f7c8d8)
+}
+.logo-placeholder:after{
+content:"✨\A Pure Shine\A Cleaning";
+white-space:pre;text-align:center;color:#9a3159;
+font-family:Georgia,serif;font-size:28px;font-weight:800;line-height:1.15
+}
+.welcome-photo-btn{
+background:#fff9fb;color:#96355a;border:1px solid #d7a34c;
+border-radius:20px;padding:9px 15px;margin-bottom:15px;font-weight:700
+}
+.welcome-photo-input{display:none}
+.welcome-title{
+margin:0;color:#a92f5e;
+font-family:"Brush Script MT","Snell Roundhand","Segoe Script",cursive;
+font-size:clamp(45px,12vw,66px);line-height:.94;font-weight:700;
+text-shadow:0 2px 0 #fff,0 6px 18px rgba(137,40,75,.12)
+}
 .welcome-heart{font-size:35px;color:var(--gold);margin:10px 0 5px}
 .welcome-sub{font-size:17px;line-height:1.45;color:#704d5c;max-width:360px;margin:0 auto 18px}
 .features{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 auto 18px}
-.feature{min-height:126px;border:1px solid #d7a34c;border-radius:18px;background:rgba(255,251,248,.93);box-shadow:0 8px
-18px rgba(136,67,93,.11);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 5px}
-.feature-icon{font-size:31px;margin-bottom:8px}.feature b{font-size:13px;line-height:1.12}
-.get-started{width:100%;min-height:64px;border-radius:34px;background:linear-gradient(180deg,#f28aa9,#dc5d83);border:
-2px solid #e4b04e;color:#fff;font-family:Georgia,serif;font-size:28px;box-shadow:0 9px 22px rgba(184,65,102,.25)}
-.login{margin-top:17px;font-size:16px;color:#714f5d}.login button{background:none;color:#a62f5d;font-weight:800;text-
-decoration:underline;padding:0 4px}
+.feature{
+min-height:126px;border:1px solid #d7a34c;border-radius:18px;
+background:rgba(255,251,248,.93);box-shadow:0 8px 18px rgba(136,67,93,.11);
+display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 5px
+}
+.feature-icon{font-size:31px;margin-bottom:8px}
+.feature b{font-size:13px;line-height:1.12}
+.get-started{
+display:block;width:100%;min-height:64px;border-radius:34px;
+background:linear-gradient(180deg,#f28aa9,#dc5d83);
+border:2px solid #e4b04e;color:#fff;font-family:Georgia,serif;
+font-size:28px;box-shadow:0 9px 22px rgba(184,65,102,.25)
+}
+.login{margin-top:17px;font-size:16px;color:#714f5d}
+.login button{background:none;color:#a62f5d;font-weight:800;text-decoration:underline;padding:0 4px}
+
 /* APP */
-#app{display:none;min-height:100dvh;padding-bottom:92px}.top{position:sticky;top:0;z-index:50;background:rgba(255,249,
-252,.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,154,61,.25);padding:calc(10px + env(safe-area-
-inset-top)) 16px 10px}.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{display:
-flex;align-items:center;gap:10px}.brand img{width:58px;height:58px;border-radius:16px;object-fit:cover;border:2px solid
-var(--gold);box-shadow:0 5px 14px rgba(150,80,105,.15)}.brand h1{font-size:20px;margin:0;color:#8e3157}.brand p{font-
-size:12px;margin:3px 0 0;color:var(--muted)}.top-actions{display:flex;gap:7px}.icon{width:44px;height:44px;border-
-radius:15px;background:#fff;border:1px solid #e5c17b;color:#9b315d;font-size:22px}.icon.add{background:linear-gradient(
-180deg,#ee9db8,#dc6689);color:#fff}
-main{width:min(100%,760px);margin:auto;padding:14px}.page{display:none}.page.active{display:block}.section-head{display:
-flex;justify-content:space-between;align-items:center;margin:7px 0 14px}.section-head h2{margin:0;font-size:25px;color:
-#7e304f}.primary{background:linear-gradient(180deg,#ef9bb8,#db6287);color:#fff;border:1px solid var(--gold);border-
-radius:14px;padding:11px 15px;font-weight:800}.date-card{display:flex;align-items:center;gap:12px;background:linear-
-gradient(120deg,#f9d1df,#fff5f8);border:1px solid #e4b45f;border-radius:19px;padding:13px;margin-bottom:13px}.date-icon{
-font-size:28px}.date-main{font-weight:800}.date-sub{font-size:13px;color:var(--muted);margin-top:3px}.stats{display:
-grid;grid-template-columns:1fr 1fr;gap:10px}.stat{border:1px solid rgba(201,154,61,.45);border-radius:19px;padding:15px;
-min-height:108px;box-shadow:var(--shadow)}.stat:nth-child(1){background:#f8d6e2}.stat:nth-child(2){background:#f1e4f8}.
-stat:nth-child(3){background:#e6f2e9}.stat:nth-child(4){background:#fff1c9}.stat .value{font-size:25px;font-weight:900}.
-stat .label{font-size:13px;color:var(--muted);margin-top:5px}.home-hero{margin-top:13px;border-radius:23px;overflow:
-hidden;min-height:190px;background:linear-gradient(110deg,rgba(255,255,255,.92),rgba(255,229,239,.74)),url('./pure-
-shine-icon.jpg') center/cover;border:1px solid #d7a34c;display:flex;align-items:center;padding:24px}.home-hero h3{font-
-family:"Brush Script MT","Segoe Script",cursive;font-size:42px;line-height:.95;color:#a92f5e;margin:0}.home-hero p{font-
-size:14px;max-width:260px;color:#694957}.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:
-12px}.quick{min-height:66px;border-radius:17px;border:1px solid #dfb96d;background:#fff8fa;color:#7e304f;font-weight:
-800;font-size:16px}.list{display:grid;gap:10px}.card{background:rgba(255,255,255,.9);border:1px solid #dfc27f;border-
-radius:18px;padding:14px;box-shadow:0 7px 20px rgba(100,45,65,.08)}.row{display:flex;justify-content:space-between;
-align-items:center;gap:10px}.small{font-size:13px;color:var(--muted)}.money{font-weight:900;color:#9c315a}.danger{
-background:#fff0f2;color:#b42e52;border:1px solid #e4a2b3;border-radius:11px;padding:8px 10px}.secondary{background:
-#fff;color:#75495a;border:1px solid #d8bdc7;border-radius:11px;padding:10px 13px}.calendar{display:grid;grid-template-
-columns:repeat(7,1fr);gap:5px}.cal-head{font-size:11px;text-align:center;color:#9a6c7e;font-weight:800;padding:5px}.cal-
-day{min-height:82px;background:#fff8fb;border:1px solid #e0c17c;border-radius:10px;padding:5px}.cal-day .n{font-size:
-11px;color:#a07080}.cal-client{font-size:10px;font-weight:800;color:#96355a;background:#f8d5e2;border-radius:7px;
-padding:4px;margin-top:5px;line-height:1.1}.timer-panel{position:fixed;left:12px;right:12px;bottom:78px;z-index:80;
-background:#4f2438;color:#fff;border:2px solid #e1b454;border-radius:18px;padding:11px 14px;display:none;box-shadow:0
-12px 30px rgba(60,20,40,.25)}.timer-panel.show{display:flex;align-items:center;justify-content:space-between}.timer-
-value{font-variant-numeric:tabular-nums;font-size:22px;font-weight:900}.timer-stop{background:#f08eaa;color:#fff;border-
-radius:11px;padding:9px 12px;font-weight:800}.bottom{position:fixed;left:0;right:0;bottom:0;z-index:70;padding:8px 8px
-calc(8px + env(safe-area-inset-bottom));background:rgba(255,249,252,.96);backdrop-filter:blur(18px);border-top:1px
-solid #dfc27f;display:grid;grid-template-columns:repeat(5,1fr)}.nav{background:none;color:#947080;font-size:11px;
-display:flex;flex-direction:column;gap:3px;align-items:center}.nav span:first-child{font-size:22px}.nav.active{color:
-#a72f5d;font-weight:900}.modal{position:fixed;inset:0;background:rgba(55,22,36,.4);z-index:200;display:none;align-items:
-flex-end}.modal.show{display:flex}.sheet{width:100%;max-height:90dvh;overflow:auto;background:#fff8fb;border-radius:
-25px 25px 0 0;padding:18px 16px calc(25px + env(safe-area-inset-bottom));border-top:3px solid var(--gold)}.sheet-head{
-display:flex;justify-content:space-between;align-items:center}.sheet h3{margin:0 0 14px;color:#8e3157}.close{width:38px;
-height:38px;border-radius:50%;background:#f5d7e2;color:#8e3157}.sheet label{display:block;font-size:13px;font-weight:
-800;color:#704b5a;margin:10px 0 5px}.sheet input,.sheet select,.sheet textarea{width:100%;padding:12px;border-radius:
-12px;border:1px solid #d9bfc8;background:#fff;outline:none}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:
-10px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.save{background:#db6287;color:#fff;
-border:1px solid var(--gold);border-radius:12px;padding:11px 17px;font-weight:800}
-@media(max-width:390px){.welcome-inner{padding-top:2px}.logo-ring{width:72vw;height:72vw;margin-bottom:15px}.welcome-
-title{font-size:46px}.welcome-sub{font-size:15px}.feature{min-height:112px}.feature-icon{font-size:27px}.feature b{font-
-size:11px}.get-started{min-height:59px;font-size:25px}.brand img{width:52px;height:52px}.brand h1{font-size:18px}}
-/* FINAL SETTINGS + 130% ZOOM */
-#app.zoom-fit{zoom:1.3;width:76.9230769%;min-height:76.9230769dvh}
-.settings-page{padding-bottom:110px}
-.settings-card{background:linear-gradient(135deg,#fff8fb,#ffe9f1);border:1px solid #d8aa55;border-radius:22px;padding:
-18px;margin-bottom:14px;box-shadow:var(--shadow)}
-.settings-card h3{margin:0 0 6px;color:#7e304f;font-size:20px}
-.settings-card p{margin:0 0 16px;color:var(--muted);font-size:14px;line-height:1.4}
-.zoom-box{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0 14px}
-.zoom-btn{width:48px;height:48px;border-radius:15px;background:#fff;border:1px solid #d4a44f;color:#8d3156;font-size:
-25px;font-weight:800}
-.zoom-value{min-width:82px;text-align:center;font-size:22px;font-weight:900;color:#8d3156}
-.zoom-range{width:100%;accent-color:#d96d91}
-.settings-action{width:100%;min-height:54px;border-radius:17px;margin-top:10px;background:#fff;border:1px solid #d9ae5b;
-color:#7e304f;font-weight:800}
-.settings-action.primary-action{background:linear-gradient(180deg,#ef9bb8,#db6287);color:#fff}
-.settings-action.danger-action{background:#fff0f4;color:#a43b61}
-/* USER IMAGE SETTINGS */
-.image-setting{background:#fff;border:1px solid #dfc7d0;border-radius:18px;padding:14px;margin-top:12px}
-.image-setting-title{font-size:16px;font-weight:800;color:#7e304f;margin-bottom:10px}
-.image-preview{width:82px;height:82px;border-radius:16px;overflow:hidden;border:1px solid #d8aa55;background:#f8e4ec;
-margin-bottom:10px}
-.image-preview img{width:100%;height:100%;object-fit:cover;display:block}
-.cover-preview{width:100%;height:130px}
-.banner-preview{width:100%;height:110px}
-.image-setting input[type=file]{width:100%;padding:10px;background:#fff8fb;border:1px solid #dfc7d0;border-radius:12px;
-font-size:13px;color:#6d5861}
-.invoice-preview{background:#fff;color:#171717;border:1px solid #d8aa55;border-radius:20px;padding:18px}
-.invoice-table{width:100%;border-collapse:collapse;font-size:11px}
-.invoice-table th{background:#f4dbe5;padding:8px;text-align:left}
-.invoice-table td{padding:8px;border-bottom:1px solid #ead7de}
-.invoice-total{display:flex;justify-content:space-between;border-top:2px solid #f0d4df;padding-top:14px;margin-top:15px;
-font-size:20px;font-weight:900;color:#a44d70}
+#app{display:none;min-height:100dvh;padding-bottom:92px}
+.top{
+position:sticky;top:0;z-index:50;background:rgba(255,249,252,.94);
+backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,154,61,.25);
+padding:calc(10px + env(safe-area-inset-top)) 16px 10px
+}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:58px;height:58px;border-radius:16px;object-fit:cover;border:2px solid var(--gold);box-shadow:0 5px 14px rgba(150,80,105,.15)}
+.brand h1{font-size:20px;margin:0;color:#8e3157}
+.brand p{font-size:12px;margin:3px 0 0;color:var(--muted)}
+.top-actions{display:flex;gap:7px}
+.icon{width:44px;height:44px;border-radius:15px;background:#fff;border:1px solid #e5c17b;color:#9b315d;font-size:22px}
+.icon.add{background:linear-gradient(180deg,#ee9db8,#dc6689);color:#fff}
+main{width:min(100%,760px);margin:auto;padding:14px}
+.page{display:none}
+.page.active{display:block}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:7px 0 14px}
+.section-head h2{margin:0;font-size:25px;color:#7e304f}
+.primary{background:linear-gradient(180deg,#ef9bb8,#db6287);color:#fff;border:1px solid var(--gold);border-radius:14px;padding:11px 15px;font-weight:800}
+.date-card{display:flex;align-items:center;gap:12px;background:linear-gradient(120deg,#f9d1df,#fff5f8);border:1px solid #e4b45f;border-radius:19px;padding:13px;margin-bottom:13px}
+.date-icon{font-size:28px}
+.date-main{font-weight:800}
+.date-sub{font-size:13px;color:var(--muted);margin-top:3px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{border:1px solid rgba(201,154,61,.45);border-radius:19px;padding:15px;min-height:108px;box-shadow:var(--shadow)}
+.stat:nth-child(1){background:#f8d6e2}
+.stat:nth-child(2){background:#f1e4f8}
+.stat:nth-child(3){background:#e6f2e9}
+.stat:nth-child(4){background:#fff1c9}
+.stat .value{font-size:25px;font-weight:900}
+.stat .label{font-size:13px;color:var(--muted);margin-top:5px}
+.home-hero{
+margin-top:13px;border-radius:23px;overflow:hidden;min-height:190px;
+background:linear-gradient(110deg,rgba(255,255,255,.92),rgba(255,229,239,.74)),url('assets/home-banner.jpg') center/cover;
+border:1px solid #d7a34c;display:flex;align-items:center;padding:24px
+}
+.home-hero h3{font-family:"Brush Script MT","Segoe Script",cursive;font-size:42px;line-height:.95;color:#a92f5e;margin:0}
+.home-hero p{font-size:14px;max-width:260px;color:#694957}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.quick{min-height:66px;border-radius:17px;border:1px solid #dfb96d;background:#fff8fa;color:#7e304f;font-weight:800;font-size:16px}
+.list{display:grid;gap:10px}
+.card{background:rgba(255,255,255,.9);border:1px solid #dfc27f;border-radius:18px;padding:14px;box-shadow:0 7px 20px rgba(100,45,65,.08)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.small{font-size:13px;color:var(--muted)}
+.money{font-weight:900;color:#9c315a}
+.danger{background:#fff0f2;color:#b42e52;border:1px solid #e4a2b3;border-radius:11px;padding:8px 10px}
+.secondary{background:#fff;color:#75495a;border:1px solid #d8bdc7;border-radius:11px;padding:10px 13px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal-head{font-size:11px;text-align:center;color:#9a6c7e;font-weight:800;padding:5px}
+.cal-day{min-height:82px;background:#fff8fb;border:1px solid #e0c17c;border-radius:10px;padding:5px}
+.cal-day .n{font-size:11px;color:#a07080}
+.cal-client{font-size:10px;font-weight:800;color:#96355a;background:#f8d5e2;border-radius:7px;padding:4px;margin-top:5px;line-height:1.1}
+.timer-panel{position:fixed;left:12px;right:12px;bottom:78px;z-index:80;background:#4f2438;color:#fff;border:2px solid #e1b454;border-radius:18px;padding:11px 14px;display:none;box-shadow:0 12px 30px rgba(60,20,40,.25)}
+.timer-panel.show{display:flex;align-items:center;justify-content:space-between}
+.timer-value{font-variant-numeric:tabular-nums;font-size:22px;font-weight:900}
+.timer-stop{background:#f08eaa;color:#fff;border-radius:11px;padding:9px 12px;font-weight:800}
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:70;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:rgba(255,249,252,.96);backdrop-filter:blur(18px);border-top:1px solid #dfc27f;display:grid;grid-template-columns:repeat(5,1fr)}
+.nav{background:none;color:#947080;font-size:11px;display:flex;flex-direction:column;gap:3px;align-items:center}
+.nav span:first-child{font-size:22px}
+.nav.active{color:#a72f5d;font-weight:900}
+.modal{position:fixed;inset:0;background:rgba(55,22,36,.4);z-index:200;display:none;align-items:flex-end}
+.modal.show{display:flex}
+.sheet{width:100%;max-height:90dvh;overflow:auto;background:#fff8fb;border-radius:25px 25px 0 0;padding:18px 16px calc(25px + env(safe-area-inset-bottom));border-top:3px solid var(--gold)}
+.sheet-head{display:flex;justify-content:space-between;align-items:center}
+.sheet h3{margin:0 0 14px;color:#8e3157}
+.close{width:38px;height:38px;border-radius:50%;background:#f5d7e2;color:#8e3157}
+.sheet label{display:block;font-size:13px;font-weight:800;color:#704b5a;margin:10px 0 5px}
+.sheet input,.sheet select,.sheet textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #d9bfc8;background:#fff;outline:none}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.save{background:#db6287;color:#fff;border:1px solid var(--gold);border-radius:12px;padding:11px 17px;font-weight:800}
+@media(max-width:390px){
+.welcome-inner{padding-top:2px}
+.logo-ring{width:72vw;height:72vw;margin-bottom:15px}
+.welcome-title{font-size:46px}
+.welcome-sub{font-size:15px}
+.feature{min-height:112px}
+.feature-icon{font-size:27px}
+.feature b{font-size:11px}
+.get-started{min-height:59px;font-size:25px}
+.brand img{width:52px;height:52px}
+.brand h1{font-size:18px}
+}
 </style>
 </head>
 <body>
+
 <section id="welcome">
 <div class="welcome-inner">
-<div class="logo-ring"><img src="./pure-shine-icon.jpg" alt="Pure Shine Cleaning"></div>
+<div class="logo-ring">
+<img id="welcomeProfileImage" alt="Pure Shine Cleaning"
+src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23fff4bd'/%3E%3Cstop offset='.5' stop-color='%23d5aa52'/%3E%3Cstop offset='1' stop-color='%23fff0b0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='200' cy='200' r='190' fill='url(%23g)' stroke='white' stroke-width='6'/%3E%3Ctext x='200' y='165' text-anchor='middle' font-size='60'%3E✨%3C/text%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Georgia' font-size='35' font-weight='bold' fill='%239a3159'%3EPure Shine%3C/text%3E%3Ctext x='200' y='262' text-anchor='middle' font-family='Georgia' font-size='25' fill='%239a3159'%3ECleaning%3C/text%3E%3C/svg%3E">
+</div>
+<button type="button" class="welcome-photo-btn" onclick="document.getElementById('welcomePhotoInput').click()">📷 Change profile photo</button>
+<input id="welcomePhotoInput" class="welcome-photo-input" type="file" accept="image/*">
 <h1 class="welcome-title">Your Cleaning<br>Business, Simplified</h1>
-<div class="welcome-heart">■</div>
+<div class="welcome-heart">♡</div>
 <p class="welcome-sub">Everything you need to organise your cleaning business in one beautiful place.</p>
 <div class="features">
-<div class="feature"><div class="feature-icon">■■</div><b>Manage<br>Jobs</b></div>
-<div class="feature"><div class="feature-icon">■</div><b>Keep Track<br>of Clients</b></div>
-<div class="feature"><div class="feature-icon">■</div><b>Track<br>Earnings</b></div>
-<div class="feature"><div class="feature-icon">■■</div><b>More Time<br>for You</b></div>
+<button class="feature" type="button" onclick="enterApp('jobs')"><div class="feature-icon">🗓️</div><b>Manage<br>Jobs</b></button>
+<button class="feature" type="button" onclick="enterApp('clients')"><div class="feature-icon">👥</div><b>Keep Track<br>of Clients</b></button>
+<button class="feature" type="button" onclick="enterApp('earnings')"><div class="feature-icon">📈</div><b>Track<br>Earnings</b></button>
+<button class="feature" type="button" onclick="enterApp('time')"><div class="feature-icon">⏱️</div><b>More Time<br>for You</b></button>
 </div>
-<button class="get-started" onclick="enterApp()">Get Started ›</button>
-<div class="login">Already have an account? <button onclick="enterApp()">Log in</button></div>
+<button type="button" class="get-started" id="getStartedButton" onclick="enterApp('jobs')">Get Started ›</button>
+<div class="login">Already have an account? <button type="button" onclick="enterApp('jobs')">Log in</button></div>
 </div>
 </section>
+
 <div id="app">
-<header class="top"><div class="top-row"><div class="brand"><img src="./pure-shine-icon.jpg" alt="Pure
-Shine"><div><h1>Pure Shine</h1><p>Cleaning Manager ■</p></div></div><div class="top-actions"><button class="icon"
-onclick="startNextTimer()">■</button><button class="icon add" onclick="openJob()">■</button></div></div></header>
+<header class="top">
+<div class="top-row">
+<div class="brand">
+<img id="appLogo" alt="Pure Shine" src="assets/app-icon.jpg">
+<div><h1>Pure Shine</h1><p>Cleaning Manager</p></div>
+</div>
+<div class="top-actions">
+<button class="icon add" onclick="openJobModal()">＋</button>
+<button class="icon" onclick="showPage('settings')">⚙️</button>
+</div>
+</div>
+</header>
+
 <main>
-<section id="home" class="page active">
-<div class="date-card"><div class="date-icon">■■</div><div><div id="today" class="date-main"></div><div class="date-
-sub">Let's make today productive ■</div></div></div>
-<div class="stats"><div class="stat"><div class="value" id="sJobs">0</div><div class="label">Jobs</div></div><div
-class="stat"><div class="value" id="sHours">0h 0m</div><div class="label">Hours</div></div><div class="stat"><div
-class="value" id="sEarn">£0.00</div><div class="label">Earned</div></div><div class="stat"><div class="value"
-id="sFree">0h 0m</div><div class="label">Available</div></div></div>
-<div class="home-hero"><div><h3>A clean space<br>is a happy place ■</h3><p>Everything for your cleaning business —
-organised, simple and beautiful.</p></div></div>
-<div class="quick-grid"><button class="quick" onclick="startNextTimer()">■ Start Timer</button><button class="quick"
-onclick="openJob()">■ Add Job</button></div>
+<section class="page active" id="home">
+<div class="section-head"><h2>Welcome back ✨</h2></div>
+<div class="date-card"><div class="date-icon">📅</div><div><div class="date-main" id="today"></div><div class="date-sub">Your cleaning business at a glance</div></div></div>
+<div class="stats">
+<div class="stat"><div class="value" id="sJobs">0</div><div class="label">Jobs recorded</div></div>
+<div class="stat"><div class="value" id="sHours">0h</div><div class="label">Hours recorded</div></div>
+<div class="stat"><div class="value" id="sEarn">£0.00</div><div class="label">Earnings recorded</div></div>
+<div class="stat"><div class="value" id="sFree">40h</div><div class="label">Available hours (estimate)</div></div>
+</div>
+<div class="home-hero"><div><h3>Pure Shine</h3><p>A little sparkle in every clean. Keep your schedule, clients and earnings beautifully organised.</p></div></div>
+<div class="quick-grid">
+<button class="quick" onclick="showPage('calendar')">🗓️ Open calendar</button>
+<button class="quick" onclick="showPage('clients')">👥 View clients</button>
+<button class="quick" onclick="openJobModal()">＋ Add a job</button>
+<button class="quick" onclick="showPage('earnings')">💷 View earnings</button>
+</div>
 </section>
-<section id="schedule" class="page"><div class="section-head"><h2>Schedule</h2><button class="primary" onclick="openJob(
-)">■ Add</button></div><div id="calendar" class="calendar"></div></section>
-<section id="clients" class="page"><div class="section-head"><h2>Clients</h2><button class="primary"
-onclick="openClient()">■ Add</button></div><div id="clientsList" class="list"></div></section>
-<section id="jobs" class="page"><div class="section-head"><h2>Jobs</h2><button class="primary" onclick="openJob()">■
-Add</button></div><div id="jobsList" class="list"></div></section>
-<section id="earnings" class="page"><div class="section-head"><h2>Earnings</h2></div><div id="earningsList"
-class="list"></div></section>
-</main>
-<div id="timerPanel" class="timer-panel"><div><div class="small" style="color:#f8cbd9">CURRENT TIMER</div><b
-id="timerClient">Client</b><div id="timerValue" class="timer-value">00:00:00</div></div><button class="timer-stop"
-onclick="stopTimer()">Stop</button></div>
-<section id="settings" class="page settings-page">
+
+<section class="page" id="calendar">
+<div class="section-head"><h2>Calendar</h2><button class="primary" onclick="openJobModal()">＋ Add job</button></div>
+<div class="card"><div class="row"><button class="secondary" onclick="changeMonth(-1)">‹</button><b id="calendarMonth"></b><button class="secondary" onclick="changeMonth(1)">›</button></div><div id="calendarGrid" class="calendar"></div></div>
+</section>
+
+<section class="page" id="clients">
+<div class="section-head"><h2>Clients</h2><button class="primary" onclick="openClientModal()">＋ Add client</button></div>
+<div id="clientsList" class="list"></div>
+</section>
+
+<section class="page" id="jobs">
+<div class="section-head"><h2>Jobs</h2><button class="primary" onclick="openJobModal()">＋ Add job</button></div>
+<div class="card">
+<div class="form-grid">
+<div><label for="jobFilter">Filter jobs</label><select id="jobFilter" onchange="renderJobs()"><option value="all">All jobs</option><option value="planned">Planned</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></div>
+<div><label for="jobSearch">Search client</label><input id="jobSearch" placeholder="Client name" oninput="renderJobs()"></div>
+</div>
+</div>
+<div id="jobsList" class="list" style="margin-top:12px"></div>
+</section>
+
+<section class="page" id="earnings">
+<div class="section-head"><h2>Earnings</h2></div>
+<div class="stats">
+<div class="stat"><div class="value" id="earnTotal">£0.00</div><div class="label">Completed earnings</div></div>
+<div class="stat"><div class="value" id="earnOwed">£0.00</div><div class="label">Money owed</div></div>
+</div>
+<div class="card" style="margin-top:12px"><h3>Monthly totals</h3><div id="monthlyEarnings"></div></div>
+<div id="earningsList" class="list" style="margin-top:12px"></div>
+</section>
+
+<section class="page" id="time">
+<div class="section-head"><h2>Today's Time</h2></div>
+<div class="stats">
+<div class="stat"><div class="value" id="timeJobs">0</div><div class="label">Jobs today</div></div>
+<div class="stat"><div class="value" id="timeWorked">0h</div><div class="label">Hours today</div></div>
+</div>
+<div id="timeJobsList" class="list" style="margin-top:12px"></div>
+</section>
+
+<section class="page settings-page" id="settings">
 <div class="section-head"><h2>Settings</h2></div>
-<div class="settings-card"><h3>App Zoom</h3><p>Adjust the app size. The setting is saved automatically on this device.</
-p><div class="zoom-box"><button class="zoom-btn" onclick="changeZoom(-5)">−</button><div id="zoomLabel" class="zoom-
-value">130%</div><button class="zoom-btn" onclick="changeZoom(5)">+</button></div><input id="zoomRange" class="zoom-
-range" type="range" min="80" max="200" step="5" value="130" oninput="setAppZoom(this.value)"></div>
-<button class="settings-action primary-action" onclick="setAppZoom(130)">■ Reset Zoom to 130%</button>
-<div class="settings-card">
-<h3>■ App Images</h3>
-<p>Change your thumbnail, welcome cover and home banner. Your choices are saved on this device.</p>
-<div class="image-setting"><div class="image-setting-title">■ App Thumbnail / Logo</div><div class="image-preview"><img
-id="thumbnailPreview" alt="App Thumbnail"></div><input id="thumbnailInput" type="file" accept="image/*"
-onchange="changeAppImage('thumbnail',this)"></div>
-<div class="image-setting"><div class="image-setting-title">■ Welcome Cover</div><div class="image-preview cover-
-preview"><img id="coverPreview" alt="Welcome Cover"></div><input id="coverInput" type="file" accept="image/*"
-onchange="changeAppImage('cover',this)"></div>
-<div class="image-setting"><div class="image-setting-title">■ Home Banner</div><div class="image-preview banner-
-preview"><img id="bannerPreview" alt="Home Banner"></div><input id="bannerInput" type="file" accept="image/*"
-onchange="changeAppImage('banner',this)"></div>
-</div>
-<button class="settings-action" onclick="addJobsToCalendar()">■ Add Jobs to iPhone Calendar</button>
-<button class="settings-action" onclick="exportData()">■■ Export My Data</button>
-<button class="settings-action danger-action" onclick="resetAppData()">■ Reset App Data</button>
+<div id="settingsContent"></div>
 </section>
-<nav class="bottom"><button class="nav active" data-page="home" onclick="showPage('home',this)"><span>■</span>Home</
-button><button class="nav" data-page="schedule" onclick="showPage('schedule',this)"><span>■</span>Schedule</
-button><button class="nav" data-page="clients" onclick="showPage('clients',this)"><span>■</span>Clients</button><button
-class="nav" data-page="jobs" onclick="showPage('jobs',this)"><span>■</span>Jobs</button><button class="nav" data-
-page="earnings" onclick="showPage('earnings',this)"><span>£</span>Earnings</button><button class="nav settings-nav"
-data-page="settings" onclick="showPage('settings',this)"><span>■■</span>Settings</button></nav>
+</main>
+
+<nav class="bottom">
+<button class="nav active" data-page="home" onclick="showPage('home',this)"><span>🏠</span>Home</button>
+<button class="nav" data-page="calendar" onclick="showPage('calendar',this)"><span>🗓️</span>Calendar</button>
+<button class="nav" data-page="clients" onclick="showPage('clients',this)"><span>👥</span>Clients</button>
+<button class="nav" data-page="jobs" onclick="showPage('jobs',this)"><span>🧹</span>Jobs</button>
+<button class="nav" data-page="earnings" onclick="showPage('earnings',this)"><span>💷</span>Earnings</button>
+</nav>
 </div>
-<div id="clientModal" class="modal" onclick="if(event.target===this)closeModal('clientModal')"><div class="sheet"><div
-class="sheet-head"><h3 id="clientTitle">Add Client</h3><button class="close" onclick="closeModal('clientModal')">✕</
-button></div><input id="cId" type="hidden"><label>Name</label><input id="cName"><label>Client type</label><select
-id="cType"><option>Private</option><option>Agency</option><option>Occasional</option><option>Every 2 weeks</
-option><option>Every 3 weeks</option><option>Monthly</option></select><label>Rate (£/hour)</label><input id="cRate"
-type="number" step="0.01"><label>Standard hours</label><input id="cHours" type="number" step="0.25"><label>Phone
-number</label><input id="cPhone" type="tel"><div class="form-actions"><button class="secondary" onclick="closeModal(
-'clientModal')">Cancel</button><button class="save" onclick="saveClient()">Save</button></div></div></div>
-<div id="jobModal" class="modal" onclick="if(event.target===this)closeModal('jobModal')"><div class="sheet"><div
-class="sheet-head"><h3 id="jobTitle">Add Cleaning Job</h3><button class="close" onclick="closeModal('jobModal')">✕</
-button></div><input id="jId" type="hidden"><label>Client</label><select id="jClient"></select><div class="form-
-grid"><div><label>Date</label><input id="jDate" type="date"></div><div><label>Day</label><select
-id="jDay"><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</
-option><option>Friday</option><option>Saturday</option><option>Sunday</option></select></div></div><div class="form-
-grid"><div><label>Start</label><input id="jStart" type="time" onchange="calcHours()"></div><div><label>End</
-label><input id="jEnd" type="time" onchange="calcHours()"></div></div><div class="form-grid"><div><label>Exact worked
-time</label><input id="jHours" type="text" readonly></div><div><label>Rate (£/hour)</label><input id="jRate"
-type="number" step="0.01"></div></div><label>Notes</label><textarea id="jNotes" rows="2"></textarea><div class="form-
-actions"><button id="deleteJobBtn" class="danger hidden" onclick="deleteJob()">Delete</button><button class="secondary"
-onclick="closeModal('jobModal')">Cancel</button><button class="save" onclick="saveJob()">Save</button></div></div></div>
-<div id="invoiceModal" class="modal" onclick="if(event.target===this)closeModal('invoiceModal')"><div
-class="sheet"><div class="sheet-head"><h3>Invoice</h3><button class="close" onclick="closeModal('invoiceModal')">✕</
-button></div><div id="invoiceContent"></div><div class="form-actions"><button class="secondary" onclick="closeModal(
-'invoiceModal')">Close</button><button class="confirm" onclick="shareInvoice()">■ Share</button><button class="save"
-onclick="printInvoice()">■■ Print</button></div></div></div>
+
+<div class="timer-panel" id="timerPanel">
+<div><div id="timerClient">Current job</div><div class="timer-value" id="timerValue">00:00:00</div></div>
+<button class="timer-stop" onclick="stopTimer()">Finish job</button>
+</div>
+
+<div class="modal" id="jobModal">
+<div class="sheet">
+<div class="sheet-head"><h3 id="jobModalTitle">Add job</h3><button class="close" onclick="closeModal('jobModal')">✕</button></div>
+<form id="jobForm" onsubmit="saveJob(event)">
+<input type="hidden" id="jobId">
+<label for="jobClient">Client</label><select id="jobClient" required></select>
+<div class="form-grid">
+<div><label for="jobDate">Date</label><input id="jobDate" type="date" required></div>
+<div><label for="jobStatus">Status</label><select id="jobStatus"><option value="planned">Planned</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></div>
+<div><label for="jobStart">Start</label><input id="jobStart" type="time"></div>
+<div><label for="jobEnd">Finish</label><input id="jobEnd" type="time"></div>
+<div><label for="jobHours">Hours</label><input id="jobHours" type="number" min="0" step=".01" value="2"></div>
+<div><label for="jobRate">Hourly rate (£)</label><input id="jobRate" type="number" min="0" step=".5" value="16"></div>
+</div>
+<label for="jobNotes">Notes</label><textarea id="jobNotes" rows="2"></textarea>
+<div class="form-actions"><button type="button" class="secondary" onclick="closeModal('jobModal')">Cancel</button><button type="submit" class="save">Save job</button></div>
+</form>
+</div>
+</div>
+
+<div class="modal" id="clientModal">
+<div class="sheet">
+<div class="sheet-head"><h3 id="clientModalTitle">Add client</h3><button class="close" onclick="closeModal('clientModal')">✕</button></div>
+<form id="clientForm" onsubmit="saveClient(event)">
+<input type="hidden" id="clientId">
+<label for="clientName">Name</label><input id="clientName" required>
+<label for="clientPhone">Phone</label><input id="clientPhone" type="tel">
+<div class="form-grid">
+<div><label for="clientRate">Hourly rate (£)</label><input id="clientRate" type="number" min="0" step=".5" value="16"></div>
+<div><label for="clientType">Client type</label><select id="clientType"><option value="private">Private</option><option value="agency">Agency</option><option value="occasional">Occasional</option></select></div>
+</div>
+<label for="clientDay">Usual day</label><select id="clientDay"><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option><option>Occasional</option></select>
+<label for="clientNotes">Notes</label><textarea id="clientNotes" rows="2"></textarea>
+<div class="form-actions"><button type="button" class="secondary" onclick="closeModal('clientModal')">Cancel</button><button type="submit" class="save">Save client</button></div>
+</form>
+</div>
+</div>
+
 <script>
-const LOGO='./pure-shine-icon.jpg', KEY='pure_shine_manager_v10', TIMER='pure_shine_timer_v10';
-const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-let clients=JSON.parse(localStorage.getItem(KEY+'_clients')||'null')||[
-{id:'lottie',name:'Lottie',type:'Agency',rate:16,hours:2},{id:'christine',name:'Christine',type:'Private',rate:18,hours:
-3},{id:'matt',name:'Matt',type:'Agency',rate:16,hours:4},{id:'sonia',name:'Sonia',type:'Agency',rate:16,hours:5},{id:
-'laura',name:'Laura',type:'Private',rate:18,hours:4},{id:'hannah',name:'Hannah',type:'Agency',rate:16,hours:3}
+(function(){
+'use strict';
+const KEY='pureShineManager_settings_v5';
+const DEFAULT_CLIENTS=[
+{name:'Lottie',phone:'',rate:16,type:'agency',day:'Monday',notes:'09:00–11:00 weekly'},
+{name:'Christine',phone:'',rate:18,type:'private',day:'Tuesday',notes:'09:30–12:30 fortnightly'},
+{name:'Matt',phone:'',rate:16,type:'agency',day:'Tuesday',notes:'Alternates with Christine; 10:00–14:00 or 13:00–17:00'},
+{name:'Sonia',phone:'',rate:16,type:'agency',day:'Wednesday',notes:'10:00–15:00, flexible'},
+{name:'Laura',phone:'',rate:18,type:'private',day:'Thursday',notes:'09:00–13:00'},
+{name:'Hannah',phone:'',rate:16,type:'agency',day:'Thursday',notes:'14:00–17:00'},
+{name:'Meghan',phone:'',rate:18,type:'private',day:'Thursday',notes:'17:30–18:30'},
+{name:'Joanna',phone:'',rate:16,type:'agency',day:'Friday',notes:'09:30–12:30 fortnightly; sometimes until 13:00'},
+{name:'Sindu',phone:'',rate:16,type:'agency',day:'Friday',notes:'09:30–12:30, alternating with Joanna'},
+{name:'Mike',phone:'',rate:18,type:'private',day:'Sunday',notes:'10:00–12:00 every three weeks'},
+{name:'Peter',phone:'',rate:20,type:'private',day:'Occasional',notes:'Occasional client'}
 ];
-let jobs=JSON.parse(localStorage.getItem(KEY+'_jobs')||'null')||[
-{id:'1',clientId:'lottie',day:'Monday',date:'',start:'13:00',end:'15:00',hours:2,rate:16,done:false,notes:''},{id:'2',
-clientId:'christine',day:'Tuesday',date:'',start:'09:30',end:'12:30',hours:3,rate:18,done:false,notes:''},{id:'3',
-clientId:'matt',day:'Tuesday',date:'',start:'',end:'',hours:4,rate:16,done:false,notes:''},{id:'4',clientId:'sonia',day:
-'Wednesday',date:'',start:'09:00',end:'14:00',hours:5,rate:16,done:false,notes:''},{id:'5',clientId:'laura',day:
-'Thursday',date:'',start:'09:00',end:'13:00',hours:4,rate:18,done:false,notes:''},{id:'6',clientId:'hannah',day:
-'Thursday',date:'',start:'13:00',end:'16:00',hours:3,rate:16,done:false,notes:''}
-];
-// One-time-safe migration: add the October 2026 jobs from the user's calendar screenshots
-// without replacing any existing jobs. Jobs with unspecified start/end times retain duration only.
-const october2026Jobs=[
-{id:'ps-oct2026-meghan-19',clientId:'meghan',day:'Monday',date:'2026-10-19',start:'15:00',end:'16:00',hours:1,rate:16,
-done:false,notes:''},
-{id:'ps-oct2026-lottie-19',clientId:'lottie',day:'Monday',date:'2026-10-19',start:'08:50',end:'10:50',hours:2,rate:16,
-done:false,notes:''},
-{id:'ps-oct2026-matt-20',clientId:'matt',day:'Tuesday',date:'2026-10-20',start:'13:00',end:'17:00',hours:4,rate:16,done:
-false,notes:''},
-{id:'ps-oct2026-christine-20',clientId:'christine',day:'Tuesday',date:'2026-10-20',start:'09:30',end:'12:30',hours:3,
-rate:18,done:false,notes:''},
-{id:'ps-oct2026-sonia-21',clientId:'sonia',day:'Wednesday',date:'2026-10-21',start:'09:00',end:'15:00',hours:6,rate:16,
-done:false,notes:''},
-{id:'ps-oct2026-hannah-22',clientId:'hannah',day:'Thursday',date:'2026-10-22',start:'',end:'',hours:3,rate:16,done:
-false,notes:'Duration shown as 3 hours; exact start/end time not shown in screenshot.'},
-{id:'ps-oct2026-laura-22',clientId:'laura',day:'Thursday',date:'2026-10-22',start:'09:00',end:'13:00',hours:4,rate:18,
-done:false,notes:''},
-{id:'ps-oct2026-lottie-26',clientId:'lottie',day:'Monday',date:'2026-10-26',start:'13:00',end:'15:00',hours:2,rate:16,
-done:false,notes:''},
-{id:'ps-oct2026-matt-27',clientId:'matt',day:'Tuesday',date:'2026-10-27',start:'13:00',end:'17:00',hours:4,rate:16,done:
-false,notes:''},
-{id:'ps-oct2026-sonia-28',clientId:'sonia',day:'Wednesday',date:'2026-10-28',start:'09:00',end:'15:00',hours:6,rate:16,
-done:false,notes:''},
-{id:'ps-oct2026-meghan-29',clientId:'meghan',day:'Thursday',date:'2026-10-29',start:'',end:'',hours:1,rate:16,done:
-false,notes:'Duration shown as 1 hour; exact start/end time not shown in screenshot.'},
-{id:'ps-oct2026-hannah-29',clientId:'hannah',day:'Thursday',date:'2026-10-29',start:'',end:'',hours:3,rate:16,done:
-false,notes:'Duration shown as 3 hours; exact start/end time not shown in screenshot.'},
-{id:'ps-oct2026-laura-29',clientId:'laura',day:'Thursday',date:'2026-10-29',start:'09:00',end:'13:00',hours:4,rate:18,
-done:false,notes:''},
-{id:'ps-oct2026-gill-29',clientId:'gill',day:'Thursday',date:'2026-10-29',start:'15:00',end:'18:00',hours:3,rate:16,
-done:false,notes:''},
-{id:'ps-oct2026-johanna-30',clientId:'johanna',day:'Friday',date:'2026-10-30',start:'09:30',end:'12:30',hours:3,rate:18,
-done:false,notes:''}
-];
-const existingJobIds=new Set(jobs.map(j=>String(j.id)));
-const newOctoberJobs=october2026Jobs.filter(j=>!existingJobIds.has(j.id));
-if(newOctoberJobs.length){jobs=[...jobs,...newOctoberJobs];localStorage.setItem(KEY+'_jobs',JSON.stringify(jobs));}
-const requiredClients=[{id:'meghan',name:'Meghan',type:'Agency',rate:16,hours:0},{id:'joanna',name:'Joanna',type:
-'Agency',rate:16,hours:0},{id:'sindu',name:'Sindu',type:'Agency',rate:16,hours:0},{id:'peter',name:'Peter',type:
-'Agency',rate:16,hours:0},{id:'mike',name:'Mike',type:'Agency',rate:16,hours:0}];
-requiredClients.forEach(rc=>{if(!clients.some(c=>String(c.name).toLowerCase()===rc.name.toLowerCase()))clients.push({...
-rc});});
-// Keep all clients needed by existing and dated jobs.
-[{id:'gill',name:'Gill',type:'Agency',rate:16,hours:3},{id:'johanna',name:'Johanna',type:'Private',rate:18,hours:3}].
-forEach(rc=>{if(!clients.some(c=>String(c.name).trim().toLowerCase()===rc.name.toLowerCase()))clients.push({...rc});});
-localStorage.setItem(KEY+'_clients',JSON.stringify(clients));
-// Permanent recurring work plan supplied by Georgiana. Stored separately so it survives app updates
-// and never overwrites or deletes completed/history jobs already saved in this browser.
-const RECURRING_PLAN_KEY='pure_shine_recurring_work_plan_v1';
-const recurringWorkPlan=[
-{client:'Lottie',day:'Monday',start:'09:00',end:'11:00',frequency:'Weekly',notes:'Regular weekly appointment.'},
-{client:'Christine',day:'Tuesday',start:'09:30',end:'12:30',frequency:'Every 2 weeks',rotation:'A',notes:'Alternates
-with Matt’s earlier shift.'},
-{client:'Matt',day:'Tuesday',start:'10:00',end:'14:00',frequency:'Every 2 weeks',rotation:'B',notes:'Week Christine is
-not scheduled.'},
-{client:'Matt',day:'Tuesday',start:'13:00',end:'17:00',frequency:'Every 2 weeks',rotation:'A',notes:'Week Christine is
-scheduled.'},
-{client:'Sonia',day:'Wednesday',start:'10:00',end:'15:00',frequency:'Weekly',notes:'Flexible finish depending on
-workload.'},
-{client:'Laura',day:'Thursday',start:'09:00',end:'13:00',frequency:'Weekly',notes:''},
-{client:'Hannah',day:'Thursday',start:'14:00',end:'17:00',frequency:'Weekly',notes:''},
-{client:'Meghan',day:'Thursday',start:'17:30',end:'18:30',frequency:'Weekly',notes:''},
-{client:'Joanna',day:'Friday',start:'09:30',end:'12:30',endAlternative:'13:00',frequency:'Every 2 weeks',rotation:'A',
-notes:'Sometimes finishes at 13:00; alternates with Sindu.'},
-{client:'Sindu',day:'Friday',start:'09:30',end:'12:30',frequency:'Every 2 weeks',rotation:'B',notes:'Only on the week
-Joanna is not scheduled; never schedule them in the same week.'},
-{client:'Mike',day:'Sunday',start:'10:00',end:'12:00',frequency:'Every 3 weeks',notes:'Three-week rotation.'},
-{client:'Peter',day:'Flexible',start:'',end:'',frequency:'Occasional',notes:'Only add a job when a cleaning job is
-available.'}
-];
-try{localStorage.setItem(RECURRING_PLAN_KEY,JSON.stringify(recurringWorkPlan));}catch(e){}
-// Add/update schedule metadata only; preserve each client's other saved fields and all job history.
-recurringWorkPlan.forEach(rule=>{
-const c=clients.find(x=>String(x.name||'').trim().toLowerCase()===rule.client.toLowerCase());
-if(c){c.recurringSchedule=rule;}
-});
-localStorage.setItem(KEY+'_clients',JSON.stringify(clients));
-let timer=JSON.parse(localStorage.getItem(TIMER)||'null');
-(function dedupeClients(){let seen={},map={};let changed=false;clients.forEach(c=>{let k=String(c.name||'').trim().
-toLowerCase();if(!k)return;if(seen[k]){map[c.id]=seen[k].id;changed=true}else seen[k]=c});if(changed){jobs=jobs.map(
-j=>map[j.clientId]?{...j,clientId:map[j.clientId]}:j);clients=clients.filter(c=>!map[c.id]);localStorage.setItem(
-KEY+'_clients',JSON.stringify(clients));localStorage.setItem(KEY+'_jobs',JSON.stringify(jobs))}})();
-function save(){try{const clientsData=JSON.stringify(clients||[]),jobsData=JSON.stringify(jobs||[]),timerData=JSON.
-stringify(timer||null);localStorage.setItem(KEY+'_clients',clientsData);localStorage.setItem(KEY+'_jobs',jobsData);
-localStorage.setItem(TIMER,timerData);if(localStorage.getItem(KEY+'_clients')!==clientsData||localStorage.getItem(
-KEY+'_jobs')!==jobsData)throw new Error('Save verification failed');return true}catch(error){console.error('Pure Shine
-save error:',error);alert('The data could not be saved. Please try again.');return false}}
-function enterApp(){document.getElementById('welcome').style.display='none';document.getElementById('app').style.
-display='block';render();}
-function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.
-getElementById(id).classList.add('active');document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));(
-btn||document.querySelector('.nav[data-page="'+id+'"]'))?.classList.add('active');render()}
-function name(id){return clients.find(c=>c.id===id)?.name||'Unknown'}
-function money(n){return '£'+Number(n||0).toFixed(2)}
-function timeText(h){let x=Math.max(0,Number(h||0)),hr=Math.floor(x),m=Math.round((x-hr)*60);if(m===60){hr++;m=0}return
-hr+'h '+m+'m'}
-function duration(start,end){if(!start||!end)return 0;let a=start.split(':').map(Number),b=end.split(':').map(Number),
-mins=b[0]*60+b[1]-(a[0]*60+a[1]);if(mins<0)mins+=1440;return mins/60}
-function calcHours(){let h=duration(document.getElementById('jStart').value,document.getElementById('jEnd').value);
-document.getElementById('jHours').value=h?timeText(h):''}
-function openClient(id){let c=id?clients.find(x=>x.id===id):null;document.getElementById('cId').value=c?.id||'';
-document.getElementById('cName').value=c?.name||'';document.getElementById('cType').value=c?.type||'Private';document.
-getElementById('cRate').value=c?.rate??18;document.getElementById('cHours').value=c?.hours??2;document.getElementById(
-'cPhone').value=c?.phone||'';document.getElementById('clientTitle').textContent=c?'Edit Client':'Add Client';document.
-getElementById('clientModal').classList.add('show')}
-function saveClient(){let id=document.getElementById('cId').value,n=document.getElementById('cName').value.trim();if(
-!n)return;let data={name:n,type:document.getElementById('cType').value,rate:Number(document.getElementById('cRate').
-value||0),hours:Number(document.getElementById('cHours').value||0),phone:document.getElementById('cPhone').value.trim(
-)};if(id){let i=clients.findIndex(c=>c.id===id);if(i<0)return;clients[i]={...clients[i],...data}}else{if(clients.some(
-c=>String(c.name||'').trim().toLowerCase()===n.toLowerCase())){alert('This client already exists. Please use Edit
-details.');return}clients.push({id:'c'+Date.now(),...data})}if(save()){closeModal('clientModal');render()}}
-function openJob(id){let j=jobs.find(x=>x.id===id);document.getElementById('jId').value=j?.id||'';document.
-getElementById('jClient').innerHTML=clients.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');if(j){
-document.getElementById('jClient').value=j.clientId;document.getElementById('jDate').value=j.date||'';document.
-getElementById('jDay').value=j.day;document.getElementById('jStart').value=j.start||'';document.getElementById('jEnd').
-value=j.end||'';document.getElementById('jRate').value=j.rate;document.getElementById('jNotes').value=j.notes||'';
-document.getElementById('deleteJobBtn').classList.remove('hidden');jobTitle.textContent='Edit Cleaning Job'}else{let
-c=clients[0];document.getElementById('jClient').value=c?.id||'';document.getElementById('jDate').value='';document.
-getElementById('jDay').value=days[new Date().getDay()];document.getElementById('jStart').value='';document.
-getElementById('jEnd').value='';document.getElementById('jRate').value=c?.rate||16;document.getElementById('jNotes').
-value='';document.getElementById('deleteJobBtn').classList.add('hidden');jobTitle.textContent='Add Cleaning
-Job'}calcHours();jobModal.classList.add('show')}
-function saveJob(){let c=clients.find(x=>x.id===document.getElementById('jClient').value);if(!c)return;let id=document.
-getElementById('jId').value,h=duration(document.getElementById('jStart').value,document.getElementById('jEnd').value),
-old=jobs.find(x=>x.id===id);let o={id:id||'j'+Date.now(),clientId:c.id,date:document.getElementById('jDate').value,day:
-document.getElementById('jDay').value,start:document.getElementById('jStart').value,end:document.getElementById('jEnd').
-value,hours:h||Number(old?.hours??c.hours??0),rate:Number(document.getElementById('jRate').value||c.rate||0),done:old?.
-done||false,notes:document.getElementById('jNotes').value.trim()};jobs=id?jobs.map(x=>x.id===id?{...x,...o}:x):[...jobs,
-o];if(save()){closeModal('jobModal');render()}}
-function deleteJob(){let id=document.getElementById('jId').value;if(!id)return;jobs=jobs.filter(x=>x.id!==id);if(timer?.
-jobId===id)timer=null;save();closeModal('jobModal');render()}
-function startTimer(id){if(timer?.jobId===id){stopTimer();return}let j=jobs.find(x=>x.id===id);if(!j)return;timer={
-jobId:id,startedAt:Date.now(),baseHours:0};save();render()}
-function startNextTimer(){let j=jobs[0];if(j)startTimer(j.id);else openJob()}
-function stopTimer(){if(!timer)return;let j=jobs.find(x=>x.id===timer.jobId);if(j){let extra=(Date.now()-timer.
-startedAt)/3600000;j.hours=Number(timer.baseHours||0)+extra;j.done=true}timer=null;save();render()}
-function updateTimer(){let p=document.getElementById('timerPanel');if(!timer){p.classList.remove('show');return}let
-j=jobs.find(x=>x.id===timer.jobId);if(!j){timer=null;save();p.classList.remove('show');return}p.classList.add('show');
-document.getElementById('timerClient').textContent=name(j.clientId);let s=Math.floor((Date.now()-timer.startedAt)/1000);
-document.getElementById('timerValue').textContent=String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor(
-s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
-function closeModal(id){document.getElementById(id).classList.remove('show')}
-const IMAGE_KEYS={thumbnail:'pure_shine_thumbnail_image',cover:'pure_shine_cover_image',banner:
-'pure_shine_banner_image'};
-function getSavedImage(type){try{return localStorage.getItem(IMAGE_KEYS[type])||''}catch(e){return ''}}
-function compressImage(file,callback){let r=new FileReader();r.onload=function(){let img=new Image();img.
-onload=function(){let max=1400,scale=Math.min(1,max/img.width,max/img.height),canvas=document.createElement('canvas');
-canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);let ctx=canvas.getContext('2d');ctx.
-drawImage(img,0,0,canvas.width,canvas.height);callback(canvas.toDataURL('image/jpeg',.82))};img.src=r.result};r.
-readAsDataURL(file)}
-function changeAppImage(type,input){let file=input.files?.[0];if(!file)return;if(!file.type.startsWith('image/')){alert(
-'Please select an image.');input.value='';return}compressImage(file,function(data){try{localStorage.setItem(IMAGE_KEYS[
-type],data);applyAppImages()}catch(e){alert('The image could not be saved. Please choose a smaller image.')}})}
-function applyAppImages(){let thumbnail=getSavedImage('thumbnail'),cover=getSavedImage('cover'),banner=getSavedImage(
-'banner');if(thumbnail){document.querySelectorAll('.logo-ring img,.brand img').forEach(x=>x.src=thumbnail);let
-p=document.getElementById('thumbnailPreview');if(p)p.src=thumbnail}if(cover){let w=document.getElementById('welcome');
-if(w){w.style.backgroundImage='linear-gradient(rgba(255,238,245,.58),rgba(255,231,240,.58)),url("'+cover+'")';w.style.
-backgroundSize='cover';w.style.backgroundPosition='center'}let p=document.getElementById('coverPreview');if(p)p.
-src=cover}if(banner){let h=document.querySelector('.home-hero');if(h){h.style.backgroundImage='linear-gradient(110deg,
-rgba(255,255,255,.82),rgba(255,229,239,.62)),url("'+banner+'")';h.style.backgroundSize='cover';h.style.
-backgroundPosition='center'}let p=document.getElementById('bannerPreview');if(p)p.src=banner}}
-function sendConfirmation(id){let c=clients.find(x=>x.id===id);if(!c)return;let j=jobs.find(x=>x.clientId===id&&x.
-day===days[new Date().getDay()]),msg=`Hello ${c.name}, just confirming your cleaning appointment today${j?.start?' at
-'+j.start:''}. See you soon!`;if(c.phone)location.href='sms:'+c.phone+'?body='+encodeURIComponent(msg);else alert(msg)}
-function sendPaymentReminder(id){let c=clients.find(x=>x.id===id);if(!c)return;let amount=jobs.filter(j=>j.
-clientId===id).reduce((a,j)=>a+Number(j.hours||0)*Number(j.rate||c.rate||0),0),msg=`Hello ${c.name}, just a friendly
-reminder regarding the outstanding cleaning payment of ${money(amount)}. Thank you!`;if(c.phone)location.href='sms:'+c.
-phone+'?body='+encodeURIComponent(msg);else alert(msg)}
-let currentInvoiceClientId='';
-function openInvoice(id){let c=clients.find(x=>x.id===id);if(!c)return;currentInvoiceClientId=id;let js=jobs.filter(
-j=>j.clientId===id),hours=js.reduce((a,j)=>a+Number(j.hours||0),0),total=js.reduce((a,j)=>a+Number(j.hours||0)*Number(j.
-rate||c.rate||0),0),today=new Date().toLocaleDateString('en-GB'),rows=js.length?js.map(j=>`<tr><td>${j.date||''}</
-td><td>${j.day||''}</td><td>${j.start||'—'}${j.end?' – '+j.end:''}</td><td>${timeText(j.hours)}</td><td>${money(j.
-rate)}</td><td><strong>${money(Number(j.hours||0)*Number(j.rate||c.rate||0))}</strong></td></tr>`).join(''):`<tr><td
-colspan="6" style="text-align:center;padding:20px">No jobs recorded.</td></tr>`;document.getElementById(
-'invoiceContent').innerHTML=`<div id="invoicePrintable" class="invoice-preview"><div style="display:flex;justify-
-content:space-between;gap:12px;border-bottom:2px solid #f0d4df;padding-bottom:14px;margin-bottom:16px"><div><div
-style="font-size:24px;font-weight:900;color:#a44d70">Pure Shine Cleaning</div><div style="font-size:12px;color:
-#777">Cleaning Manager</div></div><div style="text-align:right;font-size:12px"><strong>INVOICE</strong><br>${today}</
-div></div><div style="background:#fff4f8;border-radius:14px;padding:12px;margin-bottom:15px"><div style="font-size:11px;
-color:#777">BILL TO</div><div style="font-size:20px;font-weight:900">${c.name}</div>${c.phone?`<div style="font-size:
-12px">■ ${c.phone}</div>`:''}</div><div style="overflow:auto"><table class="invoice-table"><thead><tr><th>Date</
-th><th>Day</th><th>Time</th><th>Hours</th><th>Rate</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table></
-div><div style="display:flex;justify-content:space-between;margin-top:14px"><span>Total hours</span><strong>${timeText(
-hours)}</strong></div><div class="invoice-total"><span>TOTAL DUE</span><span>${money(total)}</span></div><div
-style="text-align:center;font-size:11px;color:#777;margin-top:16px">Thank you for choosing Pure Shine Cleaning ■</div></
-div>`;document.getElementById('invoiceModal').classList.add('show')}
-function printInvoice(){let x=document.getElementById('invoicePrintable');if(!x)return;let w=window.open('','_blank');
-if(!w)return;w.document.write('<!doctype html><html><head><title>Pure Shine Cleaning Invoice</title><style>body{font-
-family:Arial,sans-serif;padding:25px;color:#171717}table{width:100%;border-collapse:collapse}th,td{border:1px solid
-#ddd;padding:7px;text-align:left}</style></head><body>'+x.outerHTML+'</body></html>');w.document.close();w.focus();
-setTimeout(()=>w.print(),250)}
-async function shareInvoice(){let c=clients.find(x=>x.id===currentInvoiceClientId);if(!c)return;let total=jobs.filter(
-j=>j.clientId===currentInvoiceClientId).reduce((a,j)=>a+Number(j.hours||0)*Number(j.rate||c.rate||0),0),text=`Pure
-Shine Cleaning Invoice\nClient: ${c.name}\nTotal amount due: ${money(total)}\nThank you ■`;if(navigator.share){try{
-await navigator.share({title:'Pure Shine Cleaning Invoice',text})}catch(e){}}else if(c.phone){location.href='sms:'+c.
-phone+'?body='+encodeURIComponent(text)}else alert(text)}
-function applyAppZoom(value){let z=Math.max(80,Math.min(200,Number(value)||130));document.documentElement.style.
-setProperty('--app-zoom',z/100);document.getElementById('app')?.classList.add('zoom-fit');document.getElementById(
-'zoomLabel')&&(document.getElementById('zoomLabel').textContent=z+'%');document.getElementById('zoomRange')&&(document.
-getElementById('zoomRange').value=z);localStorage.setItem('pure_shine_app_zoom',String(z));}
-function setAppZoom(value){applyAppZoom(value)}
-function changeZoom(delta){let current=Number(localStorage.getItem('pure_shine_app_zoom')||130);applyAppZoom(
-current+delta)}
-function addJobsToCalendar(){let ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Pure Shine Cleaning Manager//EN',
-'CALSCALE:GREGORIAN'];jobs.forEach(j=>{let c=clients.find(x=>x.id===j.clientId);if(!j.date)return;let d=j.date.
-replaceAll('-',''),st=(j.start||'09:00').replace(':','')+'00',en=(j.end||'10:00').replace(':','')+'00';ics.push('BEGIN:
-VEVENT','UID:'+j.id+'@pureshine','DTSTART:'+d+'T'+st,'DTEND:'+d+'T'+en,'SUMMARY:'+((c?.name)||'Cleaning Job'),
-'DESCRIPTION:Pure Shine Cleaning Manager','END:VEVENT')});ics.push('END:VCALENDAR');let blob=new Blob([ics.join('\r\
-n')],{type:'text/calendar'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Pure-Shine-
-Cleaning-Calendar.ics';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-function exportData(){let data={clients,jobs,timer,exportedAt:new Date().toISOString()};let blob=new Blob([JSON.
-stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.
-download='Pure-Shine-Cleaning-Manager-Data.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-function resetAppData(){if(!confirm('Reset all Pure Shine app data?'))return;localStorage.removeItem(KEY+'_clients');
-localStorage.removeItem(KEY+'_jobs');localStorage.removeItem(TIMER);localStorage.removeItem('pure_shine_app_zoom');
-location.reload()}
-function render(){document.getElementById('today').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',
-day:'numeric',month:'long'});let totalH=jobs.reduce((a,j)=>a+Number(j.hours||0),0),earn=jobs.reduce((a,j)=>a+Number(j.
-hours||0)*Number(j.rate||0),0);document.getElementById('sJobs').textContent=jobs.length;document.getElementById(
-'sHours').textContent=timeText(totalH);document.getElementById('sEarn').textContent=money(earn);document.getElementById(
-'sFree').textContent=timeText(Math.max(0,40-totalH));renderCalendar();renderClients();renderJobs();renderEarnings();
-updateTimer()}
-function renderCalendar(){let out=days.slice(1).concat('Sunday').map(d=>`<div class="cal-head">${d.slice(0,3)}</div>`).
-join('');let todayName=days[new Date().getDay()];let items=days.slice(1).concat('Sunday').map(d=>{let arr=jobs.filter(
-j=>j.day===d);return `<div class="cal-day"><div class="n">${d}</div>${arr.map(j=>`<div class="cal-client"
-onclick="openJob('${j.id}')">${name(j.clientId)}<br>${j.start||''}${j.end?'–'+j.end:''}</div>`).join('')}</div>`}).join(
-'');document.getElementById('calendar').innerHTML=out+items}
-function scheduleText(c){const r=c.recurringSchedule;if(!r)return '';const when=r.day==='Flexible'?'Occasional':r.day;
-const hours=r.start&&r.end?` · ${r.start}–${r.end}`:'';const freq=r.frequency==='Weekly'?'weekly':r.frequency==='Every
-2 weeks'?'every 2 weeks':r.frequency==='Every 3 weeks'?'every 3 weeks':'when a job is available';return `<div
-class="small" style="margin-top:5px;color:#a44d70">■ ${when}${hours} · ${freq}</div>${r.notes?`<div class="small">${r.
-notes}</div>`:''}`}
-function renderClients(){document.getElementById('clientsList').innerHTML=clients.map(c=>`<div class="card"><div
-class="row"><div><b>${c.name}</b><div class="small">${c.type} · ${money(c.rate)}/h · ${timeText(c.hours)} standard</
-div>${scheduleText(c)}${c.phone?`<div class="small" style="margin-top:7px">■ ${c.phone}</div>`:''}</div><button
-class="danger" onclick="removeClient('${c.id}')">Delete</button></div><div class="card-actions"><button
-class="secondary" onclick="openClient('${c.id}')">✎ Edit details</button><button class="confirm"
-onclick="sendConfirmation('${c.id}')">■ Confirm</button><button class="secondary" onclick="openInvoice('${c.id}')">■
-Invoice</button><button class="secondary" onclick="sendPaymentReminder('${c.id}')">■ Payment</button></div></div>`).
-join('')||'<div class="card">No clients yet.</div>'}
-function removeClient(id){if(!confirm('Delete this client?'))return;clients=clients.filter(c=>c.id!==id);jobs=jobs.
-filter(j=>j.clientId!==id);save();render()}
-function renderJobs(){document.getElementById('jobsList').innerHTML=jobs.slice().reverse().map(j=>`<div
-class="card"><div class="row"><div><b>${name(j.clientId)}</b><div class="small">${j.day}${j.date?' · '+j.date:''} · ${j.
-start||'—'} ${j.end?'– '+j.end:''}</div><div class="small">Worked: ${timeText(j.hours)} · ${j.done?'Completed':
-'Scheduled'}</div></div><div style="text-align:right"><div class="money">${money(j.hours*j.rate)}</div><button
-class="primary" style="margin-top:7px;padding:8px 10px" onclick="startTimer('${j.id}')">${timer?.jobId===j.id?'Stop':
-'Timer'}</button><button class="secondary" style="margin-top:7px;padding:8px 10px" onclick="openJob('${j.id}')">Edit</
-button></div></div></div>`).join('')||'<div class="card">No jobs yet.</div>'}
-function renderEarnings(){let map={};jobs.forEach(j=>{if(!map[j.clientId])map[j.clientId]={h:0,e:0};map[j.clientId].
-h+=Number(j.hours||0);map[j.clientId].e+=Number(j.hours||0)*Number(j.rate||0)});document.getElementById('earningsList').
-innerHTML=Object.entries(map).map(([id,x])=>`<div class="card"><div class="row"><div><b>${name(id)}</b><div
-class="small">${timeText(x.h)} worked</div></div><div class="money">${money(x.e)}</div></div></div>`).join('')||'<div
-class="card">No earnings yet.</div>'}
-setInterval(updateTimer,1000);applyAppZoom(Number(localStorage.getItem('pure_shine_app_zoom')||130));applyAppImages();
+let data=loadData();
+let clients=data.clients;
+let jobs=data.jobs;
+let settings=data.settings;
+let calendarDate=new Date();
+let timer=null;
+let timerInterval=null;
+
+function loadData(){
+try{
+const raw=localStorage.getItem(KEY);
+if(raw){
+const parsed=JSON.parse(raw);
+return {clients:Array.isArray(parsed.clients)?parsed.clients:DEFAULT_CLIENTS.map(c=>({...c,id:uid()})),jobs:Array.isArray(parsed.jobs)?parsed.jobs:[],settings:parsed.settings||{}};
+}
+}catch(e){}
+return {clients:DEFAULT_CLIENTS.map(c=>({...c,id:uid()})),jobs:[],settings:{}};
+}
+function uid(){return 'ps_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8)}
+function saveData(){localStorage.setItem(KEY,JSON.stringify({clients,jobs,settings}));}
+function money(n){return new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(Number(n)||0)}
+function timeText(hours){const mins=Math.round((Number(hours)||0)*60);return Math.floor(mins/60)+'h '+String(mins%60).padStart(2,'0')+'m'}
+function dateKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function name(id){return clients.find(c=>c.id===id)?.name||'Unknown client'}
+function clientForJob(j){return clients.find(c=>c.id===j.clientId)}
+function closeModal(id){document.getElementById(id)?.classList.remove('show')}
+window.closeModal=closeModal;
+
+window.enterApp=function(destination){
+const welcome=document.getElementById('welcome');
+const app=document.getElementById('app');
+if(!app)return;
+if(welcome)welcome.style.display='none';
+app.style.display='block';
+const target=document.getElementById(destination||'home')?(destination||'home'):'home';
+showPage(target);
+window.scrollTo(0,0);
+};
+
+window.showPage=function(id,btn){
+document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+const page=document.getElementById(id);
+if(page)page.classList.add('active');
+document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));
+const navBtn=btn?.classList?.contains('nav')?btn:document.querySelector('.nav[data-page="'+id+'"]');
+navBtn?.classList.add('active');
+if(id==='settings')ensureSettingsUI();
 render();
+};
+
+function fillClientOptions(selected){
+const sel=document.getElementById('jobClient');
+sel.innerHTML=clients.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
+if(selected)sel.value=selected;
+}
+window.openJobModal=function(id){
+const j=jobs.find(x=>x.id===id);
+document.getElementById('jobForm').reset();
+document.getElementById('jobId').value=j?.id||'';
+fillClientOptions(j?.clientId);
+document.getElementById('jobDate').value=j?.date||dateKey(new Date());
+document.getElementById('jobStatus').value=j?.status||'planned';
+document.getElementById('jobStart').value=j?.start||'';
+document.getElementById('jobEnd').value=j?.end||'';
+document.getElementById('jobHours').value=j?.hours??2;
+document.getElementById('jobRate').value=j?.rate??16;
+document.getElementById('jobNotes').value=j?.notes||'';
+document.getElementById('jobModalTitle').textContent=j?'Edit job':'Add job';
+document.getElementById('jobModal').classList.add('show');
+};
+window.saveJob=function(e){
+e.preventDefault();
+const id=document.getElementById('jobId').value;
+const c=clients.find(x=>x.id===document.getElementById('jobClient').value);
+if(!c)return;
+const j={
+id:id||uid(),clientId:c.id,date:document.getElementById('jobDate').value,
+status:document.getElementById('jobStatus').value,
+start:document.getElementById('jobStart').value,end:document.getElementById('jobEnd').value,
+hours:Number(document.getElementById('jobHours').value)||0,
+rate:Number(document.getElementById('jobRate').value)||0,
+notes:document.getElementById('jobNotes').value
+};
+if(j.start&&j.end){
+const [sh,sm]=j.start.split(':').map(Number),[eh,em]=j.end.split(':').map(Number);
+let mins=eh*60+em-(sh*60+sm);if(mins<0)mins+=1440;
+if(mins>0)j.hours=mins/60;
+}
+const i=jobs.findIndex(x=>x.id===id);
+if(i>=0)jobs[i]=j;else jobs.push(j);
+saveData();closeModal('jobModal');render();
+};
+window.deleteJob=function(id){
+if(!confirm('Delete this job?'))return;
+jobs=jobs.filter(j=>j.id!==id);saveData();render();
+};
+window.setJobStatus=function(id,status){
+const j=jobs.find(x=>x.id===id);if(!j)return;
+j.status=status;saveData();render();
+};
+window.openClientModal=function(id){
+const c=clients.find(x=>x.id===id);
+document.getElementById('clientForm').reset();
+document.getElementById('clientId').value=c?.id||'';
+document.getElementById('clientName').value=c?.name||'';
+document.getElementById('clientPhone').value=c?.phone||'';
+document.getElementById('clientRate').value=c?.rate??16;
+document.getElementById('clientType').value=c?.type||'private';
+document.getElementById('clientDay').value=c?.day||'Monday';
+document.getElementById('clientNotes').value=c?.notes||'';
+document.getElementById('clientModalTitle').textContent=c?'Edit client':'Add client';
+document.getElementById('clientModal').classList.add('show');
+};
+window.saveClient=function(e){
+e.preventDefault();
+const id=document.getElementById('clientId').value;
+const c={id:id||uid(),name:document.getElementById('clientName').value.trim(),phone:document.getElementById('clientPhone').value.trim(),rate:Number(document.getElementById('clientRate').value)||0,type:document.getElementById('clientType').value,day:document.getElementById('clientDay').value,notes:document.getElementById('clientNotes').value.trim()};
+const i=clients.findIndex(x=>x.id===id);
+if(i>=0)clients[i]=c;else clients.push(c);
+saveData();closeModal('clientModal');render();
+};
+window.deleteClient=function(id){
+const c=clients.find(x=>x.id===id);if(!c)return;
+if(!confirm('Delete '+c.name+'? Jobs linked to this client will remain in history.'))return;
+clients=clients.filter(x=>x.id!==id);saveData();render();
+};
+function renderClients(){
+const el=document.getElementById('clientsList');if(!el)return;
+el.innerHTML=clients.map(c=>`<div class="card"><div class="row"><div><b>${esc(c.name)}</b><div class="small">${esc(c.type)} · ${esc(c.day)}</div><div class="small">${esc(c.phone||'No phone')} · ${money(c.rate)}/hour</div>${c.notes?`<div class="small">${esc(c.notes)}</div>`:''}</div><div><button class="secondary" onclick="openClientModal('${c.id}')">Edit</button> <button class="danger" onclick="deleteClient('${c.id}')">Delete</button></div></div></div>`).join('')||'<div class="card">No clients yet. Add your first client.</div>';
+}
+function renderJobs(){
+const el=document.getElementById('jobsList');if(!el)return;
+const filter=document.getElementById('jobFilter')?.value||'all';
+const search=(document.getElementById('jobSearch')?.value||'').toLowerCase();
+const list=jobs.filter(j=>(filter==='all'||j.status===filter)&&name(j.clientId).toLowerCase().includes(search)).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+el.innerHTML=list.map(j=>{
+const c=clientForJob(j);
+const amount=Number(j.hours||0)*Number(j.rate||0);
+return `<div class="card"><div class="row"><div><b>${esc(c?.name||'Deleted client')}</b><div class="small">${esc(j.date||'')} · ${esc(j.start||'No start time')}${j.end?' – '+esc(j.end):''}</div><div class="small">${timeText(j.hours)} · ${money(j.rate)}/hour</div><div class="money">${money(amount)}</div><div class="small">Status: ${esc(j.status||'planned')}${j.notes?' · '+esc(j.notes):''}</div></div><div style="text-align:right;display:grid;gap:5px"><button class="secondary" onclick="openJobModal('${j.id}')">Edit</button><button class="secondary" onclick="setJobStatus('${j.id}','completed')">Complete</button><button class="secondary" onclick="setJobStatus('${j.id}','cancelled')">Cancel</button><button class="danger" onclick="deleteJob('${j.id}')">Delete</button></div></div></div>`;
+}).join('')||'<div class="card">No jobs match your search.</div>';
+}
+window.renderJobs=renderJobs;
+function renderEarnings(){
+const completed=jobs.filter(j=>j.status==='completed');
+const total=completed.reduce((s,j)=>s+Number(j.hours||0)*Number(j.rate||0),0);
+const owed=completed.filter(j=>!j.paid).reduce((s,j)=>s+Number(j.hours||0)*Number(j.rate||0),0);
+document.getElementById('earnTotal').textContent=money(total);
+document.getElementById('earnOwed').textContent=money(owed);
+const months={};
+completed.forEach(j=>{const key=(j.date||'Unknown').slice(0,7);months[key]=(months[key]||0)+Number(j.hours||0)*Number(j.rate||0)});
+document.getElementById('monthlyEarnings').innerHTML=Object.entries(months).sort((a,b)=>b[0].localeCompare(a[0])).map(([m,v])=>`<div class="row" style="padding:8px 0;border-bottom:1px solid #f0dce4"><span>${esc(m)}</span><b>${money(v)}</b></div>`).join('')||'<p class="small">Complete a job to see your monthly earnings.</p>';
+document.getElementById('earningsList').innerHTML=completed.map(j=>`<div class="card"><div class="row"><div><b>${esc(name(j.clientId))}</b><div class="small">${esc(j.date||'')} · ${timeText(j.hours)}</div><div class="money">${money(Number(j.hours||0)*Number(j.rate||0))}</div></div><button class="${j.paid?'secondary':'primary'}" onclick="togglePaid('${j.id}')">${j.paid?'Paid ✓':'Mark paid'}</button></div></div>`).join('')||'<div class="card">Completed jobs will appear here.</div>';
+}
+window.togglePaid=function(id){const j=jobs.find(x=>x.id===id);if(!j)return;j.paid=!j.paid;saveData();render()};
+function renderCalendar(){
+const el=document.getElementById('calendarGrid');if(!el)return;
+const y=calendarDate.getFullYear(),m=calendarDate.getMonth();
+document.getElementById('calendarMonth').textContent=calendarDate.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+el.innerHTML='';
+['M','T','W','T','F','S','S'].forEach(d=>{const h=document.createElement('div');h.className='cal-head';h.textContent=d;el.appendChild(h)});
+const first=new Date(y,m,1),offset=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate();
+for(let i=0;i<offset;i++){el.appendChild(document.createElement('div'))}
+for(let d=1;d<=days;d++){
+const key=dateKey(new Date(y,m,d)),dayJobs=jobs.filter(j=>j.date===key);
+const cell=document.createElement('div');cell.className='cal-day';
+cell.innerHTML=`<div class="n">${d}</div>`+dayJobs.map(j=>`<button class="cal-client" onclick="openJobModal('${j.id}')">${esc(name(j.clientId))}<br>${esc(j.start||'')}</button>`).join('');
+cell.onclick=function(e){if(e.target===cell) {document.getElementById('jobDate').value=key;openJobModal();document.getElementById('jobDate').value=key}};
+el.appendChild(cell);
+}
+}
+window.changeMonth=function(delta){calendarDate.setMonth(calendarDate.getMonth()+delta);renderCalendar()};
+function renderTimePage(){
+const list=document.getElementById('timeJobsList');if(!list)return;
+const todayKey=dateKey(new Date());
+const todayJobs=jobs.filter(j=>j.date===todayKey);
+const worked=todayJobs.reduce((a,j)=>a+Number(j.hours||0),0);
+document.getElementById('timeJobs').textContent=todayJobs.length;
+document.getElementById('timeWorked').textContent=timeText(worked);
+list.innerHTML=todayJobs.map(j=>`<div class="card"><div class="row"><div><b>${esc(name(j.clientId))}</b><div class="small">${esc(j.start||'—')}${j.end?' – '+esc(j.end):''} · ${timeText(j.hours)}</div></div><button class="primary" onclick="startTimer('${j.id}')">${timer?.jobId===j.id?'Stop':'Start'}</button></div></div>`).join('')||'<div class="card"><b>No jobs today.</b><div class="small">Enjoy the extra time or add a cleaning job.</div></div>';
+}
+function render(){
+document.getElementById('today').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+document.getElementById('sJobs').textContent=jobs.length;
+const totalH=jobs.reduce((a,j)=>a+Number(j.hours||0),0);
+const earn=jobs.filter(j=>j.status==='completed').reduce((a,j)=>a+Number(j.hours||0)*Number(j.rate||0),0);
+document.getElementById('sHours').textContent=timeText(totalH);
+document.getElementById('sEarn').textContent=money(earn);
+document.getElementById('sFree').textContent=timeText(Math.max(0,40-totalH));
+renderCalendar();renderClients();renderJobs();renderEarnings();renderTimePage();updateTimer();
+}
+function startTimer(id){
+const j=jobs.find(x=>x.id===id);if(!j)return;
+if(timer?.jobId===id){stopTimer();return}
+if(timerInterval)clearInterval(timerInterval);
+timer={jobId:id,start:Date.now(),elapsed:0};
+document.getElementById('timerClient').textContent=name(j.clientId);
+document.getElementById('timerPanel').classList.add('show');
+timerInterval=setInterval(updateTimer,1000);updateTimer();
+}
+window.startTimer=startTimer;
+function updateTimer(){
+if(!timer)return;
+const elapsed=Math.floor((Date.now()-timer.start)/1000);
+const h=Math.floor(elapsed/3600),m=Math.floor((elapsed%3600)/60),s=elapsed%60;
+document.getElementById('timerValue').textContent=[h,m,s].map(n=>String(n).padStart(2,'0')).join(':');
+}
+window.stopTimer=function(){
+if(!timer)return;
+const j=jobs.find(x=>x.id===timer.jobId);
+if(j){j.hours=Math.round(((Date.now()-timer.start)/3600000)*100)/100;j.status='completed';saveData()}
+clearInterval(timerInterval);timer=null;timerInterval=null;
+document.getElementById('timerPanel').classList.remove('show');render();
+};
+function ensureSettingsUI(){
+const el=document.getElementById('settingsContent');if(!el||el.dataset.ready)return;
+el.dataset.ready='1';
+el.innerHTML=`
+<div class="settings-card">
+<h3>🎨 Appearance</h3><p>Personalise the look of Pure Shine Cleaning Manager.</p>
+<label>Upload profile photo / app logo</label><input id="settingLogo" type="file" accept="image/*">
+<label>Upload home banner image</label><input id="settingBanner" type="file" accept="image/*">
+<label>App font</label><select id="settingFont"><option value="system">System</option><option value="Georgia">Georgia</option><option value="Arial">Arial</option><option value="Verdana">Verdana</option></select>
+<label>Text size / zoom</label><div class="zoom-box"><button class="zoom-btn" id="zoomMinus">−</button><span class="zoom-value" id="zoomValue">100%</span><button class="zoom-btn" id="zoomPlus">+</button></div>
+<input class="zoom-range" id="zoomRange" type="range" min="80" max="160" value="100" step="10">
+<button class="settings-action" id="resetZoom">Reset zoom</button>
+</div>
+<div class="settings-card">
+<h3>📅 Schedule reminders</h3><p>Set a reminder for tomorrow's cleaning jobs.</p>
+<label><input type="checkbox" id="reminderEnabled"> Enable reminders</label>
+<label>Reminder time</label><input type="time" id="reminderTime" value="20:00">
+<button class="settings-action" id="saveSettings">Save settings</button>
+</div>
+<div class="settings-card">
+<h3>💾 Data</h3><p>Your jobs, clients and settings are stored on this device.</p>
+<button class="settings-action" id="exportData">Export backup</button>
+<label>Import backup</label><input type="file" id="importData" accept="application/json">
+</div>`;
+const font=document.getElementById('settingFont');
+font.value=settings.font||'system';
+font.addEventListener('change',()=>{settings.font=font.value;applyAppearance();saveData()});
+document.getElementById('settingLogo').addEventListener('change',e=>readImage(e,'logo'));
+document.getElementById('settingBanner').addEventListener('change',e=>readImage(e,'banner'));
+document.getElementById('zoomMinus').onclick=()=>setZoom((settings.zoom||100)-10);
+document.getElementById('zoomPlus').onclick=()=>setZoom((settings.zoom||100)+10);
+document.getElementById('zoomRange').oninput=e=>setZoom(Number(e.target.value));
+document.getElementById('resetZoom').onclick=()=>setZoom(100);
+document.getElementById('saveSettings').onclick=()=>{
+settings.reminderEnabled=document.getElementById('reminderEnabled').checked;
+settings.reminderTime=document.getElementById('reminderTime').value||'20:00';
+saveData();alert('Settings saved.');
+};
+document.getElementById('exportData').onclick=()=>{
+const blob=new Blob([JSON.stringify({clients,jobs,settings},null,2)],{type:'application/json'});
+const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pure-shine-backup.json';a.click();URL.revokeObjectURL(a.href);
+};
+document.getElementById('importData').onchange=async e=>{
+const file=e.target.files[0];if(!file)return;
+try{const parsed=JSON.parse(await file.text());if(Array.isArray(parsed.clients)&&Array.isArray(parsed.jobs)){clients=parsed.clients;jobs=parsed.jobs;settings=parsed.settings||{};saveData();location.reload()}else alert('Invalid backup file.')}catch(err){alert('Could not read backup.')}
+};
+document.getElementById('reminderEnabled').checked=!!settings.reminderEnabled;
+document.getElementById('reminderTime').value=settings.reminderTime||'20:00';
+}
+function setZoom(n){
+settings.zoom=Math.max(80,Math.min(160,n));
+document.getElementById('zoomValue').textContent=settings.zoom+'%';
+document.getElementById('zoomRange').value=settings.zoom;
+document.documentElement.style.fontSize=settings.zoom+'%';
+saveData();
+}
+function applyAppearance(){
+document.documentElement.style.setProperty('--app-font',settings.font==='system'?'system-ui':settings.font||'system-ui');
+document.body.style.fontFamily=settings.font==='system'?'system-ui':settings.font||'system-ui';
+if(settings.zoom)setZoom(settings.zoom);
+if(settings.logo){
+document.getElementById('appLogo').src=settings.logo;
+document.getElementById('welcomeProfileImage').src=settings.logo;
+}
+if(settings.banner)document.querySelector('.home-hero').style.backgroundImage=`linear-gradient(110deg,rgba(255,255,255,.92),rgba(255,229,239,.74)),url("${settings.banner}")`;
+}
+function readImage(e,type){
+const file=e.target.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=()=>{
+if(type==='logo')settings.logo=reader.result;else settings.banner=reader.result;
+saveData();applyAppearance();setupWelcomePhoto();
+};
+reader.readAsDataURL(file);
+}
+function setupWelcomePhoto(){
+const input=document.getElementById('welcomePhotoInput');
+if(!input||input.dataset.ready)return;
+input.dataset.ready='1';
+input.addEventListener('change',e=>readImage(e,'logo'));
+const img=document.getElementById('welcomeProfileImage');
+img.onerror=function(){this.style.display='none';this.parentElement.classList.add('logo-placeholder')};
+}
+function applyImages(){
+if(settings.logo){
+const a=document.getElementById('welcomeProfileImage'),b=document.getElementById('appLogo');
+if(a){a.src=settings.logo;a.style.display='block';a.parentElement.classList.remove('logo-placeholder')}
+if(b)b.src=settings.logo;
+}
+}
+function showTomorrowReminder(){
+if(!settings.reminderEnabled)return;
+const now=new Date(),[hh,mm]=(settings.reminderTime||'20:00').split(':').map(Number);
+if(now.getHours()===hh&&now.getMinutes()>=mm){
+const tomorrow=new Date(now);tomorrow.setDate(now.getDate()+1);
+const key=dateKey(tomorrow);
+const upcoming=jobs.filter(j=>j.date===key&&j.status!=='cancelled');
+if(upcoming.length)alert('Tomorrow\\n'+upcoming.map(j=>name(j.clientId)+' '+(j.start||'')).join('\\n'));
+}
+}
+function ensureClientId(){clients.forEach(c=>{if(!c.id)c.id=uid()});saveData()}
+function ensureClientPhone(){clients.forEach(c=>{if(!c.phone)c.phone=''});saveData()}
+function renderPhoneList(){}
+function calcHours(){}
+function injectStyle(){
+if(document.getElementById('pureShineFinalPatchStyle'))return;
+const st=document.createElement('style');st.id='pureShineFinalPatchStyle';
+st.textContent=`
+:root{--app-font:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+#app,#app button,#app input,#app select,#app textarea,#welcome{font-family:var(--app-font)!important}
+#app,#app *{color:#000!important}
+#app .primary,#app .save,#app .get-started{color:#000!important}
+.bottom{grid-template-columns:repeat(5,1fr)!important}
+.nav,.nav.active{color:#000!important}
+.ps-calendar-toolbar{display:grid;grid-template-columns:46px 1fr 46px;gap:8px;align-items:center;text-align:center;margin-bottom:8px}
+.ps-week-grid{display:grid;grid-template-columns:repeat(7,minmax(120px,1fr));gap:8px;overflow-x:auto;padding-bottom:6px}
+.ps-day{min-width:120px;background:#fff;border:1px solid #d8aa55;border-radius:16px;padding:8px;min-height:150px}
+.ps-day-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ead7b2;padding-bottom:7px;margin-bottom:7px}
+.ps-day-head span{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#f7c8d8}
+.ps-job{display:flex;flex-direction:column;width:100%;text-align:left;padding:9px;margin-bottom:6px;border-radius:12px;background:#fff0f5;border:1px solid #e0b46b}
+.ps-job span,.ps-job small{margin-top:2px;font-size:12px}
+.ps-empty{font-size:12px;opacity:.55;padding:10px 2px}
+.ps-month-toolbar{display:grid;grid-template-columns:46px 1fr 46px;gap:8px;align-items:center;text-align:center;margin-bottom:10px}
+.ps-month-total{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.ps-month-total>div{padding:15px;border-radius:17px;background:#fff;border:1px solid #d8aa55}
+.ps-month-total span{display:block;font-size:12px}.ps-month-total strong{display:block;font-size:22px;margin-top:4px}
+.ps-setting-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ps-setting-grid label{display:block;font-size:12px;font-weight:800}.ps-setting-grid input,.ps-setting-grid select{margin-top:5px;width:100%;padding:10px;border:1px solid #d9bfc8;border-radius:12px;background:#fff}
+.ps-phone-title{font-weight:900;margin:16px 0 8px}.ps-phone-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;margin:7px 0}.ps-phone-row input{padding:9px;border:1px solid #d9bfc8;border-radius:10px}.ps-small-btn{font-size:12px!important;padding:7px 9px!important}
+.invoice{background:#fff;padding:8px;border-radius:15px}.invoice hr{border:0;border-top:1px solid #ddd;margin:14px 0}
+body[data-theme="white"] #app{background:#fff!important}body[data-theme="cream"] #app{background:#fffaf2!important}
+@media(max-width:700px){.ps-week-grid{grid-template-columns:1fr!important;overflow-x:hidden}.ps-day{min-width:0!important;min-height:120px}.ps-setting-grid{grid-template-columns:1fr}.ps-month-total{grid-template-columns:1fr 1fr}}
+@media print{body>*:not(#invoiceModal){display:none!important}#invoiceModal{display:flex!important;position:static;background:#fff}.sheet{max-height:none;border:0}}
+`;
+document.head.appendChild(st);
+}
+injectStyle();
+applyAppearance();
+ensureSettingsUI();
+setupWelcomePhoto();
+document.querySelectorAll('.get-started,.login button').forEach(function(btn){
+btn.addEventListener('click',function(e){e.preventDefault();window.enterApp('home')});
+});
+applyImages();
+window.addEventListener('pageshow',applyImages);
+ensureClientId();
+ensureClientPhone();
+render();
+})();
 </script>
 </body>
 </html>
