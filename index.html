@@ -1,709 +1,784 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#f7c8d8">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="light">
-<link rel="apple-touch-icon" href="assets/app-icon.jpg">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7dbe7">
 <title>Pure Shine Cleaning Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Parisienne&display=swap" rel="stylesheet">
 <style>
-:root{
---pink:#f7c8d8;--pink2:#f4a8c2;--pink3:#fff0f5;--deep:#a83f6c;
---gold:#c99a3d;--gold2:#f2d58b;--cream:#fffaf7;--ink:#442737;--muted:#8d6f7d;
---white:#fff;--shadow:0 12px 35px rgba(130,55,84,.13);
-}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;width:100%;min-height:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(180deg,#fff7fa,#f9d6e2 55%,#fff8fb)}
-button,input,select,textarea{font:inherit;font-size:16px}
-button{border:0;cursor:pointer}
-button:active{transform:scale(.985)}
-img{max-width:100%;display:block}
-.hidden{display:none!important}
-
-/* WELCOME */
-#welcome{
-min-height:100dvh;
-padding:calc(18px + env(safe-area-inset-top)) 22px calc(22px + env(safe-area-inset-bottom));
-display:flex;justify-content:center;align-items:center;
-background:
-radial-gradient(circle at 18% 12%,rgba(255,255,255,.85),transparent 25%),
-radial-gradient(circle at 85% 78%,rgba(255,255,255,.75),transparent 24%),
-linear-gradient(135deg,#fff2f6 0%,#f8cbd9 52%,#fff1f6 100%);
-position:fixed;inset:0;z-index:9999;overflow:auto
-}
-.welcome-inner{width:min(100%,430px);text-align:center;padding:8px 0 12px}
-.logo-ring{
-width:min(78vw,330px);height:min(78vw,330px);
-margin:0 auto 20px;border-radius:50%;padding:7px;
-background:linear-gradient(135deg,#fff,#d5aa52,#fff4bd,#b77d1e,#fff);
-box-shadow:0 16px 40px rgba(173,93,119,.22)
-}
-.logo-ring img{
-width:100%;height:100%;object-fit:cover;border-radius:50%;
-border:3px solid rgba(255,255,255,.92)
-}
-.logo-placeholder{
-display:flex;align-items:center;justify-content:center;
-background:linear-gradient(135deg,#fff8fb,#f7c8d8)
-}
-.logo-placeholder:after{
-content:"✨\A Pure Shine\A Cleaning";
-white-space:pre;text-align:center;color:#9a3159;
-font-family:Georgia,serif;font-size:28px;font-weight:800;line-height:1.15
-}
-.welcome-photo-btn{
-background:#fff9fb;color:#96355a;border:1px solid #d7a34c;
-border-radius:20px;padding:9px 15px;margin-bottom:15px;font-weight:700
-}
-.welcome-photo-input{display:none}
-.welcome-title{
-margin:0;color:#a92f5e;
-font-family:"Brush Script MT","Snell Roundhand","Segoe Script",cursive;
-font-size:clamp(45px,12vw,66px);line-height:.94;font-weight:700;
-text-shadow:0 2px 0 #fff,0 6px 18px rgba(137,40,75,.12)
-}
-.welcome-heart{font-size:35px;color:var(--gold);margin:10px 0 5px}
-.welcome-sub{font-size:17px;line-height:1.45;color:#704d5c;max-width:360px;margin:0 auto 18px}
-.features{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 auto 18px}
-.feature{
-min-height:126px;border:1px solid #d7a34c;border-radius:18px;
-background:rgba(255,251,248,.93);box-shadow:0 8px 18px rgba(136,67,93,.11);
-display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 5px
-}
-.feature-icon{font-size:31px;margin-bottom:8px}
-.feature b{font-size:13px;line-height:1.12}
-.get-started{
-display:block;width:100%;min-height:64px;border-radius:34px;
-background:linear-gradient(180deg,#f28aa9,#dc5d83);
-border:2px solid #e4b04e;color:#fff;font-family:Georgia,serif;
-font-size:28px;box-shadow:0 9px 22px rgba(184,65,102,.25)
-}
-.login{margin-top:17px;font-size:16px;color:#714f5d}
-.login button{background:none;color:#a62f5d;font-weight:800;text-decoration:underline;padding:0 4px}
-
-/* APP */
-#app{display:none;min-height:100dvh;padding-bottom:92px}
-.top{
-position:sticky;top:0;z-index:50;background:rgba(255,249,252,.94);
-backdrop-filter:blur(18px);border-bottom:1px solid rgba(201,154,61,.25);
-padding:calc(10px + env(safe-area-inset-top)) 16px 10px
-}
-.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.brand{display:flex;align-items:center;gap:10px}
-.brand img{width:58px;height:58px;border-radius:16px;object-fit:cover;border:2px solid var(--gold);box-shadow:0 5px 14px rgba(150,80,105,.15)}
-.brand h1{font-size:20px;margin:0;color:#8e3157}
-.brand p{font-size:12px;margin:3px 0 0;color:var(--muted)}
-.top-actions{display:flex;gap:7px}
-.icon{width:44px;height:44px;border-radius:15px;background:#fff;border:1px solid #e5c17b;color:#9b315d;font-size:22px}
-.icon.add{background:linear-gradient(180deg,#ee9db8,#dc6689);color:#fff}
-main{width:min(100%,760px);margin:auto;padding:14px}
-.page{display:none}
-.page.active{display:block}
-.section-head{display:flex;justify-content:space-between;align-items:center;margin:7px 0 14px}
-.section-head h2{margin:0;font-size:25px;color:#7e304f}
-.primary{background:linear-gradient(180deg,#ef9bb8,#db6287);color:#fff;border:1px solid var(--gold);border-radius:14px;padding:11px 15px;font-weight:800}
-.date-card{display:flex;align-items:center;gap:12px;background:linear-gradient(120deg,#f9d1df,#fff5f8);border:1px solid #e4b45f;border-radius:19px;padding:13px;margin-bottom:13px}
-.date-icon{font-size:28px}
-.date-main{font-weight:800}
-.date-sub{font-size:13px;color:var(--muted);margin-top:3px}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{border:1px solid rgba(201,154,61,.45);border-radius:19px;padding:15px;min-height:108px;box-shadow:var(--shadow)}
-.stat:nth-child(1){background:#f8d6e2}
-.stat:nth-child(2){background:#f1e4f8}
-.stat:nth-child(3){background:#e6f2e9}
-.stat:nth-child(4){background:#fff1c9}
-.stat .value{font-size:25px;font-weight:900}
-.stat .label{font-size:13px;color:var(--muted);margin-top:5px}
-.home-hero{
-margin-top:13px;border-radius:23px;overflow:hidden;min-height:190px;
-background:linear-gradient(110deg,rgba(255,255,255,.92),rgba(255,229,239,.74)),url('assets/home-banner.jpg') center/cover;
-border:1px solid #d7a34c;display:flex;align-items:center;padding:24px
-}
-.home-hero h3{font-family:"Brush Script MT","Segoe Script",cursive;font-size:42px;line-height:.95;color:#a92f5e;margin:0}
-.home-hero p{font-size:14px;max-width:260px;color:#694957}
-.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.quick{min-height:66px;border-radius:17px;border:1px solid #dfb96d;background:#fff8fa;color:#7e304f;font-weight:800;font-size:16px}
-.list{display:grid;gap:10px}
-.card{background:rgba(255,255,255,.9);border:1px solid #dfc27f;border-radius:18px;padding:14px;box-shadow:0 7px 20px rgba(100,45,65,.08)}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.small{font-size:13px;color:var(--muted)}
-.money{font-weight:900;color:#9c315a}
-.danger{background:#fff0f2;color:#b42e52;border:1px solid #e4a2b3;border-radius:11px;padding:8px 10px}
-.secondary{background:#fff;color:#75495a;border:1px solid #d8bdc7;border-radius:11px;padding:10px 13px}
-.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
-.cal-head{font-size:11px;text-align:center;color:#9a6c7e;font-weight:800;padding:5px}
-.cal-day{min-height:82px;background:#fff8fb;border:1px solid #e0c17c;border-radius:10px;padding:5px}
-.cal-day .n{font-size:11px;color:#a07080}
-.cal-client{font-size:10px;font-weight:800;color:#96355a;background:#f8d5e2;border-radius:7px;padding:4px;margin-top:5px;line-height:1.1}
-.timer-panel{position:fixed;left:12px;right:12px;bottom:78px;z-index:80;background:#4f2438;color:#fff;border:2px solid #e1b454;border-radius:18px;padding:11px 14px;display:none;box-shadow:0 12px 30px rgba(60,20,40,.25)}
-.timer-panel.show{display:flex;align-items:center;justify-content:space-between}
-.timer-value{font-variant-numeric:tabular-nums;font-size:22px;font-weight:900}
-.timer-stop{background:#f08eaa;color:#fff;border-radius:11px;padding:9px 12px;font-weight:800}
-.bottom{position:fixed;left:0;right:0;bottom:0;z-index:70;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:rgba(255,249,252,.96);backdrop-filter:blur(18px);border-top:1px solid #dfc27f;display:grid;grid-template-columns:repeat(5,1fr)}
-.nav{background:none;color:#947080;font-size:11px;display:flex;flex-direction:column;gap:3px;align-items:center}
-.nav span:first-child{font-size:22px}
-.nav.active{color:#a72f5d;font-weight:900}
-.modal{position:fixed;inset:0;background:rgba(55,22,36,.4);z-index:200;display:none;align-items:flex-end}
-.modal.show{display:flex}
-.sheet{width:100%;max-height:90dvh;overflow:auto;background:#fff8fb;border-radius:25px 25px 0 0;padding:18px 16px calc(25px + env(safe-area-inset-bottom));border-top:3px solid var(--gold)}
-.sheet-head{display:flex;justify-content:space-between;align-items:center}
-.sheet h3{margin:0 0 14px;color:#8e3157}
-.close{width:38px;height:38px;border-radius:50%;background:#f5d7e2;color:#8e3157}
-.sheet label{display:block;font-size:13px;font-weight:800;color:#704b5a;margin:10px 0 5px}
-.sheet input,.sheet select,.sheet textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #d9bfc8;background:#fff;outline:none}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
-.save{background:#db6287;color:#fff;border:1px solid var(--gold);border-radius:12px;padding:11px 17px;font-weight:800}
-@media(max-width:390px){
-.welcome-inner{padding-top:2px}
-.logo-ring{width:72vw;height:72vw;margin-bottom:15px}
-.welcome-title{font-size:46px}
-.welcome-sub{font-size:15px}
-.feature{min-height:112px}
-.feature-icon{font-size:27px}
-.feature b{font-size:11px}
-.get-started{min-height:59px;font-size:25px}
-.brand img{width:52px;height:52px}
-.brand h1{font-size:18px}
-}
+:root{--pink:#d96f9a;--pale:#fff3f8;--gold:#c8a45d;--ink:#302630;--muted:#8e7b88;--white:#fffdfd;--line:#f0dce5}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(145deg,#fff8fb,#f9e5ed);color:var(--ink);font-family:"DM Sans",sans-serif;font-size:15px}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0}
+.app{max-width:560px;min-height:100dvh;margin:auto;padding:env(safe-area-inset-top) 15px calc(90px + env(safe-area-inset-bottom));position:relative;overflow:hidden}
+header{text-align:center;padding:20px 0 14px;position:relative}
+.brand{font-family:Georgia,serif;color:var(--gold);font-size:30px;letter-spacing:1px}
+.brand-sub{font-family:Parisienne,cursive;color:var(--pink);font-size:29px;margin-top:-7px}
+header small{color:var(--muted)}
+.bell{position:absolute;right:0;top:25px;background:white;border:1px solid var(--line);border-radius:50%;width:42px;height:42px}
+h1{font-size:24px;margin:12px 0 14px}
+h2{font-size:18px;margin:10px 0}
+.modes{display:flex;background:#f7e5ed;padding:4px;border-radius:30px;gap:3px;margin:12px 0}
+.modes button{flex:1;background:transparent;padding:10px 3px;border-radius:25px;color:var(--pink)}
+.modes button.active{background:white;color:var(--pink);box-shadow:0 2px 8px #dca6bb55}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.monthnav button{background:white;border:1px solid var(--line);border-radius:12px;padding:8px 13px;color:var(--pink)}
+.calendar{background:#fffdfd;border:1px solid var(--line);border-radius:20px;padding:12px 7px;box-shadow:0 5px 18px #c38da01a}
+.weekdays,.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));text-align:center}
+.weekdays{font-size:11px;color:var(--muted);padding:5px 0 10px}
+.day{height:48px;background:transparent;border-radius:14px;color:var(--ink);padding:4px 0}
+.day.selected{background:var(--pink);color:white}
+.day .dot{display:block;width:5px;height:5px;border-radius:50%;background:var(--gold);margin:2px auto 0}
+.primary{background:var(--pink);color:white;border-radius:13px;padding:11px 14px;box-shadow:0 4px 10px #d96f9a30}
+.secondary{background:white;border:1px solid var(--line);color:var(--pink);border-radius:13px;padding:10px 13px}
+.danger{background:#fff0f0;border:1px solid #f1caca;color:#b94343;border-radius:13px;padding:10px 13px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:17px;padding:14px;margin:10px 0;box-shadow:0 4px 15px #c38da014}
+.job{display:flex;align-items:center;gap:11px;cursor:pointer}
+.jobbar{width:4px;align-self:stretch;background:var(--gold);border-radius:5px}
+.jobmain{flex:1;min-width:0}
+.jobname{font-weight:800;font-size:16px}
+.sub{color:var(--muted);font-size:12px;margin-top:4px}
+.jobtime{font-weight:700;color:var(--pink);margin-top:4px}
+.nav{position:fixed;z-index:10;bottom:0;left:50%;transform:translateX(-50%);width:min(560px,100%);padding:9px 5px calc(9px + env(safe-area-inset-bottom));background:#fffdfdf2;border-top:1px solid var(--gold);display:grid;grid-template-columns:repeat(5,1fr);backdrop-filter:blur(12px)}
+.nav button{background:transparent;color:var(--gold);font-size:10px;padding:5px 0}
+.nav button span{display:block;font-size:21px;margin-bottom:3px}
+.nav button.active{color:var(--pink);font-weight:800}
+.page{display:none}.page.active{display:block}
+.field{margin:12px 0}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--pink);margin:0 0 6px}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:white;border-radius:12px;padding:12px;color:var(--ink);outline-color:var(--pink)}
+.field textarea{min-height:70px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.actions button{flex:1;min-width:100px}
+.client-row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.client-row strong{display:block}
+.badge{font-size:11px;background:#f9e6ee;color:var(--pink);border-radius:20px;padding:5px 8px}
+.big-timer{text-align:center;font-size:45px;font-weight:700;color:var(--gold);padding:25px 0}
+.timerbuttons{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.timerbuttons button{background:white;border:1px solid var(--line);border-radius:12px;padding:11px 2px;color:var(--pink)}
+.timerbuttons button.active{background:var(--pink);color:white}
+.notice{padding:12px;background:#fff8e9;border:1px solid #f0dfb4;border-radius:12px;color:#806632;font-size:12px}
+dialog{color:var(--ink);background:#fff8fb}
+dialog::backdrop{background:#39253280;backdrop-filter:blur(3px)}
+@media(max-width:360px){.app{padding-left:10px;padding-right:10px}.day{height:43px;font-size:12px}.brand{font-size:27px}}
 </style>
 </head>
 <body>
-
-<section id="welcome">
-<div class="welcome-inner">
-<div class="logo-ring">
-<img id="welcomeProfileImage" alt="Pure Shine Cleaning"
-src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%23fff4bd'/%3E%3Cstop offset='.5' stop-color='%23d5aa52'/%3E%3Cstop offset='1' stop-color='%23fff0b0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='200' cy='200' r='190' fill='url(%23g)' stroke='white' stroke-width='6'/%3E%3Ctext x='200' y='165' text-anchor='middle' font-size='60'%3E✨%3C/text%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Georgia' font-size='35' font-weight='bold' fill='%239a3159'%3EPure Shine%3C/text%3E%3Ctext x='200' y='262' text-anchor='middle' font-family='Georgia' font-size='25' fill='%239a3159'%3ECleaning%3C/text%3E%3C/svg%3E">
-</div>
-<button type="button" class="welcome-photo-btn" onclick="document.getElementById('welcomePhotoInput').click()">📷 Change profile photo</button>
-<input id="welcomePhotoInput" class="welcome-photo-input" type="file" accept="image/*">
-<h1 class="welcome-title">Your Cleaning<br>Business, Simplified</h1>
-<div class="welcome-heart">♡</div>
-<p class="welcome-sub">Everything you need to organise your cleaning business in one beautiful place.</p>
-<div class="features">
-<button class="feature" type="button" onclick="enterApp('jobs')"><div class="feature-icon">🗓️</div><b>Manage<br>Jobs</b></button>
-<button class="feature" type="button" onclick="enterApp('clients')"><div class="feature-icon">👥</div><b>Keep Track<br>of Clients</b></button>
-<button class="feature" type="button" onclick="enterApp('earnings')"><div class="feature-icon">📈</div><b>Track<br>Earnings</b></button>
-<button class="feature" type="button" onclick="enterApp('time')"><div class="feature-icon">⏱️</div><b>More Time<br>for You</b></button>
-</div>
-<button type="button" class="get-started" id="getStartedButton" onclick="enterApp('jobs')">Get Started ›</button>
-<div class="login">Already have an account? <button type="button" onclick="enterApp('jobs')">Log in</button></div>
-</div>
-</section>
-
-<div id="app">
-<header class="top">
-<div class="top-row">
-<div class="brand">
-<img id="appLogo" alt="Pure Shine" src="assets/app-icon.jpg">
-<div><h1>Pure Shine</h1><p>Cleaning Manager</p></div>
-</div>
-<div class="top-actions">
-<button class="icon add" onclick="openJobModal()">＋</button>
-<button class="icon" onclick="showPage('settings')">⚙️</button>
-</div>
-</div>
+<div class="app">
+<header>
+<button class="bell" onclick="showPage('settings')" aria-label="Setări și notificări">♧</button>
+<div class="brand">✧ Pure Shine ✧</div>
+<div class="brand-sub">Cleaning</div>
+<small>Cleaning Manager</small>
 </header>
 
-<main>
-<section class="page active" id="home">
-<div class="section-head"><h2>Welcome back ✨</h2></div>
-<div class="date-card"><div class="date-icon">📅</div><div><div class="date-main" id="today"></div><div class="date-sub">Your cleaning business at a glance</div></div></div>
-<div class="stats">
-<div class="stat"><div class="value" id="sJobs">0</div><div class="label">Jobs recorded</div></div>
-<div class="stat"><div class="value" id="sHours">0h</div><div class="label">Hours recorded</div></div>
-<div class="stat"><div class="value" id="sEarn">£0.00</div><div class="label">Earnings recorded</div></div>
-<div class="stat"><div class="value" id="sFree">40h</div><div class="label">Available hours (estimate)</div></div>
+<section id="home" class="page active">
+<div class="row"><h1>Calendar</h1><button class="primary" onclick="newJob()">＋ Adaugă lucrare</button></div>
+<div class="modes">
+<button class="active" data-mode="month" onclick="setMode('month',this)">Month</button>
+<button data-mode="week" onclick="setMode('week',this)">Week</button>
+<button data-mode="day" onclick="setMode('day',this)">Day</button>
 </div>
-<div class="home-hero"><div><h3>Pure Shine</h3><p>A little sparkle in every clean. Keep your schedule, clients and earnings beautifully organised.</p></div></div>
-<div class="quick-grid">
-<button class="quick" onclick="showPage('calendar')">🗓️ Open calendar</button>
-<button class="quick" onclick="showPage('clients')">👥 View clients</button>
-<button class="quick" onclick="openJobModal()">＋ Add a job</button>
-<button class="quick" onclick="showPage('earnings')">💷 View earnings</button>
+<div class="row monthnav">
+<button onclick="shiftMonth(-1)">‹</button>
+<h2 id="monthTitle"></h2>
+<button onclick="shiftMonth(1)">›</button>
 </div>
+<div class="calendar">
+<div class="weekdays"><div>L</div><div>Ma</div><div>Mi</div><div>J</div><div>V</div><div>S</div><div>D</div></div>
+<div class="days" id="calendarDays"></div>
+</div>
+<div class="row" style="margin-top:18px"><h2 id="selectedTitle"></h2><button class="secondary" onclick="newJob()">＋ Job</button></div>
+<div id="dayJobs"></div>
 </section>
 
-<section class="page" id="calendar">
-<div class="section-head"><h2>Calendar</h2><button class="primary" onclick="openJobModal()">＋ Add job</button></div>
-<div class="card"><div class="row"><button class="secondary" onclick="changeMonth(-1)">‹</button><b id="calendarMonth"></b><button class="secondary" onclick="changeMonth(1)">›</button></div><div id="calendarGrid" class="calendar"></div></div>
+<section id="calendar" class="page">
+<h1>Program săptămânal</h1>
+<div class="notice">Alege o zi pentru a vedea și edita programările. Programările recurente pot fi ajustate individual.</div>
+<div id="weekList"></div>
 </section>
 
-<section class="page" id="clients">
-<div class="section-head"><h2>Clients</h2><button class="primary" onclick="openClientModal()">＋ Add client</button></div>
-<div id="clientsList" class="list"></div>
+<section id="clients" class="page">
+<div class="row"><h1>Clienți</h1><button class="primary" onclick="newClient()">＋ Client</button></div>
+<input id="clientSearch" placeholder="Caută un client..." oninput="renderClients()" style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--line)">
+<div id="clientList"></div>
 </section>
 
-<section class="page" id="jobs">
-<div class="section-head"><h2>Jobs</h2><button class="primary" onclick="openJobModal()">＋ Add job</button></div>
+<section id="earnings" class="page">
+<h1>Câștiguri și lucrări trecute</h1>
+<div class="card"><div class="sub">Total lucrări finalizate</div><h1 id="totalEarned">£0.00</h1><div class="sub">Calculat din lucrările marcate ca finalizate.</div></div>
+<button class="primary" onclick="newJob(true)">＋ Adaugă lucrare trecută</button>
+<div id="pastJobs"></div>
+</section>
+
+<section id="timer" class="page">
+<div class="row"><button class="secondary" onclick="showPage('home')">‹ Înapoi</button><h1>Timer</h1><button class="secondary" onclick="resetTimer()">Reset</button></div>
 <div class="card">
-<div class="form-grid">
-<div><label for="jobFilter">Filter jobs</label><select id="jobFilter" onchange="renderJobs()"><option value="all">All jobs</option><option value="planned">Planned</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></div>
-<div><label for="jobSearch">Search client</label><input id="jobSearch" placeholder="Client name" oninput="renderJobs()"></div>
+<div class="big-timer" id="timerDisplay">02:00:00</div>
+<div class="timerbuttons">
+<button onclick="setTimer(3600,this)">1h</button>
+<button onclick="setTimer(5400,this)">1h 30m</button>
+<button class="active" onclick="setTimer(7200,this)">2h</button>
+<button onclick="setTimer(10800,this)">3h</button>
 </div>
+<div class="field"><label>Etichetă / Client</label><input id="timerLabel" placeholder="Numele clientului"></div>
+<div class="field"><label>Alarmă la final</label><select id="alarmSetting"><option value="on">Pure Shine Alarm</option><option value="off">Fără sunet</option></select></div>
+<div class="actions"><button class="secondary" onclick="resetTimer()">Cancel</button><button class="primary" id="timerButton" onclick="toggleTimer()">Start</button></div>
 </div>
-<div id="jobsList" class="list" style="margin-top:12px"></div>
 </section>
 
-<section class="page" id="earnings">
-<div class="section-head"><h2>Earnings</h2></div>
-<div class="stats">
-<div class="stat"><div class="value" id="earnTotal">£0.00</div><div class="label">Completed earnings</div></div>
-<div class="stat"><div class="value" id="earnOwed">£0.00</div><div class="label">Money owed</div></div>
+<section id="settings" class="page">
+<h1>Setări</h1>
+<div class="card">
+<h2>Identitate și aspect</h2>
+<div class="field"><label>Numele afacerii</label><input id="businessName" value="Pure Shine Cleaning"></div>
+<div class="field"><label>Fotografie de profil / logo</label><input type="file" accept="image/*" onchange="uploadImage('profile',this)"></div>
+<div class="field"><label>Banner</label><input type="file" accept="image/*" onchange="uploadImage('banner',this)"></div>
+<div class="field"><label>Imagine de fundal</label><input type="file" accept="image/*" onchange="uploadImage('background',this)"></div>
+<div class="field"><label>Mărimea textului</label><select id="fontSize" onchange="applySettings()"><option value="14px">Mic</option><option value="15px" selected>Normal</option><option value="17px">Mare</option><option value="19px">Foarte mare</option></select></div>
+<div class="field"><label>Culoare principală</label><select id="accent" onchange="applySettings()"><option value="#d96f9a">Roz cireș</option><option value="#c78aa7">Roz pudrat</option><option value="#b98c54">Auriu șampanie</option></select></div>
+<button class="primary" onclick="saveSettings()">Salvează setările</button>
 </div>
-<div class="card" style="margin-top:12px"><h3>Monthly totals</h3><div id="monthlyEarnings"></div></div>
-<div id="earningsList" class="list" style="margin-top:12px"></div>
-</section>
-
-<section class="page" id="time">
-<div class="section-head"><h2>Today's Time</h2></div>
-<div class="stats">
-<div class="stat"><div class="value" id="timeJobs">0</div><div class="label">Jobs today</div></div>
-<div class="stat"><div class="value" id="timeWorked">0h</div><div class="label">Hours today</div></div>
+<div class="card">
+<h2>Date și copii de siguranță</h2>
+<button class="secondary" onclick="exportData()">Exportă copia de siguranță</button>
+<div class="field"><label>Importă copia de siguranță</label><input type="file" accept="application/json" onchange="importData(this)"></div>
+<button class="secondary" onclick="exportCSV()">Exportă lucrările CSV</button>
 </div>
-<div id="timeJobsList" class="list" style="margin-top:12px"></div>
+<div class="notice">Datele se salvează local în acest browser. Pentru siguranță, exportă periodic o copie de rezervă.</div>
 </section>
 
-<section class="page settings-page" id="settings">
-<div class="section-head"><h2>Settings</h2></div>
-<div id="settingsContent"></div>
-</section>
-</main>
-
-<nav class="bottom">
-<button class="nav active" data-page="home" onclick="showPage('home',this)"><span>🏠</span>Home</button>
-<button class="nav" data-page="calendar" onclick="showPage('calendar',this)"><span>🗓️</span>Calendar</button>
-<button class="nav" data-page="clients" onclick="showPage('clients',this)"><span>👥</span>Clients</button>
-<button class="nav" data-page="jobs" onclick="showPage('jobs',this)"><span>🧹</span>Jobs</button>
-<button class="nav" data-page="earnings" onclick="showPage('earnings',this)"><span>💷</span>Earnings</button>
+<nav class="nav">
+<button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>Home</button>
+<button data-page="calendar" onclick="showPage('calendar')"><span>▦</span>Calendar</button>
+<button data-page="clients" onclick="showPage('clients')"><span>♙</span>Clients</button>
+<button data-page="earnings" onclick="showPage('earnings')"><span>£</span>Earnings</button>
+<button data-page="settings" onclick="showPage('settings')"><span>⚙</span>Settings</button>
 </nav>
 </div>
 
-<div class="timer-panel" id="timerPanel">
-<div><div id="timerClient">Current job</div><div class="timer-value" id="timerValue">00:00:00</div></div>
-<button class="timer-stop" onclick="stopTimer()">Finish job</button>
-</div>
-
-<div class="modal" id="jobModal">
-<div class="sheet">
-<div class="sheet-head"><h3 id="jobModalTitle">Add job</h3><button class="close" onclick="closeModal('jobModal')">✕</button></div>
+<dialog id="editor" style="border:1px solid var(--line);border-radius:20px;width:min(94%,520px);max-height:88vh;overflow:auto">
 <form id="jobForm" onsubmit="saveJob(event)">
+<div class="row"><h2 id="editorTitle">Edit Job</h2><button type="button" class="secondary" onclick="closeEditor()">✕</button></div>
 <input type="hidden" id="jobId">
-<label for="jobClient">Client</label><select id="jobClient" required></select>
-<div class="form-grid">
-<div><label for="jobDate">Date</label><input id="jobDate" type="date" required></div>
-<div><label for="jobStatus">Status</label><select id="jobStatus"><option value="planned">Planned</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></div>
-<div><label for="jobStart">Start</label><input id="jobStart" type="time"></div>
-<div><label for="jobEnd">Finish</label><input id="jobEnd" type="time"></div>
-<div><label for="jobHours">Hours</label><input id="jobHours" type="number" min="0" step=".01" value="2"></div>
-<div><label for="jobRate">Hourly rate (£)</label><input id="jobRate" type="number" min="0" step=".5" value="16"></div>
+<div class="field"><label>Client</label><select id="jobClient" required></select></div>
+<div class="field"><label>Date</label><input id="jobDate" type="date" required></div>
+<div class="grid2">
+<div class="field"><label>Start Time</label><input id="jobStart" type="time" required oninput="updateDuration()"></div>
+<div class="field"><label>End Time</label><input id="jobEnd" type="time" required oninput="updateDuration()"></div>
 </div>
-<label for="jobNotes">Notes</label><textarea id="jobNotes" rows="2"></textarea>
-<div class="form-actions"><button type="button" class="secondary" onclick="closeModal('jobModal')">Cancel</button><button type="submit" class="save">Save job</button></div>
+<div class="field"><label>Duration</label><input id="jobDuration" readonly></div>
+<div class="field"><label>Repeat</label><select id="jobRepeat"><option value="none">Fără repetare</option><option value="weekly">Săptămânal</option><option value="fortnightly">La 2 săptămâni</option><option value="3weekly">La 3 săptămâni</option></select></div>
+<div class="grid2">
+<div class="field"><label>Type</label><select id="jobType"><option>Private</option><option>Agency</option><option>Occasional</option></select></div>
+<div class="field"><label>Hourly Rate (£)</label><input id="jobRate" type="number" min="0" step=".5" value="18" required></div>
+</div>
+<div class="field"><label>Status</label><select id="jobStatus"><option value="planned">Programată</option><option value="done">Finalizată</option><option value="cancelled">Anulată</option></select></div>
+<div class="field"><label>Notes</label><textarea id="jobNotes"></textarea></div>
+<div class="actions"><button class="primary" type="submit">✓ Save Changes</button><button class="secondary" type="button" onclick="cancelJob()">× Cancel Job</button><button class="danger" type="button" onclick="deleteJob()">Delete Job</button></div>
 </form>
-</div>
-</div>
+</dialog>
 
-<div class="modal" id="clientModal">
-<div class="sheet">
-<div class="sheet-head"><h3 id="clientModalTitle">Add client</h3><button class="close" onclick="closeModal('clientModal')">✕</button></div>
+<dialog id="clientEditor" style="border:1px solid var(--line);border-radius:20px;width:min(94%,520px);max-height:88vh;overflow:auto">
 <form id="clientForm" onsubmit="saveClient(event)">
+<div class="row"><h2>Detalii client</h2><button type="button" class="secondary" onclick="clientEditor.close()">✕</button></div>
 <input type="hidden" id="clientId">
-<label for="clientName">Name</label><input id="clientName" required>
-<label for="clientPhone">Phone</label><input id="clientPhone" type="tel">
-<div class="form-grid">
-<div><label for="clientRate">Hourly rate (£)</label><input id="clientRate" type="number" min="0" step=".5" value="16"></div>
-<div><label for="clientType">Client type</label><select id="clientType"><option value="private">Private</option><option value="agency">Agency</option><option value="occasional">Occasional</option></select></div>
+<div class="field"><label>Nume</label><input id="clientName" required></div>
+<div class="field"><label>Telefon</label><input id="clientPhone" type="tel"></div>
+<div class="grid2">
+<div class="field"><label>Tip</label><select id="clientType"><option>Private</option><option>Agency</option><option>Occasional</option></select></div>
+<div class="field"><label>Tarif (£/oră)</label><input id="clientRate" type="number" min="0" step=".5" value="18"></div>
 </div>
-<label for="clientDay">Usual day</label><select id="clientDay"><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option><option>Occasional</option></select>
-<label for="clientNotes">Notes</label><textarea id="clientNotes" rows="2"></textarea>
-<div class="form-actions"><button type="button" class="secondary" onclick="closeModal('clientModal')">Cancel</button><button type="submit" class="save">Save client</button></div>
+<div class="field"><label>Zi obișnuită</label><select id="clientDay"><option>Luni</option><option>Marți</option><option>Miercuri</option><option>Joi</option><option>Vineri</option><option>Sâmbătă</option><option>Duminică</option><option>Flexibil</option></select></div>
+<div class="field"><label>Frecvență</label><select id="clientRepeat"><option value="weekly">Săptămânal</option><option value="fortnightly">La 2 săptămâni</option><option value="3weekly">La 3 săptămâni</option><option value="occasional">Ocazional</option></select></div>
+<div class="field"><label>Ore obișnuite</label><input id="clientHours" placeholder="Ex. 09:00–12:00"></div>
+<div class="field"><label>Note / vacanță</label><textarea id="clientNotes"></textarea></div>
+<div class="actions"><button class="primary" type="submit">Salvează clientul</button><button class="danger" type="button" onclick="deleteClient()">Șterge clientul</button></div>
 </form>
-</div>
-</div>
+</dialog>
 
 <script>
-(function(){
-'use strict';
-const KEY='pureShineManager_settings_v5';
-const DEFAULT_CLIENTS=[
-{name:'Lottie',phone:'',rate:16,type:'agency',day:'Monday',notes:'09:00–11:00 weekly'},
-{name:'Christine',phone:'',rate:18,type:'private',day:'Tuesday',notes:'09:30–12:30 fortnightly'},
-{name:'Matt',phone:'',rate:16,type:'agency',day:'Tuesday',notes:'Alternates with Christine; 10:00–14:00 or 13:00–17:00'},
-{name:'Sonia',phone:'',rate:16,type:'agency',day:'Wednesday',notes:'10:00–15:00, flexible'},
-{name:'Laura',phone:'',rate:18,type:'private',day:'Thursday',notes:'09:00–13:00'},
-{name:'Hannah',phone:'',rate:16,type:'agency',day:'Thursday',notes:'14:00–17:00'},
-{name:'Meghan',phone:'',rate:18,type:'private',day:'Thursday',notes:'17:30–18:30'},
-{name:'Joanna',phone:'',rate:16,type:'agency',day:'Friday',notes:'09:30–12:30 fortnightly; sometimes until 13:00'},
-{name:'Sindu',phone:'',rate:16,type:'agency',day:'Friday',notes:'09:30–12:30, alternating with Joanna'},
-{name:'Mike',phone:'',rate:18,type:'private',day:'Sunday',notes:'10:00–12:00 every three weeks'},
-{name:'Peter',phone:'',rate:20,type:'private',day:'Occasional',notes:'Occasional client'}
-];
-let data=loadData();
-let clients=data.clients;
-let jobs=data.jobs;
-let settings=data.settings;
-let calendarDate=new Date();
-let timer=null;
-let timerInterval=null;
+const KEY="pureShineManager_v4";
 
-function loadData(){
-try{
-const raw=localStorage.getItem(KEY);
-if(raw){
-const parsed=JSON.parse(raw);
-return {clients:Array.isArray(parsed.clients)?parsed.clients:DEFAULT_CLIENTS.map(c=>({...c,id:uid()})),jobs:Array.isArray(parsed.jobs)?parsed.jobs:[],settings:parsed.settings||{}};
-}
-}catch(e){}
-return {clients:DEFAULT_CLIENTS.map(c=>({...c,id:uid()})),jobs:[],settings:{}};
-}
-function uid(){return 'ps_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8)}
-function saveData(){localStorage.setItem(KEY,JSON.stringify({clients,jobs,settings}));}
-function money(n){return new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(Number(n)||0)}
-function timeText(hours){const mins=Math.round((Number(hours)||0)*60);return Math.floor(mins/60)+'h '+String(mins%60).padStart(2,'0')+'m'}
-function dateKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function name(id){return clients.find(c=>c.id===id)?.name||'Unknown client'}
-function clientForJob(j){return clients.find(c=>c.id===j.clientId)}
-function closeModal(id){document.getElementById(id)?.classList.remove('show')}
-window.closeModal=closeModal;
+const initialClients=[
+["Lottie","07788 447015","Private",18,"Luni","weekly","09:00–11:00",""],
+["Victoria","07923 054040","Agency",16,"Luni","weekly","13:00–15:00","Flexibilitate la ore; orele private se taxează cu £18/oră."],
+["Matt","07886 711055","Private",18,"Marți","fortnightly","10:00–14:00 / 13:00–17:00","10:00–14:00 când Christine nu lucrează; 13:00–17:00 când Christine lucrează."],
+["Christine","","Private",18,"Marți","fortnightly","09:30–12:30","În vacanță în prezent."],
+["Sonia","+44 7813 677012","Agency",16,"Miercuri","weekly","10:00–15:00","Flexibil, aproximativ 4–7 ore în funcție de lucru."],
+["Laura","+44 7958 391731","Private",18,"Joi","weekly","09:00–13:00",""],
+["Hannah","07920 724916","Agency",16,"Joi","weekly","14:00–17:00","3 ore."],
+["Meghan","+44 7740 291352","Private",18,"Joi","weekly","17:30–18:30","1–2 ore."],
+["Sindu","07438 168843","Agency",16,"Vineri","fortnightly","09:30–12:30","Alternativ cu Joanna."],
+["Joanna","07872 011386","Private",18,"Vineri","fortnightly","09:30–12:30","3–4 ore; poate dura până la 13:00. Alternativ cu Sindu."],
+["Mike","","Private",18,"Duminică","3weekly","10:00–12:00","La fiecare 3 săptămâni."],
+["Peter","","Occasional",18,"Flexibil","occasional","Flexibil","Client ocazional, când există lucrări."]
+].map((c,i)=>({id:"c"+i,name:c[0],phone:c[1],type:c[2],rate:c[3],day:c[4],repeat:c[5],hours:c[6],notes:c[7],holiday:c[0]==="Christine"}));
 
-window.enterApp=function(destination){
-const welcome=document.getElementById('welcome');
-const app=document.getElementById('app');
-if(!app)return;
-if(welcome)welcome.style.display='none';
-app.style.display='block';
-const target=document.getElementById(destination||'home')?(destination||'home'):'home';
-showPage(target);
-window.scrollTo(0,0);
-};
+const today=new Date();
+let state=loadState();
+let selectedDate=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+let mode="month";
+let timerDuration=7200,timerRemaining=7200,timerRunning=false,timerEnd=0;
 
-window.showPage=function(id,btn){
-document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-const page=document.getElementById(id);
-if(page)page.classList.add('active');
-document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));
-const navBtn=btn?.classList?.contains('nav')?btn:document.querySelector('.nav[data-page="'+id+'"]');
-navBtn?.classList.add('active');
-if(id==='settings')ensureSettingsUI();
-render();
-};
+function loadState(){
+ try{
+  const s=JSON.parse(localStorage.getItem(KEY));
+  if(s&&s.clients&&s.jobs)return s;
+ }catch(e){}
+ return {clients:initialClients,jobs:[],settings:{},businessName:"Pure Shine Cleaning"};
+}
 
-function fillClientOptions(selected){
-const sel=document.getElementById('jobClient');
-sel.innerHTML=clients.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
-if(selected)sel.value=selected;
+function persist(){
+ try{
+  localStorage.setItem(KEY,JSON.stringify(state));
+ }catch(e){
+  alert("Spațiul de stocare este plin. Exportă o copie de siguranță și folosește imagini mai mici.");
+ }
 }
-window.openJobModal=function(id){
-const j=jobs.find(x=>x.id===id);
-document.getElementById('jobForm').reset();
-document.getElementById('jobId').value=j?.id||'';
-fillClientOptions(j?.clientId);
-document.getElementById('jobDate').value=j?.date||dateKey(new Date());
-document.getElementById('jobStatus').value=j?.status||'planned';
-document.getElementById('jobStart').value=j?.start||'';
-document.getElementById('jobEnd').value=j?.end||'';
-document.getElementById('jobHours').value=j?.hours??2;
-document.getElementById('jobRate').value=j?.rate??16;
-document.getElementById('jobNotes').value=j?.notes||'';
-document.getElementById('jobModalTitle').textContent=j?'Edit job':'Add job';
-document.getElementById('jobModal').classList.add('show');
-};
-window.saveJob=function(e){
-e.preventDefault();
-const id=document.getElementById('jobId').value;
-const c=clients.find(x=>x.id===document.getElementById('jobClient').value);
-if(!c)return;
-const j={
-id:id||uid(),clientId:c.id,date:document.getElementById('jobDate').value,
-status:document.getElementById('jobStatus').value,
-start:document.getElementById('jobStart').value,end:document.getElementById('jobEnd').value,
-hours:Number(document.getElementById('jobHours').value)||0,
-rate:Number(document.getElementById('jobRate').value)||0,
-notes:document.getElementById('jobNotes').value
-};
-if(j.start&&j.end){
-const [sh,sm]=j.start.split(':').map(Number),[eh,em]=j.end.split(':').map(Number);
-let mins=eh*60+em-(sh*60+sm);if(mins<0)mins+=1440;
-if(mins>0)j.hours=mins/60;
+
+function id(){return "j"+Date.now()+Math.random().toString(36).slice(2,6)}
+function dateISO(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function parseDate(s){const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)}
+function fmtDate(d){return d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}
+function mins(t){if(!t)return 0;let [h,m]=t.split(":").map(Number);return h*60+m}
+function hoursBetween(a,b){let n=mins(b)-mins(a);if(n<0)n+=1440;return n/60}
+function money(n){return "£"+Number(n||0).toFixed(2)}
+function getClient(clientId){return state.clients.find(c=>c.id===clientId)}
+
+function refreshVisiblePages(){
+ renderCalendar();
+ renderWeek();
+ renderClients();
+ renderEarnings();
 }
-const i=jobs.findIndex(x=>x.id===id);
-if(i>=0)jobs[i]=j;else jobs.push(j);
-saveData();closeModal('jobModal');render();
-};
-window.deleteJob=function(id){
-if(!confirm('Delete this job?'))return;
-jobs=jobs.filter(j=>j.id!==id);saveData();render();
-};
-window.setJobStatus=function(id,status){
-const j=jobs.find(x=>x.id===id);if(!j)return;
-j.status=status;saveData();render();
-};
-window.openClientModal=function(id){
-const c=clients.find(x=>x.id===id);
-document.getElementById('clientForm').reset();
-document.getElementById('clientId').value=c?.id||'';
-document.getElementById('clientName').value=c?.name||'';
-document.getElementById('clientPhone').value=c?.phone||'';
-document.getElementById('clientRate').value=c?.rate??16;
-document.getElementById('clientType').value=c?.type||'private';
-document.getElementById('clientDay').value=c?.day||'Monday';
-document.getElementById('clientNotes').value=c?.notes||'';
-document.getElementById('clientModalTitle').textContent=c?'Edit client':'Add client';
-document.getElementById('clientModal').classList.add('show');
-};
-window.saveClient=function(e){
-e.preventDefault();
-const id=document.getElementById('clientId').value;
-const c={id:id||uid(),name:document.getElementById('clientName').value.trim(),phone:document.getElementById('clientPhone').value.trim(),rate:Number(document.getElementById('clientRate').value)||0,type:document.getElementById('clientType').value,day:document.getElementById('clientDay').value,notes:document.getElementById('clientNotes').value.trim()};
-const i=clients.findIndex(x=>x.id===id);
-if(i>=0)clients[i]=c;else clients.push(c);
-saveData();closeModal('clientModal');render();
-};
-window.deleteClient=function(id){
-const c=clients.find(x=>x.id===id);if(!c)return;
-if(!confirm('Delete '+c.name+'? Jobs linked to this client will remain in history.'))return;
-clients=clients.filter(x=>x.id!==id);saveData();render();
-};
-function renderClients(){
-const el=document.getElementById('clientsList');if(!el)return;
-el.innerHTML=clients.map(c=>`<div class="card"><div class="row"><div><b>${esc(c.name)}</b><div class="small">${esc(c.type)} · ${esc(c.day)}</div><div class="small">${esc(c.phone||'No phone')} · ${money(c.rate)}/hour</div>${c.notes?`<div class="small">${esc(c.notes)}</div>`:''}</div><div><button class="secondary" onclick="openClientModal('${c.id}')">Edit</button> <button class="danger" onclick="deleteClient('${c.id}')">Delete</button></div></div></div>`).join('')||'<div class="card">No clients yet. Add your first client.</div>';
+
+function showPage(page){
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ if(page==="home")renderCalendar();
+ if(page==="calendar")renderWeek();
+ if(page==="clients")renderClients();
+ if(page==="earnings")renderEarnings();
 }
-function renderJobs(){
-const el=document.getElementById('jobsList');if(!el)return;
-const filter=document.getElementById('jobFilter')?.value||'all';
-const search=(document.getElementById('jobSearch')?.value||'').toLowerCase();
-const list=jobs.filter(j=>(filter==='all'||j.status===filter)&&name(j.clientId).toLowerCase().includes(search)).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-el.innerHTML=list.map(j=>{
-const c=clientForJob(j);
-const amount=Number(j.hours||0)*Number(j.rate||0);
-return `<div class="card"><div class="row"><div><b>${esc(c?.name||'Deleted client')}</b><div class="small">${esc(j.date||'')} · ${esc(j.start||'No start time')}${j.end?' – '+esc(j.end):''}</div><div class="small">${timeText(j.hours)} · ${money(j.rate)}/hour</div><div class="money">${money(amount)}</div><div class="small">Status: ${esc(j.status||'planned')}${j.notes?' · '+esc(j.notes):''}</div></div><div style="text-align:right;display:grid;gap:5px"><button class="secondary" onclick="openJobModal('${j.id}')">Edit</button><button class="secondary" onclick="setJobStatus('${j.id}','completed')">Complete</button><button class="secondary" onclick="setJobStatus('${j.id}','cancelled')">Cancel</button><button class="danger" onclick="deleteJob('${j.id}')">Delete</button></div></div></div>`;
-}).join('')||'<div class="card">No jobs match your search.</div>';
+
+function setMode(m,btn){
+ mode=m;
+ document.querySelectorAll(".modes button").forEach(b=>b.classList.toggle("active",b===btn));
+ renderCalendar();
 }
-window.renderJobs=renderJobs;
-function renderEarnings(){
-const completed=jobs.filter(j=>j.status==='completed');
-const total=completed.reduce((s,j)=>s+Number(j.hours||0)*Number(j.rate||0),0);
-const owed=completed.filter(j=>!j.paid).reduce((s,j)=>s+Number(j.hours||0)*Number(j.rate||0),0);
-document.getElementById('earnTotal').textContent=money(total);
-document.getElementById('earnOwed').textContent=money(owed);
-const months={};
-completed.forEach(j=>{const key=(j.date||'Unknown').slice(0,7);months[key]=(months[key]||0)+Number(j.hours||0)*Number(j.rate||0)});
-document.getElementById('monthlyEarnings').innerHTML=Object.entries(months).sort((a,b)=>b[0].localeCompare(a[0])).map(([m,v])=>`<div class="row" style="padding:8px 0;border-bottom:1px solid #f0dce4"><span>${esc(m)}</span><b>${money(v)}</b></div>`).join('')||'<p class="small">Complete a job to see your monthly earnings.</p>';
-document.getElementById('earningsList').innerHTML=completed.map(j=>`<div class="card"><div class="row"><div><b>${esc(name(j.clientId))}</b><div class="small">${esc(j.date||'')} · ${timeText(j.hours)}</div><div class="money">${money(Number(j.hours||0)*Number(j.rate||0))}</div></div><button class="${j.paid?'secondary':'primary'}" onclick="togglePaid('${j.id}')">${j.paid?'Paid ✓':'Mark paid'}</button></div></div>`).join('')||'<div class="card">Completed jobs will appear here.</div>';
+
+function shiftMonth(n){
+ selectedDate=new Date(selectedDate.getFullYear(),selectedDate.getMonth()+n,1);
+ renderCalendar();
 }
-window.togglePaid=function(id){const j=jobs.find(x=>x.id===id);if(!j)return;j.paid=!j.paid;saveData();render()};
+
+function selectDate(s){
+ selectedDate=parseDate(s);
+ renderCalendar();
+}
+
+function jobsFor(s){
+ return state.jobs.filter(j=>j.date===s&&j.status!=="cancelled").sort((a,b)=>a.start.localeCompare(b.start));
+}
+
 function renderCalendar(){
-const el=document.getElementById('calendarGrid');if(!el)return;
-const y=calendarDate.getFullYear(),m=calendarDate.getMonth();
-document.getElementById('calendarMonth').textContent=calendarDate.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
-el.innerHTML='';
-['M','T','W','T','F','S','S'].forEach(d=>{const h=document.createElement('div');h.className='cal-head';h.textContent=d;el.appendChild(h)});
-const first=new Date(y,m,1),offset=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate();
-for(let i=0;i<offset;i++){el.appendChild(document.createElement('div'))}
-for(let d=1;d<=days;d++){
-const key=dateKey(new Date(y,m,d)),dayJobs=jobs.filter(j=>j.date===key);
-const cell=document.createElement('div');cell.className='cal-day';
-cell.innerHTML=`<div class="n">${d}</div>`+dayJobs.map(j=>`<button class="cal-client" onclick="openJobModal('${j.id}')">${esc(name(j.clientId))}<br>${esc(j.start||'')}</button>`).join('');
-cell.onclick=function(e){if(e.target===cell) {document.getElementById('jobDate').value=key;openJobModal();document.getElementById('jobDate').value=key}};
-el.appendChild(cell);
+ const y=selectedDate.getFullYear(),m=selectedDate.getMonth();
+ const first=new Date(y,m,1),last=new Date(y,m+1,0);
+ document.getElementById("monthTitle").textContent=selectedDate.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+ document.getElementById("selectedTitle").textContent=fmtDate(selectedDate);
+ const root=document.getElementById("calendarDays");
+ root.innerHTML="";
+ const start=(first.getDay()+6)%7;
+
+ if(mode==="month"){
+  for(let i=0;i<start;i++)root.append(document.createElement("div"));
+  for(let d=1;d<=last.getDate();d++)root.append(makeDay(new Date(y,m,d)));
+ }else if(mode==="week"){
+  const monday=new Date(selectedDate);
+  monday.setDate(monday.getDate()-((monday.getDay()+6)%7));
+  for(let i=0;i<7;i++){
+   const d=new Date(monday);
+   d.setDate(monday.getDate()+i);
+   root.append(makeDay(d));
+  }
+ }else{
+  root.append(makeDay(selectedDate));
+ }
+ renderDayJobs();
 }
+
+function makeDay(d){
+ const b=document.createElement("button");
+ b.className="day"+(dateISO(d)===dateISO(selectedDate)?" selected":"");
+ b.innerHTML=`${d.getDate()}${jobsFor(dateISO(d)).length?'<span class="dot"></span>':""}`;
+ b.onclick=()=>selectDate(dateISO(d));
+ return b;
 }
-window.changeMonth=function(delta){calendarDate.setMonth(calendarDate.getMonth()+delta);renderCalendar()};
-function renderTimePage(){
-const list=document.getElementById('timeJobsList');if(!list)return;
-const todayKey=dateKey(new Date());
-const todayJobs=jobs.filter(j=>j.date===todayKey);
-const worked=todayJobs.reduce((a,j)=>a+Number(j.hours||0),0);
-document.getElementById('timeJobs').textContent=todayJobs.length;
-document.getElementById('timeWorked').textContent=timeText(worked);
-list.innerHTML=todayJobs.map(j=>`<div class="card"><div class="row"><div><b>${esc(name(j.clientId))}</b><div class="small">${esc(j.start||'—')}${j.end?' – '+esc(j.end):''} · ${timeText(j.hours)}</div></div><button class="primary" onclick="startTimer('${j.id}')">${timer?.jobId===j.id?'Stop':'Start'}</button></div></div>`).join('')||'<div class="card"><b>No jobs today.</b><div class="small">Enjoy the extra time or add a cleaning job.</div></div>';
+
+function renderDayJobs(){
+ const root=document.getElementById("dayJobs");
+ root.innerHTML="";
+ const jobs=jobsFor(dateISO(selectedDate));
+ if(!jobs.length)root.innerHTML='<div class="card sub">Nu există programări pentru această zi.</div>';
+ jobs.forEach(j=>root.append(jobCard(j)));
 }
-function render(){
-document.getElementById('today').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
-document.getElementById('sJobs').textContent=jobs.length;
-const totalH=jobs.reduce((a,j)=>a+Number(j.hours||0),0);
-const earn=jobs.filter(j=>j.status==='completed').reduce((a,j)=>a+Number(j.hours||0)*Number(j.rate||0),0);
-document.getElementById('sHours').textContent=timeText(totalH);
-document.getElementById('sEarn').textContent=money(earn);
-document.getElementById('sFree').textContent=timeText(Math.max(0,40-totalH));
-renderCalendar();renderClients();renderJobs();renderEarnings();renderTimePage();updateTimer();
+
+function jobCard(j){
+ const c=getClient(j.clientId),el=document.createElement("div");
+ el.className="card job";
+ el.innerHTML=`<div class="jobbar"></div>
+ <div class="jobmain">
+ <div class="jobname">${esc(c?.name||"Client șters")}</div>
+ <div class="jobtime">${esc(j.start)} – ${esc(j.end)}</div>
+ <div class="sub">${esc(j.type)} · ${money(j.rate)}/oră · ${esc(j.status==="done"?"Finalizată":"Programată")}</div>
+ </div>
+ <div>${c?.phone?`<a href="tel:${esc(c.phone)}" onclick="event.stopPropagation()">☎</a>`:""}　›</div>`;
+ el.onclick=()=>editJob(j.id);
+ return el;
 }
-function startTimer(id){
-const j=jobs.find(x=>x.id===id);if(!j)return;
-if(timer?.jobId===id){stopTimer();return}
-if(timerInterval)clearInterval(timerInterval);
-timer={jobId:id,start:Date.now(),elapsed:0};
-document.getElementById('timerClient').textContent=name(j.clientId);
-document.getElementById('timerPanel').classList.add('show');
-timerInterval=setInterval(updateTimer,1000);updateTimer();
+
+function newJob(past=false){
+ document.getElementById("jobForm").reset();
+ document.getElementById("jobId").value="";
+ document.getElementById("editorTitle").textContent=past?"Adaugă lucrare trecută":"Adaugă programare";
+
+ const sel=document.getElementById("jobClient");
+ sel.innerHTML="";
+ state.clients.forEach(c=>{
+  const o=document.createElement("option");
+  o.value=c.id;
+  o.textContent=c.name;
+  sel.append(o);
+ });
+
+ document.getElementById("jobDate").value=dateISO(selectedDate);
+ document.getElementById("jobStart").value="09:00";
+ document.getElementById("jobEnd").value="12:00";
+ document.getElementById("jobRepeat").value="none";
+ document.getElementById("jobStatus").value=past?"done":"planned";
+ syncClientDefaults();
+ updateDuration();
+ document.getElementById("editor").showModal();
 }
-window.startTimer=startTimer;
-function updateTimer(){
-if(!timer)return;
-const elapsed=Math.floor((Date.now()-timer.start)/1000);
-const h=Math.floor(elapsed/3600),m=Math.floor((elapsed%3600)/60),s=elapsed%60;
-document.getElementById('timerValue').textContent=[h,m,s].map(n=>String(n).padStart(2,'0')).join(':');
+
+function editJob(jobId){
+ const j=state.jobs.find(x=>x.id===jobId);
+ if(!j)return;
+ newJob(false);
+ document.getElementById("editorTitle").textContent="Editează programarea";
+ document.getElementById("jobId").value=j.id;
+ document.getElementById("jobClient").value=j.clientId;
+ document.getElementById("jobDate").value=j.date;
+ document.getElementById("jobStart").value=j.start;
+ document.getElementById("jobEnd").value=j.end;
+ document.getElementById("jobRepeat").value=j.repeat||"none";
+ document.getElementById("jobType").value=j.type;
+ document.getElementById("jobRate").value=j.rate;
+ document.getElementById("jobStatus").value=j.status;
+ document.getElementById("jobNotes").value=j.notes||"";
+ updateDuration();
 }
-window.stopTimer=function(){
-if(!timer)return;
-const j=jobs.find(x=>x.id===timer.jobId);
-if(j){j.hours=Math.round(((Date.now()-timer.start)/3600000)*100)/100;j.status='completed';saveData()}
-clearInterval(timerInterval);timer=null;timerInterval=null;
-document.getElementById('timerPanel').classList.remove('show');render();
-};
-function ensureSettingsUI(){
-const el=document.getElementById('settingsContent');if(!el||el.dataset.ready)return;
-el.dataset.ready='1';
-el.innerHTML=`
-<div class="settings-card">
-<h3>🎨 Appearance</h3><p>Personalise the look of Pure Shine Cleaning Manager.</p>
-<label>Upload profile photo / app logo</label><input id="settingLogo" type="file" accept="image/*">
-<label>Upload home banner image</label><input id="settingBanner" type="file" accept="image/*">
-<label>App font</label><select id="settingFont"><option value="system">System</option><option value="Georgia">Georgia</option><option value="Arial">Arial</option><option value="Verdana">Verdana</option></select>
-<label>Text size / zoom</label><div class="zoom-box"><button class="zoom-btn" id="zoomMinus">−</button><span class="zoom-value" id="zoomValue">100%</span><button class="zoom-btn" id="zoomPlus">+</button></div>
-<input class="zoom-range" id="zoomRange" type="range" min="80" max="160" value="100" step="10">
-<button class="settings-action" id="resetZoom">Reset zoom</button>
-</div>
-<div class="settings-card">
-<h3>📅 Schedule reminders</h3><p>Set a reminder for tomorrow's cleaning jobs.</p>
-<label><input type="checkbox" id="reminderEnabled"> Enable reminders</label>
-<label>Reminder time</label><input type="time" id="reminderTime" value="20:00">
-<button class="settings-action" id="saveSettings">Save settings</button>
-</div>
-<div class="settings-card">
-<h3>💾 Data</h3><p>Your jobs, clients and settings are stored on this device.</p>
-<button class="settings-action" id="exportData">Export backup</button>
-<label>Import backup</label><input type="file" id="importData" accept="application/json">
-</div>`;
-const font=document.getElementById('settingFont');
-font.value=settings.font||'system';
-font.addEventListener('change',()=>{settings.font=font.value;applyAppearance();saveData()});
-document.getElementById('settingLogo').addEventListener('change',e=>readImage(e,'logo'));
-document.getElementById('settingBanner').addEventListener('change',e=>readImage(e,'banner'));
-document.getElementById('zoomMinus').onclick=()=>setZoom((settings.zoom||100)-10);
-document.getElementById('zoomPlus').onclick=()=>setZoom((settings.zoom||100)+10);
-document.getElementById('zoomRange').oninput=e=>setZoom(Number(e.target.value));
-document.getElementById('resetZoom').onclick=()=>setZoom(100);
-document.getElementById('saveSettings').onclick=()=>{
-settings.reminderEnabled=document.getElementById('reminderEnabled').checked;
-settings.reminderTime=document.getElementById('reminderTime').value||'20:00';
-saveData();alert('Settings saved.');
-};
-document.getElementById('exportData').onclick=()=>{
-const blob=new Blob([JSON.stringify({clients,jobs,settings},null,2)],{type:'application/json'});
-const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pure-shine-backup.json';a.click();URL.revokeObjectURL(a.href);
-};
-document.getElementById('importData').onchange=async e=>{
-const file=e.target.files[0];if(!file)return;
-try{const parsed=JSON.parse(await file.text());if(Array.isArray(parsed.clients)&&Array.isArray(parsed.jobs)){clients=parsed.clients;jobs=parsed.jobs;settings=parsed.settings||{};saveData();location.reload()}else alert('Invalid backup file.')}catch(err){alert('Could not read backup.')}
-};
-document.getElementById('reminderEnabled').checked=!!settings.reminderEnabled;
-document.getElementById('reminderTime').value=settings.reminderTime||'20:00';
+
+function syncClientDefaults(){
+ const c=getClient(document.getElementById("jobClient").value);
+ if(!c)return;
+ document.getElementById("jobType").value=c.type==="Occasional"?"Occasional":c.type;
+ document.getElementById("jobRate").value=c.rate||18;
 }
-function setZoom(n){
-settings.zoom=Math.max(80,Math.min(160,n));
-document.getElementById('zoomValue').textContent=settings.zoom+'%';
-document.getElementById('zoomRange').value=settings.zoom;
-document.documentElement.style.fontSize=settings.zoom+'%';
-saveData();
+
+document.getElementById("jobClient").addEventListener("change",syncClientDefaults);
+
+function updateDuration(){
+ const h=hoursBetween(document.getElementById("jobStart").value,document.getElementById("jobEnd").value);
+ document.getElementById("jobDuration").value=`${Math.floor(h)} hours ${Math.round((h%1)*60)} minutes`;
 }
-function applyAppearance(){
-document.documentElement.style.setProperty('--app-font',settings.font==='system'?'system-ui':settings.font||'system-ui');
-document.body.style.fontFamily=settings.font==='system'?'system-ui':settings.font||'system-ui';
-if(settings.zoom)setZoom(settings.zoom);
-if(settings.logo){
-document.getElementById('appLogo').src=settings.logo;
-document.getElementById('welcomeProfileImage').src=settings.logo;
+
+function saveJob(e){
+ e.preventDefault();
+ const oldId=document.getElementById("jobId").value;
+ const j={
+  id:oldId||id(),
+  clientId:document.getElementById("jobClient").value,
+  date:document.getElementById("jobDate").value,
+  start:document.getElementById("jobStart").value,
+  end:document.getElementById("jobEnd").value,
+  repeat:document.getElementById("jobRepeat").value,
+  type:document.getElementById("jobType").value,
+  rate:Number(document.getElementById("jobRate").value)||0,
+  status:document.getElementById("jobStatus").value,
+  notes:document.getElementById("jobNotes").value
+ };
+
+ if(oldId){
+  const i=state.jobs.findIndex(x=>x.id===oldId);
+  if(i>=0)state.jobs[i]=j;
+ }else{
+  state.jobs.push(j);
+ }
+
+ persist();
+ closeEditor();
+ refreshVisiblePages();
 }
-if(settings.banner)document.querySelector('.home-hero').style.backgroundImage=`linear-gradient(110deg,rgba(255,255,255,.92),rgba(255,229,239,.74)),url("${settings.banner}")`;
+
+function closeEditor(){document.getElementById("editor").close()}
+
+function cancelJob(){
+ const j=state.jobs.find(x=>x.id===document.getElementById("jobId").value);
+ if(!j)return alert("Salvează mai întâi programarea.");
+ j.status="cancelled";
+ persist();
+ closeEditor();
+ refreshVisiblePages();
 }
-function readImage(e,type){
-const file=e.target.files[0];if(!file)return;
-const reader=new FileReader();
-reader.onload=()=>{
-if(type==='logo')settings.logo=reader.result;else settings.banner=reader.result;
-saveData();applyAppearance();setupWelcomePhoto();
-};
-reader.readAsDataURL(file);
+
+function deleteJob(){
+ const jid=document.getElementById("jobId").value;
+ if(!jid)return closeEditor();
+ if(confirm("Ștergi definitiv această programare?")){
+  state.jobs=state.jobs.filter(j=>j.id!==jid);
+  persist();
+  closeEditor();
+  refreshVisiblePages();
+ }
 }
-function setupWelcomePhoto(){
-const input=document.getElementById('welcomePhotoInput');
-if(!input||input.dataset.ready)return;
-input.dataset.ready='1';
-input.addEventListener('change',e=>readImage(e,'logo'));
-const img=document.getElementById('welcomeProfileImage');
-img.onerror=function(){this.style.display='none';this.parentElement.classList.add('logo-placeholder')};
+
+function renderWeek(){
+ const root=document.getElementById("weekList");
+ root.innerHTML="";
+ const monday=new Date(selectedDate);
+ monday.setDate(monday.getDate()-((monday.getDay()+6)%7));
+
+ for(let i=0;i<7;i++){
+  const d=new Date(monday);
+  d.setDate(monday.getDate()+i);
+  const s=dateISO(d),wrap=document.createElement("div");
+  wrap.className="card";
+  wrap.innerHTML=`<div class="row"><h2>${fmtDate(d)}</h2><button class="secondary" onclick="selectDate('${s}');showPage('home')">Deschide</button></div>`;
+  const jobs=jobsFor(s);
+  if(!jobs.length)wrap.innerHTML+='<div class="sub">Fără programări</div>';
+  jobs.forEach(j=>wrap.append(jobCard(j)));
+  root.append(wrap);
+ }
 }
-function applyImages(){
-if(settings.logo){
-const a=document.getElementById('welcomeProfileImage'),b=document.getElementById('appLogo');
-if(a){a.src=settings.logo;a.style.display='block';a.parentElement.classList.remove('logo-placeholder')}
-if(b)b.src=settings.logo;
+
+function newClient(){
+ document.getElementById("clientForm").reset();
+ document.getElementById("clientId").value="";
+ document.getElementById("clientRate").value=18;
+ document.getElementById("clientEditor").showModal();
 }
+
+function editClient(cid){
+ const c=getClient(cid);
+ if(!c)return;
+ newClient();
+ document.getElementById("clientId").value=c.id;
+ document.getElementById("clientName").value=c.name;
+ document.getElementById("clientPhone").value=c.phone||"";
+ document.getElementById("clientType").value=c.type;
+ document.getElementById("clientRate").value=c.rate;
+ document.getElementById("clientDay").value=c.day;
+ document.getElementById("clientRepeat").value=c.repeat;
+ document.getElementById("clientHours").value=c.hours||"";
+ document.getElementById("clientNotes").value=(c.notes||"")+(c.holiday?"\nÎn vacanță":"");
 }
-function showTomorrowReminder(){
-if(!settings.reminderEnabled)return;
-const now=new Date(),[hh,mm]=(settings.reminderTime||'20:00').split(':').map(Number);
-if(now.getHours()===hh&&now.getMinutes()>=mm){
-const tomorrow=new Date(now);tomorrow.setDate(now.getDate()+1);
-const key=dateKey(tomorrow);
-const upcoming=jobs.filter(j=>j.date===key&&j.status!=='cancelled');
-if(upcoming.length)alert('Tomorrow\\n'+upcoming.map(j=>name(j.clientId)+' '+(j.start||'')).join('\\n'));
+
+function saveClient(e){
+ e.preventDefault();
+ const cid=document.getElementById("clientId").value;
+ const c={
+  id:cid||"c"+Date.now(),
+  name:document.getElementById("clientName").value.trim(),
+  phone:document.getElementById("clientPhone").value.trim(),
+  type:document.getElementById("clientType").value,
+  rate:Number(document.getElementById("clientRate").value)||0,
+  day:document.getElementById("clientDay").value,
+  repeat:document.getElementById("clientRepeat").value,
+  hours:document.getElementById("clientHours").value,
+  notes:document.getElementById("clientNotes").value,
+  holiday:false
+ };
+
+ if(cid){
+  const i=state.clients.findIndex(x=>x.id===cid);
+  if(i>=0)state.clients[i]=c;
+ }else{
+  state.clients.push(c);
+ }
+
+ persist();
+ document.getElementById("clientEditor").close();
+ refreshVisiblePages();
 }
+
+function deleteClient(){
+ const cid=document.getElementById("clientId").value;
+ if(!cid)return document.getElementById("clientEditor").close();
+ if(confirm("Ștergi clientul? Programările sale rămân în istoric.")){
+  state.clients=state.clients.filter(c=>c.id!==cid);
+  persist();
+  document.getElementById("clientEditor").close();
+  refreshVisiblePages();
+ }
 }
-function ensureClientId(){clients.forEach(c=>{if(!c.id)c.id=uid()});saveData()}
-function ensureClientPhone(){clients.forEach(c=>{if(!c.phone)c.phone=''});saveData()}
-function renderPhoneList(){}
-function calcHours(){}
-function injectStyle(){
-if(document.getElementById('pureShineFinalPatchStyle'))return;
-const st=document.createElement('style');st.id='pureShineFinalPatchStyle';
-st.textContent=`
-:root{--app-font:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
-#app,#app button,#app input,#app select,#app textarea,#welcome{font-family:var(--app-font)!important}
-#app,#app *{color:#000!important}
-#app .primary,#app .save,#app .get-started{color:#000!important}
-.bottom{grid-template-columns:repeat(5,1fr)!important}
-.nav,.nav.active{color:#000!important}
-.ps-calendar-toolbar{display:grid;grid-template-columns:46px 1fr 46px;gap:8px;align-items:center;text-align:center;margin-bottom:8px}
-.ps-week-grid{display:grid;grid-template-columns:repeat(7,minmax(120px,1fr));gap:8px;overflow-x:auto;padding-bottom:6px}
-.ps-day{min-width:120px;background:#fff;border:1px solid #d8aa55;border-radius:16px;padding:8px;min-height:150px}
-.ps-day-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ead7b2;padding-bottom:7px;margin-bottom:7px}
-.ps-day-head span{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#f7c8d8}
-.ps-job{display:flex;flex-direction:column;width:100%;text-align:left;padding:9px;margin-bottom:6px;border-radius:12px;background:#fff0f5;border:1px solid #e0b46b}
-.ps-job span,.ps-job small{margin-top:2px;font-size:12px}
-.ps-empty{font-size:12px;opacity:.55;padding:10px 2px}
-.ps-month-toolbar{display:grid;grid-template-columns:46px 1fr 46px;gap:8px;align-items:center;text-align:center;margin-bottom:10px}
-.ps-month-total{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.ps-month-total>div{padding:15px;border-radius:17px;background:#fff;border:1px solid #d8aa55}
-.ps-month-total span{display:block;font-size:12px}.ps-month-total strong{display:block;font-size:22px;margin-top:4px}
-.ps-setting-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ps-setting-grid label{display:block;font-size:12px;font-weight:800}.ps-setting-grid input,.ps-setting-grid select{margin-top:5px;width:100%;padding:10px;border:1px solid #d9bfc8;border-radius:12px;background:#fff}
-.ps-phone-title{font-weight:900;margin:16px 0 8px}.ps-phone-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;margin:7px 0}.ps-phone-row input{padding:9px;border:1px solid #d9bfc8;border-radius:10px}.ps-small-btn{font-size:12px!important;padding:7px 9px!important}
-.invoice{background:#fff;padding:8px;border-radius:15px}.invoice hr{border:0;border-top:1px solid #ddd;margin:14px 0}
-body[data-theme="white"] #app{background:#fff!important}body[data-theme="cream"] #app{background:#fffaf2!important}
-@media(max-width:700px){.ps-week-grid{grid-template-columns:1fr!important;overflow-x:hidden}.ps-day{min-width:0!important;min-height:120px}.ps-setting-grid{grid-template-columns:1fr}.ps-month-total{grid-template-columns:1fr 1fr}}
-@media print{body>*:not(#invoiceModal){display:none!important}#invoiceModal{display:flex!important;position:static;background:#fff}.sheet{max-height:none;border:0}}
-`;
-document.head.appendChild(st);
+
+function renderClients(){
+ const root=document.getElementById("clientList");
+ const q=(document.getElementById("clientSearch")?.value||"").toLowerCase();
+ root.innerHTML="";
+ state.clients.filter(c=>(c.name+" "+c.phone).toLowerCase().includes(q)).forEach(c=>{
+  const el=document.createElement("div");
+  el.className="card client-row";
+  el.innerHTML=`<div><strong>${esc(c.name)}</strong>
+  <div class="sub">${esc(c.phone||"Fără telefon")} · ${esc(c.day)} · ${money(c.rate)}/h</div>
+  <div class="sub">${esc(c.hours||"Ore flexibile")} · ${esc(c.repeat)}</div></div>
+  <button class="secondary">Editează</button>`;
+  el.querySelector("button").onclick=()=>editClient(c.id);
+  root.append(el);
+ });
 }
-injectStyle();
-applyAppearance();
-ensureSettingsUI();
-setupWelcomePhoto();
-document.querySelectorAll('.get-started,.login button').forEach(function(btn){
-btn.addEventListener('click',function(e){e.preventDefault();window.enterApp('home')});
-});
-applyImages();
-window.addEventListener('pageshow',applyImages);
-ensureClientId();
-ensureClientPhone();
-render();
+
+function renderEarnings(){
+ const done=state.jobs.filter(j=>j.status==="done");
+ const total=done.reduce((a,j)=>a+hoursBetween(j.start,j.end)*j.rate,0);
+ document.getElementById("totalEarned").textContent=money(total);
+ const root=document.getElementById("pastJobs");
+ root.innerHTML="";
+ done.sort((a,b)=>b.date.localeCompare(a.date)).forEach(j=>{
+  const c=getClient(j.clientId),el=document.createElement("div");
+  el.className="card";
+  el.innerHTML=`<div class="row"><strong>${esc(c?.name||"Client șters")}</strong><span class="badge">${money(hoursBetween(j.start,j.end)*j.rate)}</span></div>
+  <div class="sub">${esc(j.date)} · ${esc(j.start)}–${esc(j.end)} · ${money(j.rate)}/h</div>
+  <button class="secondary" style="margin-top:8px" onclick="editJob('${j.id}')">Editează</button>`;
+  root.append(el);
+ });
+}
+
+function esc(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function exportData(){
+ const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+ download(blob,"pure-shine-backup.json");
+}
+
+function importData(input){
+ const file=input.files[0];
+ if(!file)return;
+ const r=new FileReader();
+ r.onload=()=>{
+  try{
+   const s=JSON.parse(r.result);
+   if(!s.clients||!s.jobs)throw Error();
+   if(confirm("Înlocuiești datele actuale cu copia importată?")){
+    state=s;
+    persist();
+    location.reload();
+   }
+  }catch(e){
+   alert("Fișierul nu este o copie de siguranță validă.");
+  }
+ };
+ r.readAsText(file);
+}
+
+function exportCSV(){
+ const rows=[["Data","Client","Start","Sfârșit","Tip","Tarif","Status","Câștig"]];
+ state.jobs.forEach(j=>rows.push([j.date,getClient(j.clientId)?.name||"",j.start,j.end,j.type,j.rate,j.status,(j.status==="done"?hoursBetween(j.start,j.end)*j.rate:0).toFixed(2)]));
+ const csv=rows.map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\n");
+ download(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),"pure-shine-lucrari.csv");
+}
+
+function download(blob,name){
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download=name;
+ a.click();
+ setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+
+function uploadImage(type,input){
+ const f=input.files[0];
+ if(!f)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  const im=new Image();
+  im.onload=()=>{
+   const scale=Math.min(1,1200/Math.max(im.width,im.height));
+   const canvas=document.createElement("canvas");
+   canvas.width=Math.round(im.width*scale);
+   canvas.height=Math.round(im.height*scale);
+   canvas.getContext("2d").drawImage(im,0,0,canvas.width,canvas.height);
+   state.settings[type]=canvas.toDataURL("image/jpeg",.78);
+   persist();
+   applySettings();
+   alert("Imagine salvată.");
+  };
+  im.src=reader.result;
+ };
+ reader.readAsDataURL(f);
+}
+
+function saveSettings(){
+ state.businessName=document.getElementById("businessName").value;
+ state.settings.fontSize=document.getElementById("fontSize").value;
+ state.settings.accent=document.getElementById("accent").value;
+ persist();
+ applySettings();
+ alert("Setările au fost salvate.");
+}
+
+function applySettings(){
+ const s=state.settings||{};
+ if(s.fontSize)document.body.style.fontSize=s.fontSize;
+ if(s.accent)document.documentElement.style.setProperty("--pink",s.accent);
+ if(s.background)document.body.style.background=`linear-gradient(#fff7f9bb,#fff7f9bb),url("${s.background}") center/cover fixed`;
+ if(s.banner){
+  const h=document.querySelector("header");
+  h.style.backgroundImage=`url("${s.banner}")`;
+  h.style.backgroundSize="cover";
+  h.style.backgroundPosition="center";
+  h.style.borderRadius="18px";
+ }
+ if(s.profile){
+  document.querySelector(".brand").style.backgroundImage=`url("${s.profile}")`;
+  document.querySelector(".brand").style.backgroundSize="contain";
+  document.querySelector(".brand").style.backgroundRepeat="no-repeat";
+ }
+}
+
+function setTimer(sec,btn){
+ timerDuration=sec;
+ timerRemaining=sec;
+ timerRunning=false;
+ document.querySelectorAll(".timerbuttons button").forEach(b=>b.classList.toggle("active",b===btn));
+ document.getElementById("timerButton").textContent="Start";
+ showTimer();
+}
+
+function showTimer(){
+ const t=Math.max(0,timerRunning?Math.ceil((timerEnd-Date.now())/1000):timerRemaining);
+ timerRemaining=t;
+ const h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;
+ document.getElementById("timerDisplay").textContent=[h,m,s].map(n=>String(n).padStart(2,"0")).join(":");
+ if(timerRunning&&t<=0){
+  timerRunning=false;
+  document.getElementById("timerButton").textContent="Start";
+  if(document.getElementById("alarmSetting").value==="on"){
+   try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const osc=ctx.createOscillator();
+    osc.connect(ctx.destination);
+    osc.frequency.value=880;
+    osc.start();
+    osc.stop(ctx.currentTime+1);
+   }catch(e){}
+  }
+  alert("Timer terminat"+(document.getElementById("timerLabel").value?" — "+document.getElementById("timerLabel").value:"")+"!");
+ }
+}
+
+function toggleTimer(){
+ if(timerRunning){
+  timerRemaining=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));
+  timerRunning=false;
+  document.getElementById("timerButton").textContent="Continuă";
+ }else{
+  timerEnd=Date.now()+timerRemaining*1000;
+  timerRunning=true;
+  document.getElementById("timerButton").textContent="Pause";
+ }
+}
+
+function resetTimer(){
+ timerRunning=false;
+ timerRemaining=timerDuration;
+ document.getElementById("timerButton").textContent="Start";
+ showTimer();
+}
+
+setInterval(()=>{if(timerRunning)showTimer()},250);
+
+function applyStoredSettings(){
+ document.getElementById("businessName").value=state.businessName||"Pure Shine Cleaning";
+ if(state.settings?.fontSize)document.getElementById("fontSize").value=state.settings.fontSize;
+ if(state.settings?.accent)document.getElementById("accent").value=state.settings.accent;
+ applySettings();
+}
+
+function seedSchedule(){
+ if(state.jobs.length)return;
+ const base=new Date(2026,9,19);
+ const add=(clientName,offset,start,end,repeat="weekly",status="planned")=>{
+  const c=state.clients.find(x=>x.name.toLowerCase()===clientName.toLowerCase());
+  if(!c)return;
+  const d=new Date(base);
+  d.setDate(base.getDate()+offset);
+  state.jobs.push({id:id(),clientId:c.id,date:dateISO(d),start,end,repeat,type:c.type,rate:c.rate,status,notes:""});
+ };
+ add("Lottie",0,"09:00","11:00");
+ add("Meghan",0,"17:30","18:30");
+ add("Christine",1,"09:30","12:30","fortnightly");
+ add("Matt",1,"13:00","17:00","fortnightly");
+ add("Sonia",2,"09:00","15:00");
+ add("Laura",3,"09:00","13:00");
+ add("Hannah",3,"14:00","17:00");
+ add("Meghan",3,"17:30","18:30");
+ add("Joanna",4,"09:30","12:30","fortnightly");
+ persist();
+}
+
+seedSchedule();
+applyStoredSettings();
+renderCalendar();
+renderWeek();
+renderClients();
+renderEarnings();
+showTimer();
+
+/* Actualizare automată când se publică o versiune nouă pe GitHub Pages.
+   Verifică periodic index.html și reîncarcă numai dacă nu este deschis
+   un formular și timerul nu rulează. */
+(function autoUpdateFromGitHub(){
+ const repoApi="https://api.github.com/repos/radugeorgiana9680-ship-it/Cleaning-Manager/commits?path=index.html&per_page=1";
+ let knownSha=null;
+
+ async function checkVersion(){
+  try{
+   const response=await fetch(repoApi,{
+    cache:"no-store",
+    headers:{"Accept":"application/vnd.github+json"}
+   });
+   if(!response.ok)return;
+   const commits=await response.json();
+   const latest=commits&&commits[0]&&commits[0].sha;
+   if(!latest)return;
+
+   if(knownSha===null){
+    knownSha=latest;
+    return;
+   }
+
+   if(latest!==knownSha){
+    const modalOpen=Array.from(document.querySelectorAll("dialog")).some(d=>d.open);
+    if(!modalOpen&&!timerRunning){
+     location.reload();
+    }
+   }
+  }catch(e){
+   console.log("Actualizarea automată va fi reîncercată.");
+  }
+ }
+
+ checkVersion();
+ setInterval(checkVersion,90000);
 })();
 </script>
 </body>
